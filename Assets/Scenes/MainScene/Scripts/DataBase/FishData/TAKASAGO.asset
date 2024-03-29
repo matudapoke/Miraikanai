@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4163ae5961200a14ab0d90660d1db810, type: 3}
+  m_Name: TAKASAGO
+  m_EditorClassIdentifier: 
+  ID: 1
+  FishName: "\u30BF\u30AB\u30B5\u30B4"
+  FishImage: {fileID: 21300000, guid: 2f60e6ab98850664eabc43ee67712181, type: 3}
+  FishInfo: "\u5143\u3005\u4F53\u8272\u306F\u8D64\u3044\u304C\u3001\u6D77\u306E\u4E2D\u3067\u306F\u64EC\u614B\u3059\u308B\u305F\u3081\u306B\u9752\u8272\u306B\u306A\u3063\u3066\u3044\u308B(\u64EC\u614B\uFF1F\u5C5E\u6027\u5909\u5316\uFF1F)"
+  FishShadow: {fileID: 5632020439255186275, guid: 8276074567a548d48adf2b34658977ff, type: 3}
+  FishShadowSpeed: 0.5
+  FishTurnSmoothness: 1
+  FishTurnAngle: 45
+  FishBiteTime: 2
+  FishingHitWitTime: 5
+  FishingMeterOKLevelMin: 1
+  FishingMeterOKLevelMax: 3
+  Rarity: 1
+  FishPower: 0
+  FishLevel: 0
+  FishType: 
+  FishAbilitie: 
+  FishAblitiesVar: 0
+  NewFish: 1
