@@ -16,6 +16,8 @@ public class FishingManager : MonoBehaviour
     float FishingTime_Throw;
     float FishingTime_ToHitEnd;
     float FishingTime_SinceHit;
+    [SerializeField, Header("釣り時のバーの滑らかさ")]
+    float FishingMeterBar_MoveSpeed;
     // フラグ
     bool FishingPlace_Collided;
     bool UpMove;
@@ -33,6 +35,8 @@ public class FishingManager : MonoBehaviour
     GameObject FishingMeter_Prefab;
     GameObject FishingMeter_Obj;
     Transform FishingMeter_MaskTrs;
+    Transform FishingMeterBar_Trs;
+    Transform FishingMeterBarClone_Trs;
     GameObject FishImage_Obj;
     [SerializeField, Header("釣れた時に表示する魚の画像。空のprefabを入れる")]
     GameObject FishImage_Prefab;
@@ -179,14 +183,18 @@ public class FishingManager : MonoBehaviour
             {
                 CamScript.CamOneShake(0.05f, 0.1f, 0.2f);
                 FishingMeter_MaskTrs.localScale += new Vector3(0.3f, 0, 0);
+                FishingMeterBarClone_Trs.position += new Vector3(0.15f, 0, 0);
                 // SE(FishingMeterOpration)
                 GetComponents<AudioSource>()[1].Play();
             }
             // 魚の抵抗
             if (FishingMeter_MaskTrs.localScale.x >= 0)
             { 
-                FishingMeter_MaskTrs.localScale -= new Vector3(1, 0, 0) * Time.deltaTime; 
+                FishingMeter_MaskTrs.localScale -= new Vector3(1, 0, 0) * Time.deltaTime;
+                FishingMeterBarClone_Trs.position -= new Vector3(0.5f, 0, 0) * Time.deltaTime;
             }
+            // バーを移動
+            FishingMeterBar_Trs.position = Vector2.Lerp(FishingMeterBar_Trs.position, FishingMeterBarClone_Trs.position, FishingMeterBar_MoveSpeed * Time.deltaTime);
             //HIT終了(時間)
             FishingTime_SinceHit += Time.deltaTime;
             if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
@@ -412,6 +420,10 @@ public class FishingManager : MonoBehaviour
                     FishingMeter_MaskTrs.localScale = new Vector3(2, 1, 1);
                     FishingMeter_Obj.transform.Find("FishingMeterOKLineLower").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMin, 1, 1);
                     FishingMeter_Obj.transform.Find("FishingMeterOKLineUpper").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMax, 1, 1);
+                    FishingMeterBar_Trs = FishingMeter_Obj.transform.Find("FishingMeterBar").transform;
+                    FishingMeterBarClone_Trs = FishingMeter_Obj.transform.Find("FishingMeterBarClone").transform;
+                    FishingMeterBar_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
+                    FishingMeterBarClone_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;

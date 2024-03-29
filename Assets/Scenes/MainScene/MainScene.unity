@@ -803,8 +803,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 09b0a573248cab74a8986aec96d0572b, type: 2}
-  m_sharedMaterial: {fileID: -8687562016575375896, guid: 09b0a573248cab74a8986aec96d0572b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -4181,6 +4181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Corsor_Speed: 5
+  FishingMeterBar_MoveSpeed: 5
   FishingMeter_Prefab: {fileID: 6304522562407319824, guid: ee3a1c57607ab3a4d8056dbd3bd0896a, type: 3}
   FishImage_Prefab: {fileID: 4847017065424394987, guid: 5ebce988585bf6a4ba9b0e68cd342e73, type: 3}
   FloatLandingWater: {fileID: 8300000, guid: 2789aa11b21e01d4daf26df388da6f58, type: 3}
