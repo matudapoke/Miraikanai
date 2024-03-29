@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugManager;
 using UnityEngine.Experimental.GlobalIllumination;
+using UnityEditor.Experimental.GraphView;
 public class FishingManager : MonoBehaviour
 {
     // 値
@@ -249,9 +250,6 @@ public class FishingManager : MonoBehaviour
             {
                 case Phase.StartFishing:
                     Debug.Log("釣りを開始");
-                    //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
-                    gameObject.GetComponent<Strech>().StrechCan = false;
-                    charaOperation.CanRun = false;
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
                     //カーソルを出す
@@ -262,32 +260,26 @@ public class FishingManager : MonoBehaviour
                         if (FishingPlaceScript.direction == FishingPlace.Direction.Up)
                         {
                             CamScript.CamMove(6, new Vector3(0, 3, 0));
+                            charaOperation.CharaAnime(CharaOperation.Direction.Up);
                             Corsor_Obj.transform.position += new Vector3(0, 2, 0);
-                            PlayerAnime.SetBool("BackLook", true);
-                            PlayerAnime.SetBool("RunBack", false);
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Down)
                         {
                             CamScript.CamMove(6, new Vector3(0, -3, 0));
+                            charaOperation.CharaAnime(CharaOperation.Direction.Down);
                             Corsor_Obj.transform.position += new Vector3(0, -2, 0);
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Right)
                         {
                             CamScript.CamMove(6, new Vector3(3, 0, 0));
+                            charaOperation.CharaAnime(CharaOperation.Direction.Right);
                             Corsor_Obj.transform.position += new Vector3(2, 0, 0);
-                            if (!charaOperation.RightLook)
-                            {
-                                charaOperation.RightLook = true;
-                            }
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Left)
                         {
                             CamScript.CamMove(6, new Vector3(-3, 0, 0));
+                            charaOperation.CharaAnime(CharaOperation.Direction.Left);
                             Corsor_Obj.transform.position += new Vector3(-2, 0, 0);
-                            if (charaOperation.RightLook)
-                            {
-                                charaOperation.RightLook = false;
-                            }
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.UpRight)
                         {
@@ -311,6 +303,9 @@ public class FishingManager : MonoBehaviour
                         }
                         else { Debug.Log("エラー：FishingPlaceの方向を入力して"); }
                     }
+                    //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
+                    gameObject.GetComponent<Strech>().StrechCan = false;
+                    charaOperation.CanRun = false;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X));
                     // リターンorZでウキを浮かべる
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))

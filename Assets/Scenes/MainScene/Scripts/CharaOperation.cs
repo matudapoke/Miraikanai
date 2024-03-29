@@ -146,26 +146,54 @@ public class CharaOperation : MonoBehaviour
 
             if (RightLook && !Reversal)
             {
-                transform.Rotate(0f, 180f, 0f);
+                transform.Rotate(0, 180, 0);
                 Reversal = true;
             }
             if (!RightLook && Reversal)
             {
-                transform.Rotate(0f, 180f, 0f);
+                transform.Rotate(0, 180, 0);
                 Reversal = false;
             }
         }
     }
 
-    public void CharaAnime(string HowLook)
+    public enum Direction
     {
-        if (HowLook == "Up")
+        Up,
+        Down,
+        Right,
+        Left,
+    }
+
+    public void CharaAnime(Direction direction)
+    {
+        Anim.SetBool("RunBack", false);
+        Anim.SetBool("RunFlont", false);
+        if (direction == Direction.Up)
         {
             Anim.SetBool("BackLook", true);
         }
-        else if (HowLook == "Down")
+        else if (direction == Direction.Down)
         {
             Anim.SetBool("BackLook", false);
+        }
+        else if (direction == Direction.Right)
+        {
+            RightLook = true;
+            if (!Reversal)
+            {
+                transform.Rotate(0, 180, 0);
+                Reversal = true;
+            }
+        }
+        else if (direction == Direction.Left)
+        {
+            RightLook = false;
+            if (Reversal)
+            {
+                transform.Rotate(0, 180, 0);
+                Reversal = false;
+            }
         }
     }
 }
