@@ -68,13 +68,13 @@ public class Cam : MonoBehaviour
         CamShakeNow = false;
     }
 
-    public void CamMove(float Speed, Vector3 MovePosition)
+    public void CamMove(float Speed, Vector3 MoveValue)
     {
         //元のカメラスピードを格納
         CamSpeedTem = CamSpeed;
         //カメラ移動
         CamSpeed = Speed;
-        ShiftPos += MovePosition;
+        ShiftPos += MoveValue;
     }
 
     public void CamZoom(float CamZoomLevel, float ZoomSpeed)

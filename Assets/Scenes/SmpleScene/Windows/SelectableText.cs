@@ -9,6 +9,8 @@ public class SelectableText : Button
     // 選択状態になったときに実行する
     public override void OnSelect(BaseEventData eventData)
     {
+        GameObject.Find("ArrowText").transform.SetParent(transform
+            );
         Debug.Log($"{gameObject.name}が選択された");
     }
     // 選択解除になったときに実行する
