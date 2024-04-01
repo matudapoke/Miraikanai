@@ -7,6 +7,6 @@ public class Selected : MonoBehaviour
 {
     void Start()
     {
-        EventSystem.current.SetSelectedGameObject(gameObject);
+        //EventSystem.current.SetSelectedGameObject(gameObject);
     }
 }
