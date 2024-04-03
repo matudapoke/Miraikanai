@@ -20,6 +20,8 @@ public class FishingManager : MonoBehaviour
     [SerializeField, Header("釣り時のバーの滑らかさ")]
     float FishingMeterBar_MoveSpeed;
     // フラグ
+    [HideInInspector] public bool CanFishing;
+    [HideInInspector] public bool FishingMenu;
     bool FishingPlace_Collided;
     bool UpMove;
     bool RightMove;
@@ -51,9 +53,12 @@ public class FishingManager : MonoBehaviour
     Cam CamScript;
     FishingPlace FishingPlaceScript;
     Animator FloatAnime;
+    MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
+    // コルーチン
+    Coroutine FishingCoroutine;
     public enum Phase
     {
         StartFishing,
@@ -66,6 +71,8 @@ public class FishingManager : MonoBehaviour
 
     void Start()
     {
+        // フラグ
+        CanFishing = true;
         // ゲームオブジェクト
         Corsor_Obj = GameObject.Find("Corsor");
         Corsor_Obj.SetActive(false);
@@ -76,16 +83,17 @@ public class FishingManager : MonoBehaviour
         PlayerAnime = GetComponent<Animator>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
+        mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
     void Update()
     {
         // 釣りを開始
-        if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End)
+        if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End && CanFishing)
         {
-            StartCoroutine(Fishing());
+            FishingCoroutine = StartCoroutine(Fishing());
         }
         // カーソルの操作
-        if (phase == Phase.StartFishing)
+        if (phase == Phase.StartFishing && !FishingMenu)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) UpMove = true;
             if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) UpMove = false;
@@ -153,6 +161,17 @@ public class FishingManager : MonoBehaviour
             }
 
         }
+        // 釣りメニュー
+        if (Input.GetKeyDown(KeyCode.Tab) && phase == Phase.StartFishing && !FishingMenu)
+        {
+            FishingMenu = true;
+            mainMenuContoller.FishingMenuWindowOpen();
+        }
+        else if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && phase == Phase.StartFishing && FishingMenu)
+        {
+            mainMenuContoller.FishingMenuWindowClose();
+            StartCoroutine(FishingMenuSetBool(false, 0.1f));
+        }
         // ウキが動く(アニメーション)
         if (phase == Phase.StartFloat)
         {
@@ -200,7 +219,7 @@ public class FishingManager : MonoBehaviour
                 // 釣り糸
                 if (FishingMeter_MaskTrs.localScale.x <= FishData.FishingMeterOKLevelMin || FishingMeter_MaskTrs.localScale.x >= FishData.FishingMeterOKLevelMax)
                 {
-                    FishingLineMeterMask_Trs.localScale -= new Vector3(0.5f, 0, 0) * Time.deltaTime;
+                    FishingLineMeterMask_Trs.localScale -= new Vector3(0.3f, 0, 0) * Time.deltaTime;
                     if (FishingLineMeterMask_Trs.localScale.x <= 0)
                     {
                         MeterOperation = false;
@@ -264,6 +283,8 @@ public class FishingManager : MonoBehaviour
             {
                 case Phase.StartFishing:
                     Debug.Log("釣りを開始");
+                    // フラグ
+                    mainMenuContoller.CanMainMenu = false;
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
                     //カーソルを出す
@@ -275,52 +296,53 @@ public class FishingManager : MonoBehaviour
                         {
                             CamScript.CamMove(6, new Vector3(0, 3, 0));
                             charaOperation.CharaAnime(CharaOperation.Direction.Up);
-                            Corsor_Obj.transform.position += new Vector3(0, 2, 0);
+                            Corsor_Obj.transform.position = new Vector3(0, 2, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Down)
                         {
                             CamScript.CamMove(6, new Vector3(0, -3, 0));
                             charaOperation.CharaAnime(CharaOperation.Direction.Down);
-                            Corsor_Obj.transform.position += new Vector3(0, -2, 0);
+                            Corsor_Obj.transform.position = new Vector3(0, -2, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Right)
                         {
                             CamScript.CamMove(6, new Vector3(3, 0, 0));
                             charaOperation.CharaAnime(CharaOperation.Direction.Right);
-                            Corsor_Obj.transform.position += new Vector3(2, 0, 0);
+                            Corsor_Obj.transform.position = new Vector3(2, 0, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.Left)
                         {
                             CamScript.CamMove(6, new Vector3(-3, 0, 0));
                             charaOperation.CharaAnime(CharaOperation.Direction.Left);
-                            Corsor_Obj.transform.position += new Vector3(-2, 0, 0);
+                            Corsor_Obj.transform.position = new Vector3(-2, 0, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.UpRight)
                         {
                             CamScript.CamMove(6, new Vector3(3, 3, 0));
-                            Corsor_Obj.transform.position += new Vector3(2, 2, 0);
+                            Corsor_Obj.transform.position = new Vector3(2, 2, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.UpLeft)
                         {
                             CamScript.CamMove(6, new Vector3(-3, 3, 0));
-                            Corsor_Obj.transform.position += new Vector3(-2, 2, 0);
+                            Corsor_Obj.transform.position = new Vector3(-2, 2, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.DownRight)
                         {
                             CamScript.CamMove(6, new Vector3(3, -3, 0));
-                            Corsor_Obj.transform.position += new Vector3(2, -2, 0);
+                            Corsor_Obj.transform.position = new Vector3(2, -2, 0) + transform.position;
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.DownLeft)
                         {
                             CamScript.CamMove(6, new Vector3(-3, -3, 0));
-                            Corsor_Obj.transform.position += new Vector3(-2, -2, 0);
+                            Corsor_Obj.transform.position = new Vector3(-2, -2, 0) + transform.position;
                         }
                         else { Debug.Log("エラー：FishingPlaceの方向を入力して"); }
                     }
+                    StartFishingReturn = true;
                     //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
                     gameObject.GetComponent<Strech>().StrechCan = false;
                     charaOperation.CanRun = false;
-                    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X));
+                    yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
                     // リターンorZでウキを浮かべる
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                     {
@@ -329,6 +351,7 @@ public class FishingManager : MonoBehaviour
                     // スペースorXで釣りを終了
                     else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
+                        Debug.Log("スペース");
                         FishingEnd();
                         phase = Phase.End;
                     }
@@ -434,7 +457,7 @@ public class FishingManager : MonoBehaviour
                     FishingMeterBar_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
                     FishingMeterBarClone_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
                     FishingLineMeter_Obj = Instantiate(FishingLineMeter_Prefab, FishingFloat_Obj.gameObject.transform.position + new Vector3(0, 1, 0), Quaternion.identity);// 釣り糸のメーター
-                    FishingLineMeterMask_Trs = FishingLineMeter_Obj.transform.Find("FishingLineMeterMask").transform;
+                    FishingLineMeterMask_Trs = FishingLineMeter_Obj.transform.Find("FishingLineMeterMask");
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;
@@ -579,6 +602,7 @@ public class FishingManager : MonoBehaviour
         // 他フラグを戻す
         StartFishingReturn = false;
         FloatLandingWater_Run = false;
+        mainMenuContoller.CanMainMenu = true;
         // アニメーション
         PlayerAnime.SetBool("Fishing", false);
         PlayerAnime.SetBool("FishingFloatEnd", false);
@@ -594,8 +618,6 @@ public class FishingManager : MonoBehaviour
     }
     void FishingFloatEnd()
     {
-        // ２回目のフラグを立てる
-        StartFishingReturn = true;
         // カーソルを元の位置に戻す
         Corsor_Obj.transform.position = CorsorPosition;
         Corsor_Obj.SetActive(true);
@@ -608,6 +630,11 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
+    }
+    IEnumerator FishingMenuSetBool(bool Bool, float Time)
+    {
+        yield return new WaitForSeconds(Time);
+        FishingMenu = Bool;
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {
