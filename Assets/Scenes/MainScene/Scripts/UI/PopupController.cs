@@ -15,6 +15,12 @@ public class PopupController : MonoBehaviour
     GameObject Popup;
     [Tooltip("ポップアップのスクリプト")]
     Popup PopupScript;
+    AudioSource audioSource;
+
+    void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     public void SubmitPopup(string Name, Sprite Image)
     {
@@ -32,5 +38,6 @@ public class PopupController : MonoBehaviour
         PopupScript = Popup.GetComponent<Popup>();
         PopupList.Add(Popup.gameObject);
         StartCoroutine(PopupScript.MovePopupRun(Name , Image));
+        audioSource.Play();
     }
 }

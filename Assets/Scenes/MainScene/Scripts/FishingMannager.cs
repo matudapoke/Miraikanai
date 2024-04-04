@@ -351,7 +351,6 @@ public class FishingManager : MonoBehaviour
                     // スペースorXで釣りを終了
                     else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
-                        Debug.Log("スペース");
                         FishingEnd();
                         phase = Phase.End;
                     }
