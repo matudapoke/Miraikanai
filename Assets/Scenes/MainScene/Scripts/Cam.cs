@@ -7,7 +7,10 @@ public class Cam : MonoBehaviour
 {
     [Tooltip("追従するターゲット")]
     public Transform Target;
-    [Tooltip("カメラのずらす位置")]
+    [Tooltip("ターゲットの中心"), SerializeField]
+    Vector3 TargetShiftPosition;
+    Vector3 TargetShiftPositionTem;
+    [HideInInspector, Tooltip("カメラのずらす位置")]
     public Vector3 ShiftPos;
     [Tooltip("カメラのスピード")]
     public float CamSpeed;
@@ -19,7 +22,7 @@ public class Cam : MonoBehaviour
     [Tooltip("カメラの大きさ")]
     float CamZoomNow;
     [Tooltip("どれだけズームするか")]
-    float CamZoomPulas;
+    float CamZoomPulas = 5;
     [Tooltip("ズームの速さ")]
     float CamZoomSpeed;
 
@@ -35,7 +38,8 @@ public class Cam : MonoBehaviour
 
     void LateUpdate()
     {
-        CamPos = Target.position + ShiftPos + new Vector3(0,0.7f,0);
+        CamPos = Target.position + ShiftPos + TargetShiftPosition * 5 /
+            CamZoomPulas;
         CamPos.z = -1;
         transform.position = Vector3.Lerp(transform.position, CamPos, CamSpeed * Time.deltaTime);
         //カメラズーム
@@ -59,7 +63,7 @@ public class Cam : MonoBehaviour
         CamZoomReset();
         CamSpeed = CamSpeedTem;
         ShiftPos = new Vector3(0,0,0);
-        CamZoomPulas = CamZoomNow * 5 / CamZoomNow;
+        CamZoomPulas = 5;
         CamShake_Amount = 0;
         if (camOneShake != null)
         {
@@ -77,15 +81,21 @@ public class Cam : MonoBehaviour
         ShiftPos += MoveValue;
     }
 
-    public void CamZoom(float CamZoomLevel, float ZoomSpeed)
+    public void CamZoom(float ZoomSpeed, float CamZoomLevel)
     {
-        CamZoomPulas = CamZoomNow * 1/CamZoomLevel; // 目標のズームレベルを設定
+        CamZoomPulas = CamZoomNow / CamZoomLevel; // 目標のズームレベルを設定
         CamZoomSpeed = ZoomSpeed;
+        /*
+        TargetShiftPosition = TargetShiftPositionTem;
+        TargetShiftPositionTem = TargetShiftPosition;
+        TargetShiftPosition = TargetShiftPosition * CamZoomPulas;
+        */
     }
 
     public void CamZoomReset()
     {
         CamZoomPulas = CamZoomNow * 5 / CamZoomNow;
+        //TargetShiftPosition = TargetShiftPositionTem;
     }
 
     public void CamShake(float CamShakeAmount, float CamShakeIntervalTime)

@@ -202,8 +202,8 @@ public class MainMenuContoller : MonoBehaviour
         if (fishingManager.phase != FishingManager.Phase.StartFishing)
         {
             // ƒJƒƒ‰‚ğ“®‚©‚·
-            CamScript.CamMove(3, new Vector3(3, 0, 0));
-            CamScript.CamZoom(1.5f, 5);
+            CamScript.CamMove(10, new Vector3(1.1f, 0, 0));
+            CamScript.CamZoom(10, 2.5f);
             // ƒLƒƒƒ‰‚ğ‘€ì‚Å‚«‚È‚­‚·‚é
             charaOperation.CanRun = false;
         } 

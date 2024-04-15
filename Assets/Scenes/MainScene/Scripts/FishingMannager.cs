@@ -432,13 +432,13 @@ public class FishingManager : MonoBehaviour
                     // カメラ操作
                     CamScript.CamReset();
                     CamScript.CamMove(5, (FishingFloat_Obj.transform.position - transform.position) / 2);//(カメラのスピード, +移動する座標)
-                    CamScript.CamZoom(1.1f, 3);
+                    CamScript.CamZoom(3, 1.1f);
                     // マーク
                     GameObject.Find("EventManager").GetComponent<Reaction>().Suprise(transform.position + new Vector3(1, 1.5f, 0), 0.75f);
                     // 0.75秒待つ
                     yield return new WaitForSeconds(0.75f);
                     // カメラ
-                    CamScript.CamZoom(1.2f, 5);// カメラズーム(ズーム倍率, ズームスピード)
+                    CamScript.CamZoom(5, 1.2f);// カメラズーム(ズーム倍率, ズームスピード)
                     CamScript.CamShake(0.005f, 0.1f);// カメラ振動(振動の大きさ)
                     // SE(FishBuzzing)
                     GetComponent<AudioSource>().Play();
