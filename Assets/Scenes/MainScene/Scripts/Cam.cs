@@ -7,10 +7,7 @@ public class Cam : MonoBehaviour
 {
     [Tooltip("追従するターゲット")]
     public Transform Target;
-    [Tooltip("ターゲットの中心"), SerializeField]
-    Vector3 TargetShiftPosition;
-    Vector3 TargetShiftPositionTem;
-    [HideInInspector, Tooltip("カメラのずらす位置")]
+    [Tooltip("カメラのずらす位置")]
     public Vector3 ShiftPos;
     [Tooltip("カメラのスピード")]
     public float CamSpeed;
@@ -38,8 +35,7 @@ public class Cam : MonoBehaviour
 
     void LateUpdate()
     {
-        CamPos = Target.position + ShiftPos + TargetShiftPosition * 5 /
-            CamZoomPulas;
+        CamPos = Target.position + ShiftPos;
         CamPos.z = -1;
         transform.position = Vector3.Lerp(transform.position, CamPos, CamSpeed * Time.deltaTime);
         //カメラズーム
@@ -62,7 +58,7 @@ public class Cam : MonoBehaviour
         CamShakeStop();
         CamZoomReset();
         CamSpeed = CamSpeedTem;
-        ShiftPos = new Vector3(0,0,0);
+        ShiftPos = new Vector3(0, 0.9f,0);
         CamZoomPulas = 5;
         CamShake_Amount = 0;
         if (camOneShake != null)
@@ -85,17 +81,11 @@ public class Cam : MonoBehaviour
     {
         CamZoomPulas = CamZoomNow / CamZoomLevel; // 目標のズームレベルを設定
         CamZoomSpeed = ZoomSpeed;
-        /*
-        TargetShiftPosition = TargetShiftPositionTem;
-        TargetShiftPositionTem = TargetShiftPosition;
-        TargetShiftPosition = TargetShiftPosition * CamZoomPulas;
-        */
     }
 
     public void CamZoomReset()
     {
         CamZoomPulas = CamZoomNow * 5 / CamZoomNow;
-        //TargetShiftPosition = TargetShiftPositionTem;
     }
 
     public void CamShake(float CamShakeAmount, float CamShakeIntervalTime)

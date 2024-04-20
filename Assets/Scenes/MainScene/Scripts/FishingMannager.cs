@@ -165,11 +165,11 @@ public class FishingManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && phase == Phase.StartFishing && !FishingMenu)
         {
             FishingMenu = true;
-            mainMenuContoller.FishingMenuWindowOpen();
+            //mainMenuContoller.FishingMenuWindowOpen();
         }
         else if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && phase == Phase.StartFishing && FishingMenu)
         {
-            mainMenuContoller.FishingMenuWindowClose();
+            //mainMenuContoller.FishingMenuWindowClose();
             StartCoroutine(FishingMenuSetBool(false, 0.1f));
         }
         // ウキが動く(アニメーション)
@@ -284,7 +284,7 @@ public class FishingManager : MonoBehaviour
                 case Phase.StartFishing:
                     Debug.Log("釣りを開始");
                     // フラグ
-                    mainMenuContoller.CanMainMenu = false;
+                    //mainMenuContoller.CanMainMenu = false;
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
                     //カーソルを出す
@@ -601,7 +601,7 @@ public class FishingManager : MonoBehaviour
         // 他フラグを戻す
         StartFishingReturn = false;
         FloatLandingWater_Run = false;
-        mainMenuContoller.CanMainMenu = true;
+        //mainMenuContoller.CanMainMenu = true;
         // アニメーション
         PlayerAnime.SetBool("Fishing", false);
         PlayerAnime.SetBool("FishingFloatEnd", false);

@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class MenuSelect : Button
 
 {
+    /*
     // ‘I‘ğó‘Ô‚É‚È‚Á‚½‚Æ‚«‚ÉÀs‚·‚é
     public override void OnSelect(BaseEventData eventData)
     {
@@ -17,4 +18,5 @@ public class MenuSelect : Button
     public override void OnDeselect(BaseEventData eventData)
     {
     }
+    */
 }
