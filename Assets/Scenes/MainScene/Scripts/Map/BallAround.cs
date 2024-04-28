@@ -11,17 +11,19 @@ public class BallAround : MonoBehaviour
     Transform Ball_Trs;
     Rigidbody2D Ball_Rb;
     bool BallAroundCollited;
+    MainMenuContoller MainMenuContoller;
 
     void Start()
     {
         Player_Trs = GameObject.FindWithTag("Player").transform;
         Ball_Trs = transform.parent.transform;
         Ball_Rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
+        MainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && BallAroundCollited)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && BallAroundCollited && !MainMenuContoller.MenuNow)
         {
             ApplyForceWithAngle();
         }
@@ -44,14 +46,14 @@ public class BallAround : MonoBehaviour
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && !BallAroundCollited)
         {
             BallAroundCollited = true;
         }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && BallAroundCollited)
         {
             BallAroundCollited = false;
         }

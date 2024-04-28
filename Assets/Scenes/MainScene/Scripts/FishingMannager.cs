@@ -53,12 +53,9 @@ public class FishingManager : MonoBehaviour
     Cam CamScript;
     FishingPlace FishingPlaceScript;
     Animator FloatAnime;
-    MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
-    // コルーチン
-    Coroutine FishingCoroutine;
     public enum Phase
     {
         StartFishing,
@@ -83,14 +80,13 @@ public class FishingManager : MonoBehaviour
         PlayerAnime = GetComponent<Animator>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
-        mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
     void Update()
     {
         // 釣りを開始
         if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End && CanFishing)
         {
-            FishingCoroutine = StartCoroutine(Fishing());
+            StartCoroutine(Fishing());
         }
         // カーソルの操作
         if (phase == Phase.StartFishing && !FishingMenu)
@@ -160,17 +156,6 @@ public class FishingManager : MonoBehaviour
                 if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !RightMove && Corsor_Obj.transform.position.x - transform.position.x >= -10) Corsor_Obj.transform.position += new Vector3(-Corsor_Speed, 0, 0) * Time.deltaTime;
             }
 
-        }
-        // 釣りメニュー
-        if (Input.GetKeyDown(KeyCode.Tab) && phase == Phase.StartFishing && !FishingMenu)
-        {
-            FishingMenu = true;
-            //mainMenuContoller.FishingMenuWindowOpen();
-        }
-        else if ((Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && phase == Phase.StartFishing && FishingMenu)
-        {
-            //mainMenuContoller.FishingMenuWindowClose();
-            StartCoroutine(FishingMenuSetBool(false, 0.1f));
         }
         // ウキが動く(アニメーション)
         if (phase == Phase.StartFloat)
@@ -283,8 +268,6 @@ public class FishingManager : MonoBehaviour
             {
                 case Phase.StartFishing:
                     Debug.Log("釣りを開始");
-                    // フラグ
-                    //mainMenuContoller.CanMainMenu = false;
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
                     //カーソルを出す
@@ -629,11 +612,6 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
-    }
-    IEnumerator FishingMenuSetBool(bool Bool, float Time)
-    {
-        yield return new WaitForSeconds(Time);
-        FishingMenu = Bool;
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {

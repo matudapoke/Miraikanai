@@ -5,6 +5,10 @@ using UnityEngine.EventSystems;
 
 public class MainMenuContoller : MonoBehaviour
 {
+    // フラグ
+    public bool CanMainMenuOpen;
+    [HideInInspector]
+    public bool MenuNow;
     // 値
     [Tooltip("メニューがどの位置に移動してくるか")]
     public Vector3 MenuWindowMovePosition;
@@ -16,16 +20,18 @@ public class MainMenuContoller : MonoBehaviour
     MainMenu mainMenu;
     Cam CamScript;
     CharaOperation charaOperation;
+    FishingManager fishingManager;
 
     void Start()
     {
         mainMenu = transform.Find("MainMenuWindow").GetComponent<MainMenu>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         charaOperation = GameObject.Find("Reizi").GetComponent<CharaOperation>();
+        fishingManager = GameObject.Find("Reizi").GetComponent<FishingManager>();
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab) && CanMainMenuOpen)
         {
             if (!mainMenu.MainMenuWindowMove)
             {
@@ -38,6 +44,20 @@ public class MainMenuContoller : MonoBehaviour
                 MainMenuEnd();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Tab) && fishingManager.phase == FishingManager.Phase.StartFishing)
+        {
+            // ↓魚メニューにする
+            if (!mainMenu.MainMenuWindowMove)
+            {
+                mainMenu.MainMenuWindowMove = true;
+                fishingManager.FishingMenu = true;
+            }
+            else
+            {
+                mainMenu.MainMenuWindowMove = false;
+                fishingManager.FishingMenu = false;
+            }
+        }
     }
     public void MainMenuStart()
     {
@@ -46,6 +66,8 @@ public class MainMenuContoller : MonoBehaviour
         CamScript.CamZoom(10, 2.5f);
         // キャラを操作できなくする
         charaOperation.CanRun = false;
+        // フラグ
+        MenuNow = true;
     }
     public void MainMenuEnd()
     {
@@ -53,5 +75,7 @@ public class MainMenuContoller : MonoBehaviour
         CamScript.CamReset();
         // キャラを操作できなくする
         charaOperation.CanRun = true;
+        // フラグ
+        MenuNow = false;
     }
 }
