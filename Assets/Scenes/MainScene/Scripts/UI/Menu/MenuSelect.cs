@@ -1,22 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
-public class MenuSelect : Button
-
+public class MenuSelect : MonoBehaviour
 {
-    /*
-    // 選択状態になったときに実行する
-    public override void OnSelect(BaseEventData eventData)
+    RectTransform SelectedObj_RectTransform;
+    [SerializeField] Vector3 SelectedObj_Position;
+    [SerializeField] GameObject UpMenu;
+    [SerializeField] GameObject DownMenu;
+    [SerializeField] GameObject RightMenu;
+    [SerializeField] GameObject LeftMenu;
+
+    void Start()
     {
-        transform.parent.parent.GetComponent<MainMenuContoller>().Selected_Obj.transform.SetParent(transform);
+        SelectedObj_RectTransform = GameObject.Find("Selected").GetComponent<RectTransform>();
     }
-    // 選択解除になったときに実行する
-    public override void OnDeselect(BaseEventData eventData)
+
+    void Update()
     {
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && UpMenu != null)
+        {
+            UpMenu.GetComponent<MenuSelect>().Select();
+        }
+        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && DownMenu != null)
+        {
+            DownMenu.GetComponent<MenuSelect>().Select();
+        }
+        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && RightMenu != null)
+        {
+            RightMenu.GetComponent<MenuSelect>().Select();
+        }
+        if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && LeftMenu != null)
+        {
+            LeftMenu.GetComponent<MenuSelect>().Select();
+        }
     }
-    */
+
+    public void Select()
+    {
+        SelectedObj_RectTransform.position = SelectedObj_Position;
+    }
 }
