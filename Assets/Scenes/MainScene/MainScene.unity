@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 90819283}
   - component: {fileID: 90819282}
   m_Layer: 5
-  m_Name: 1 (1)
+  m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2292,6 +2292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 21300000, guid: 7d5ae1402525b3849b6451fef8616f5b, type: 3}
   SelectedObj_Position: {x: -511.9247, y: -215.271, z: 0}
   UpMenu: {fileID: 1104423112}
   DownMenu: {fileID: 2114004772}
@@ -2657,6 +2658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 21300000, guid: 6fe53f135ca0bea4998ec21928e35372, type: 3}
   SelectedObj_Position: {x: -511.9247, y: 116.829, z: 0}
   UpMenu: {fileID: 974672556}
   DownMenu: {fileID: 1104423112}
@@ -3196,6 +3198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 21300000, guid: 324ad0e083b1eee499c418732c065bcc, type: 3}
   SelectedObj_Position: {x: -511.9247, y: 274, z: 0}
   UpMenu: {fileID: 0}
   DownMenu: {fileID: 916135889}
@@ -5472,8 +5475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanMainMenuOpen: 1
   MenuNow: 0
-  MenuWindowMovePosition: {x: 1560.928, y: 530.5313, z: 0}
-  MenuWindowRetrunPosition: {x: 2287.031, y: 519, z: 0}
+  MenuWindowMovePosition: {x: 1640, y: 550, z: 0}
+  MenuWindowRetrunPosition: {x: 2500, y: 519, z: 0}
   MenuMoveSpeed: 7.5
 --- !u!1 &1070667111
 GameObject:
@@ -5749,6 +5752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 21300000, guid: 7b835f1f2912b3e468966932ec5bdc03, type: 3}
   SelectedObj_Position: {x: -511.9247, y: -48.67099, z: 0}
   UpMenu: {fileID: 916135889}
   DownMenu: {fileID: 843162094}
@@ -7570,6 +7574,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 0}
   SelectedObj_Position: {x: -350.2, y: -370, z: 0}
   UpMenu: {fileID: 843162094}
   DownMenu: {fileID: 0}
@@ -8323,6 +8328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f636c47f85f18d04ba61274cb6fb49c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SelectedSprite: {fileID: 0}
   SelectedObj_Position: {x: -511.9247, y: -370, z: 0}
   UpMenu: {fileID: 843162094}
   DownMenu: {fileID: 0}

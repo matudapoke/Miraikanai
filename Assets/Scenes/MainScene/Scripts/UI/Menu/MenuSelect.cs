@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuSelect : MonoBehaviour
 {
-    RectTransform SelectedObj_RectTransform;
+    Image image;
+    [SerializeField] Sprite SelectedSprite;
+    Sprite OriginalSprite;
+    bool Selected;
     [SerializeField] Vector3 SelectedObj_Position;
     [SerializeField] GameObject UpMenu;
     [SerializeField] GameObject DownMenu;
@@ -13,31 +17,46 @@ public class MenuSelect : MonoBehaviour
 
     void Start()
     {
-        SelectedObj_RectTransform = GameObject.Find("Selected").GetComponent<RectTransform>();
+        image = GetComponent<Image>();
     }
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && UpMenu != null)
+        if (Selected)
         {
-            UpMenu.GetComponent<MenuSelect>().Select();
-        }
-        if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && DownMenu != null)
-        {
-            DownMenu.GetComponent<MenuSelect>().Select();
-        }
-        if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && RightMenu != null)
-        {
-            RightMenu.GetComponent<MenuSelect>().Select();
-        }
-        if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && LeftMenu != null)
-        {
-            LeftMenu.GetComponent<MenuSelect>().Select();
+            if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && UpMenu != null)
+            {
+                UpMenu.GetComponent<MenuSelect>().Select();
+                DeSelection();
+            }
+            if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && DownMenu != null)
+            {
+                DownMenu.GetComponent<MenuSelect>().Select();
+                DeSelection();
+                Debug.Log(gameObject.name);
+            }
+            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && RightMenu != null)
+            {
+                RightMenu.GetComponent<MenuSelect>().Select();
+                DeSelection();
+            }
+            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && LeftMenu != null)
+            {
+                LeftMenu.GetComponent<MenuSelect>().Select();
+                DeSelection();
+            }
         }
     }
 
     public void Select()
     {
-        SelectedObj_RectTransform.position = SelectedObj_Position;
+        Selected = true;
+        OriginalSprite = image.sprite;
+        image.sprite = SelectedSprite;
+    }
+    public void DeSelection()
+    {
+        Selected = false;
+        image.sprite = OriginalSprite;
     }
 }

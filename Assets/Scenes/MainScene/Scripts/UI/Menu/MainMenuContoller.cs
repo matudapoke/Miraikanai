@@ -68,6 +68,7 @@ public class MainMenuContoller : MonoBehaviour
         charaOperation.CanRun = false;
         // フラグ
         MenuNow = true;
+        transform.Find("MainMenuWindow").transform.Find("1").GetComponent<MenuSelect>().Select();
     }
     public void MainMenuEnd()
     {
