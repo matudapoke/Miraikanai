@@ -6,30 +6,30 @@ using UnityEngine.UI;
 
 public class Popup : MonoBehaviour
 {
-    [Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ÌRectTransfrom")]
+    [Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®RectTransfrom")]
     RectTransform rectTransform;
-    [SerializeField, Tooltip("–¼‘O‚ÌƒeƒLƒXƒg")]
+    [SerializeField, Tooltip("åå‰ã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     TextMeshProUGUI NameTMP;
-    [SerializeField, Tooltip("•\¦‚·‚é‰æ‘œ‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Tooltip("è¡¨ç¤ºã™ã‚‹ç”»åƒã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     Image Icon; 
 
-    [SerializeField, Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ª•\¦‚³‚ê‚éŠÔ")]
+    [SerializeField, Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒè¡¨ç¤ºã•ã‚Œã‚‹æ™‚é–“")]
     float SubmitPopupTime;
-    [SerializeField, Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ª–ß‚éÀ•W")]
+    [SerializeField, Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒæˆ»ã‚‹åº§æ¨™")]
     Vector2 ReturnPostion;
-    [SerializeField, Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ªˆÚ“®‚·‚éÀ•W")]
+    [SerializeField, Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒç§»å‹•ã™ã‚‹åº§æ¨™")]
     Vector2 MovePopupPosition;
-    [SerializeField, Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ÌƒXƒs[ƒh")]
+    [SerializeField, Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float MoveSpeed;
-    [Tooltip("MovePopup‚Ìƒtƒ‰ƒO(0=Às‚µ‚Ä‚¢‚È‚¢ 1=ƒ|ƒbƒvƒAƒbƒv‚ªo‚Ä‚¢‚éŠÔ 2=ƒ|ƒbƒvƒAƒbƒv‚ª–ß‚é)")]
+    [Tooltip("MovePopupã®ãƒ•ãƒ©ã‚°(0=å®Ÿè¡Œã—ã¦ã„ãªã„ 1=ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒå‡ºã¦ã„ã‚‹é–“ 2=ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒæˆ»ã‚‹)")]
     int MovePopupRunning = 0;
-    [Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ª‚Q‚ÂˆÈã•\¦‚³‚ê‚½‚Æ‚«‚ÉÀs‚³‚ê‚éSweepPopup‚Ìƒtƒ‰ƒO")]
+    [Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒï¼’ã¤ä»¥ä¸Šè¡¨ç¤ºã•ã‚ŒãŸã¨ãã«å®Ÿè¡Œã•ã‚Œã‚‹SweepPopupã®ãƒ•ãƒ©ã‚°")]
     int SweepPopupRunning = 0;
 
     void Start()
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = ReturnPostion;//Å‰‚ÌÀ•W‚ÉˆÚ“®
+        rectTransform.anchoredPosition = ReturnPostion;//æœ€åˆã®åº§æ¨™ã«ç§»å‹•
     }
 
     void Update()
@@ -42,8 +42,8 @@ public class Popup : MonoBehaviour
 
     void MovePopup()
     {
-        if (MovePopupRunning == 1) rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, MovePopupPosition, MoveSpeed * Time.deltaTime);//ƒ|ƒbƒvƒAƒbƒv‚ğ•\¦
-        else if (MovePopupRunning == 2) rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, ReturnPostion, MoveSpeed * Time.deltaTime);//ƒ|ƒbƒvƒAƒbƒv‚ğ–ß‚·
+        if (MovePopupRunning == 1) rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, MovePopupPosition, MoveSpeed * Time.deltaTime);//ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤º
+        else if (MovePopupRunning == 2) rectTransform.anchoredPosition = Vector2.Lerp(rectTransform.anchoredPosition, ReturnPostion, MoveSpeed * Time.deltaTime);//ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’æˆ»ã™
         
         if (SweepPopupRunning == 1 && MovePopupRunning == 1)
         {

@@ -8,13 +8,13 @@ using UnityEngine.TextCore.Text;
 [System.Serializable]
 public class GalleryTextArray
 {
-    [Tooltip("ƒLƒƒƒ‰‚ÌƒZƒŠƒt‚ğ“ü‚ê‚é”z—ñ")]
+    [Tooltip("ã‚­ãƒ£ãƒ©ã®ã‚»ãƒªãƒ•ã‚’å…¥ã‚Œã‚‹é…åˆ—")]
     public string[] Text;
-    [Tooltip("ƒeƒLƒXƒgƒtƒŒ[ƒ€‚ÌˆÊ’u")]
+    [Tooltip("ãƒ†ã‚­ã‚¹ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã®ä½ç½®")]
     public Vector2 TextFramePosition;
-    [Tooltip("ƒtƒ‰ƒO‚ªTrue‚É‚È‚Á‚Ä‚©‚ç‰½•bŒã‚É•\¦")]
+    [Tooltip("ãƒ•ãƒ©ã‚°ãŒTrueã«ãªã£ã¦ã‹ã‚‰ä½•ç§’å¾Œã«è¡¨ç¤º")]
     public float CreatWaitTime;
-    [Tooltip("•\¦‚³‚ê‚Ä‚©‚ç‰½•bŒã‚É”ñ•\¦")]
+    [Tooltip("è¡¨ç¤ºã•ã‚Œã¦ã‹ã‚‰ä½•ç§’å¾Œã«éè¡¨ç¤º")]
     public float DestroyWaitTime;
 }
 
@@ -23,7 +23,7 @@ public class GalleryTextArray
 public class GalleryTextManager : MonoBehaviour
 {
     public GalleryTextArray[] GalleryTextArray;
-    [SerializeField, Tooltip("¶¬‚·‚éƒeƒLƒXƒgƒtƒŒ[ƒ€")]
+    [SerializeField, Tooltip("ç”Ÿæˆã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ")]
     GameObject TextFrame;
     public bool Flag1;
 
@@ -41,13 +41,13 @@ public class GalleryTextManager : MonoBehaviour
 
     IEnumerator GalleryTextCreat(float CreatWaitTime, Vector2 TextFramePosition, string[] Text, float DestroyWaitTime)
     {
-        yield return new WaitForSeconds(CreatWaitTime);//CreatWaitTime•b‘Ò‚Â
-        GameObject TextFrameObj = Instantiate(TextFrame, transform);//ƒvƒŒƒnƒu‚ğ‚±‚ÌƒIƒuƒWƒFƒNƒg‚Ìq‚Æ‚µ‚Ä¶¬
-        TextFrameObj.transform.position = TextFramePosition;//TextFramePosition‚ÉˆÚ“®
+        yield return new WaitForSeconds(CreatWaitTime);//CreatWaitTimeç§’å¾…ã¤
+        GameObject TextFrameObj = Instantiate(TextFrame, transform);//ãƒ—ãƒ¬ãƒãƒ–ã‚’ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®å­ã¨ã—ã¦ç”Ÿæˆ
+        TextFrameObj.transform.position = TextFramePosition;//TextFramePositionã«ç§»å‹•
         GalleryTextFrame GalleryTextFrameScript = TextFrameObj.GetComponent<GalleryTextFrame>();
         GalleryTextFrameScript.Texts = Text;
         GalleryTextFrameScript.TextFrameStart();
-        //DestrtoyWaitTime•b‘Ò‚Á‚Ä”ñ•\¦‚É‚·‚é
+        //DestrtoyWaitTimeç§’å¾…ã£ã¦éè¡¨ç¤ºã«ã™ã‚‹
         yield return new WaitForSeconds(DestroyWaitTime);
         GalleryTextFrameScript.TextFrameEnd();
     }

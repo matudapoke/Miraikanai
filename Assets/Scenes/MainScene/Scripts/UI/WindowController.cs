@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class WindowController : MonoBehaviour
 {
-    [SerializeField, Header("Ví‚Ì‹›")]
+    [SerializeField, Header("æ–°ç¨®ã®é­š")]
     GameObject NewFishWindow_Prefab;
     GameObject NewFishWindow_Obj;
     RectTransform NewFishWindow_RectTransform;
     bool NewFishWindow_Born;
-    [SerializeField, Header("’Ş‚ê‚½‚É•\¦‚·‚é‹›‚Ì‰æ‘œB‹ó‚Ìprefab‚ğ“ü‚ê‚é")]
+    [SerializeField, Header("é‡£ã‚ŒãŸæ™‚ã«è¡¨ç¤ºã™ã‚‹é­šã®ç”»åƒã€‚ç©ºã®prefabã‚’å…¥ã‚Œã‚‹")]
     GameObject FishImage_Prefab;
     GameObject FishImage;
     RectTransform FishImage_RectTransform;
@@ -19,11 +19,11 @@ public class WindowController : MonoBehaviour
     {
         if (NewFishWindow_Born)
         {
-            // ƒEƒBƒ“ƒhƒE‚ğˆÚ“®
+            // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç§»å‹•
             NewFishWindow_RectTransform.anchoredPosition = Vector2.Lerp(NewFishWindow_RectTransform.anchoredPosition, new Vector2(0, 30), 2.5f * Time.deltaTime);
-            // ‹›‚Ì‰æ‘œ‚ğˆÚ“®
+            // é­šã®ç”»åƒã‚’ç§»å‹•
             FishImage_RectTransform.anchoredPosition = Vector2.Lerp(FishImage_RectTransform.anchoredPosition, new Vector2(0, 30), 2.5f * Time.deltaTime);
-            // ˆê“x‚¾‚¯ƒJƒƒ‰‚ğU“®
+            // ä¸€åº¦ã ã‘ã‚«ãƒ¡ãƒ©ã‚’æŒ¯å‹•
             if (NewFishWindow_RectTransform.anchoredPosition.y >= FishImage_RectTransform.anchoredPosition.y - 3 && !ShakeRun)
             {
                 ShakeRun = true;
@@ -34,36 +34,36 @@ public class WindowController : MonoBehaviour
 
     public void NewFishWindow_Creat(FishData FishData)
     {
-        // ƒEƒBƒ“ƒhƒE‚ÌƒvƒŒƒnƒu‚ğ¶¬
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ—ãƒ¬ãƒãƒ–ã‚’ç”Ÿæˆ
         NewFishWindow_Obj = Instantiate(NewFishWindow_Prefab, new Vector3(0, 300, 0), Quaternion.identity, transform);
-        // ƒEƒBƒ“ƒhƒE‚ÌˆÊ’u‚ğˆÚ“®
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã‚’ç§»å‹•
         NewFishWindow_RectTransform = NewFishWindow_Obj.GetComponent<RectTransform>();
         NewFishWindow_RectTransform.anchoredPosition = new Vector3(0, 300, 0);
-        // ‹›‚Ì‰æ‘œ‚ğ¶¬
+        // é­šã®ç”»åƒã‚’ç”Ÿæˆ
         FishImage = Instantiate(FishImage_Prefab, new Vector3(0, 300, 0), Quaternion.identity, transform);
         FishImage.GetComponent<Image>().sprite = FishData.FishImage;
-        // ‹›‚Ì‰æ‘œ‚ğˆÚ“®
+        // é­šã®ç”»åƒã‚’ç§»å‹•
         FishImage_RectTransform = FishImage.GetComponent<RectTransform>();
         FishImage_RectTransform.anchoredPosition = new Vector3(0, 600, 0);
-        // ƒtƒ‰ƒO‚ğ—§‚Ä‚é
+        // ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹
         NewFishWindow_Born = true;
-        // Ví‚Ì‹›‚¶‚á‚È‚­‚·‚é
+        // æ–°ç¨®ã®é­šã˜ã‚ƒãªãã™ã‚‹
         FishData.NewFish = false;
-        // ƒEƒBƒ“ƒhƒE‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚·
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™
     }
     public void NewFishWindow_Click()
     {
-        // ƒEƒBƒ“ƒhƒE‚ğˆÚ“®
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç§»å‹•
         NewFishWindow_RectTransform.anchoredPosition = new Vector2(0, 30);
-        // ‹›‚Ì‰æ‘œ‚ğˆÚ“®
+        // é­šã®ç”»åƒã‚’ç§»å‹•
         FishImage_RectTransform.anchoredPosition = new Vector2(0, 30);
     }
     public void NewFishWindow_Destroy()
     {
-        // ƒtƒ‰ƒO‚ğ–ß‚·
+        // ãƒ•ãƒ©ã‚°ã‚’æˆ»ã™
         ShakeRun = false;
         NewFishWindow_Born = false;
-        // ƒEƒBƒ“ƒhƒE‚ğÁ‚·
+        // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’æ¶ˆã™
         Destroy(NewFishWindow_Obj);
         Destroy(FishImage);
     }

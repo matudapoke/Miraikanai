@@ -7,8 +7,8 @@ using UnityEngine.Experimental.GlobalIllumination;
 using UnityEditor.Experimental.GraphView;
 public class FishingManager : MonoBehaviour
 {
-    // ’l
-    [SerializeField, Header("ƒJ[ƒ\ƒ‹‚ÌƒXƒs[ƒh")] float Corsor_Speed;
+    // å€¤
+    [SerializeField, Header("ã‚«ãƒ¼ã‚½ãƒ«ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")] float Corsor_Speed;
     Vector3 CorsorPosition;
     float currentScale;
     float OriginalDistance;
@@ -17,9 +17,9 @@ public class FishingManager : MonoBehaviour
     float FishingTime_Throw;
     float FishingTime_ToHitEnd;
     float FishingTime_SinceHit;
-    [SerializeField, Header("’Ş‚è‚Ìƒo[‚ÌŠŠ‚ç‚©‚³")]
+    [SerializeField, Header("é‡£ã‚Šæ™‚ã®ãƒãƒ¼ã®æ»‘ã‚‰ã‹ã•")]
     float FishingMeterBar_MoveSpeed;
-    // ƒtƒ‰ƒO
+    // ãƒ•ãƒ©ã‚°
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
     bool FishingPlace_Collided;
@@ -31,23 +31,23 @@ public class FishingManager : MonoBehaviour
     bool HitSuccess;
     bool HitFailure;
     bool FishImage_Move;
-    // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+    // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
     GameObject Corsor_Obj;
     GameObject FishingFloat_Obj;
-    [SerializeField, Header("’Ş‚è‚Ìƒ[ƒ^[")]
+    [SerializeField, Header("é‡£ã‚Šæ™‚ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼")]
     GameObject FishingMeter_Prefab;
     GameObject FishingMeter_Obj;
     Transform FishingMeter_MaskTrs;
     Transform FishingMeterBar_Trs;
     Transform FishingMeterBarClone_Trs;
-    [SerializeField, Header("’Ş‚è‚Ì’Ş‚è…‚Ìƒ[ƒ^[")]
+    [SerializeField, Header("é‡£ã‚Šæ™‚ã®é‡£ã‚Šç³¸ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼")]
     GameObject FishingLineMeter_Prefab;
     GameObject FishingLineMeter_Obj;
     Transform FishingLineMeterMask_Trs;
     GameObject FishImage_Obj;
-    [SerializeField, Header("’Ş‚ê‚½‚É•\¦‚·‚é‹›‚Ì‰æ‘œB‹ó‚Ìprefab‚ğ“ü‚ê‚é")]
+    [SerializeField, Header("é‡£ã‚ŒãŸæ™‚ã«è¡¨ç¤ºã™ã‚‹é­šã®ç”»åƒã€‚ç©ºã®prefabã‚’å…¥ã‚Œã‚‹")]
     GameObject FishImage_Prefab;
-    // ƒRƒ“ƒ|[ƒlƒ“ƒg
+    // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     Animator PlayerAnime;
     CharaOperation charaOperation;
     Cam CamScript;
@@ -68,14 +68,14 @@ public class FishingManager : MonoBehaviour
 
     void Start()
     {
-        // ƒtƒ‰ƒO
+        // ãƒ•ãƒ©ã‚°
         CanFishing = true;
-        // ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg
+        // ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
         Corsor_Obj = GameObject.Find("Corsor");
         Corsor_Obj.SetActive(false);
         FishingFloat_Obj = GameObject.Find("FishingFloat");
         FishingFloat_Obj.SetActive(false);
-        // ƒRƒ“ƒ|[ƒlƒ“ƒg
+        // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
@@ -83,12 +83,12 @@ public class FishingManager : MonoBehaviour
     }
     void Update()
     {
-        // ’Ş‚è‚ğŠJn
+        // é‡£ã‚Šã‚’é–‹å§‹
         if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End && CanFishing)
         {
             StartCoroutine(Fishing());
         }
-        // ƒJ[ƒ\ƒ‹‚Ì‘€ì
+        // ã‚«ãƒ¼ã‚½ãƒ«ã®æ“ä½œ
         if (phase == Phase.StartFishing && !FishingMenu)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) UpMove = true;
@@ -157,13 +157,13 @@ public class FishingManager : MonoBehaviour
             }
 
         }
-        // ƒEƒL‚ª“®‚­(ƒAƒjƒ[ƒVƒ‡ƒ“)
+        // ã‚¦ã‚­ãŒå‹•ã(ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³)
         if (phase == Phase.StartFloat)
         {
             FishingFloat_Obj.transform.position = Vector2.Lerp(FishingFloat_Obj.transform.position, CorsorPosition, 2 * Time.deltaTime);
-            // –Ú•WˆÊ’u‚Ü‚Å‚Ì‹——£‚ğŒvZ
+            // ç›®æ¨™ä½ç½®ã¾ã§ã®è·é›¢ã‚’è¨ˆç®—
             float distanceToTarget = Vector3.Distance(FishingFloat_Obj.transform.position, CorsorPosition);
-            // ƒXƒP[ƒ‹‚ğ•Ï‰»‚³‚¹‚é•ƒAƒjƒ[ƒVƒ‡ƒ“‚ğŠJn‚·‚é
+            // ã‚¹ã‚±ãƒ¼ãƒ«ã‚’å¤‰åŒ–ã•ã›ã‚‹ï¼†ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’é–‹å§‹ã™ã‚‹
             if (distanceToTarget >= OriginalDistance / 2)
             {
                 currentScale += Time.deltaTime * 2;
@@ -171,7 +171,7 @@ public class FishingManager : MonoBehaviour
             }
             else
             {
-                // “’B‹——£ŠO‚Å‚ÍƒXƒP[ƒ‹‚ğ¬‚³‚­‚·‚é
+                // åˆ°é”è·é›¢å¤–ã§ã¯ã‚¹ã‚±ãƒ¼ãƒ«ã‚’å°ã•ãã™ã‚‹
                 currentScale -= Time.deltaTime * 2;
                 currentScale = Mathf.Clamp(currentScale, 1, 3);
                 if (!FloatLandingWater_Run && currentScale <= 1.1 && currentScale >= 1.01)
@@ -181,13 +181,13 @@ public class FishingManager : MonoBehaviour
                     GetComponent<AudioSource>().PlayOneShot(FloatLandingWater);
                 }
             }
-            // ƒIƒuƒWƒFƒNƒg‚ÌƒXƒP[ƒ‹‚ğXV
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æ›´æ–°
             FishingFloat_Obj.transform.localScale = new Vector3(currentScale, currentScale, currentScale);
         }
-        // HITƒ[ƒ^[‘€ì
+        // HITæ™‚ãƒ¡ãƒ¼ã‚¿ãƒ¼æ“ä½œ
         if (MeterOperation)
         {
-            // ƒ[ƒ^[‘€ì
+            // ãƒ¡ãƒ¼ã‚¿ãƒ¼æ“ä½œ
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
             {
                 CamScript.CamOneShake(0.05f, 0.1f, 0.2f);
@@ -196,12 +196,12 @@ public class FishingManager : MonoBehaviour
                 // SE(FishingMeterOpration)
                 GetComponents<AudioSource>()[1].Play();
             }
-            // ‹›‚Ì’ïR & ’Ş‚è…‘€ì
+            // é­šã®æŠµæŠ— & é‡£ã‚Šç³¸æ“ä½œ
             if (FishingMeter_MaskTrs.localScale.x >= 0)
             { 
                 FishingMeter_MaskTrs.localScale -= new Vector3(1, 0, 0) * Time.deltaTime;
                 FishingMeterBarClone_Trs.position -= new Vector3(0.5f, 0, 0) * Time.deltaTime;
-                // ’Ş‚è…
+                // é‡£ã‚Šç³¸
                 if (FishingMeter_MaskTrs.localScale.x <= FishData.FishingMeterOKLevelMin || FishingMeter_MaskTrs.localScale.x >= FishData.FishingMeterOKLevelMax)
                 {
                     FishingLineMeterMask_Trs.localScale -= new Vector3(0.3f, 0, 0) * Time.deltaTime;
@@ -212,33 +212,33 @@ public class FishingManager : MonoBehaviour
                     }
                 }
             }
-            // ƒo[‚ğˆÚ“®
+            // ãƒãƒ¼ã‚’ç§»å‹•
             FishingMeterBar_Trs.position = Vector2.Lerp(FishingMeterBar_Trs.position, FishingMeterBarClone_Trs.position, FishingMeterBar_MoveSpeed * Time.deltaTime);
-            //HITI—¹(ŠÔ)
+            //HITçµ‚äº†(æ™‚é–“)
             FishingTime_SinceHit += Time.deltaTime;
             if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
             {
-                //FishData‚ÌOKLevel”ÍˆÍ“à‚¾‚Á‚½‚ç¬Œ÷
+                //FishDataã®OKLevelç¯„å›²å†…ã ã£ãŸã‚‰æˆåŠŸ
                 if (FishingMeter_MaskTrs.localScale.x >= FishData.FishingMeterOKLevelMin && FishingMeter_MaskTrs.localScale.x <= FishData.FishingMeterOKLevelMax)
                 {
                     MeterOperation = false;
                     HitSuccess = true;
                 }
-                //”ÍˆÍŠO‚¾‚Á‚½‚ç¸”s
+                //ç¯„å›²å¤–ã ã£ãŸã‚‰å¤±æ•—
                 else
                 {
                     MeterOperation = false;
                     HitFailure = true;
                 }
             }
-            // HITI—¹(ƒ[ƒ^[’[)
-            // ‰E’[‚¾‚Á‚½‚ç¬Œ÷
+            // HITçµ‚äº†(ãƒ¡ãƒ¼ã‚¿ãƒ¼ç«¯)
+            // å³ç«¯ã ã£ãŸã‚‰æˆåŠŸ
             else if (FishingMeter_MaskTrs.localScale.x >= 5.5f)
             {
                 MeterOperation = false;
                 HitSuccess = true;
             }
-            // ¶’[‚¾‚Á‚½‚ç¸”s
+            // å·¦ç«¯ã ã£ãŸã‚‰å¤±æ•—
             else if (FishingMeter_MaskTrs.localScale.x <= 0.2f)
             {
                 MeterOperation = false;
@@ -250,7 +250,7 @@ public class FishingManager : MonoBehaviour
             FishingTime_SinceHit = 0;
             FishingTime_ToHitEnd = 0;
         }
-        // ’Ş‚èã‚°‚½‹›‚ğ“®‚©‚·
+        // é‡£ã‚Šä¸Šã’ãŸé­šã‚’å‹•ã‹ã™
         if (FishImage_Move)
         {
             FishImage_Obj.transform.position = Vector2.Lerp(FishImage_Obj.transform.position, Corsor_Obj.transform.position + new Vector3(0, 15, 0), 3 * Time.deltaTime);
@@ -267,12 +267,12 @@ public class FishingManager : MonoBehaviour
             switch (phase)
             {
                 case Phase.StartFishing:
-                    Debug.Log("’Ş‚è‚ğŠJn");
-                    // ƒAƒjƒ[ƒVƒ‡ƒ“‚ğC³
+                    Debug.Log("é‡£ã‚Šã‚’é–‹å§‹");
+                    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’ä¿®æ­£
                     PlayerAnime.SetBool("FishingFloatEnd", false);
-                    //ƒJ[ƒ\ƒ‹‚ğo‚·
+                    //ã‚«ãƒ¼ã‚½ãƒ«ã‚’å‡ºã™
                     Corsor_Obj.SetActive(true);
-                    //ƒJƒƒ‰ˆÚ“®••ûŒü‚ğŒü‚­(ˆê‰ñ–Ú‚Ì‚İ“®‚©‚·)
+                    //ã‚«ãƒ¡ãƒ©ç§»å‹•ï¼†æ–¹å‘ã‚’å‘ã(ä¸€å›ç›®ã®ã¿å‹•ã‹ã™)
                     if (!StartFishingReturn)
                     {
                         if (FishingPlaceScript.direction == FishingPlace.Direction.Up)
@@ -319,19 +319,19 @@ public class FishingManager : MonoBehaviour
                             CamScript.CamMove(6, new Vector3(-3, -3, 0));
                             Corsor_Obj.transform.position = new Vector3(-2, -2, 0) + transform.position;
                         }
-                        else { Debug.Log("ƒGƒ‰[FFishingPlace‚Ì•ûŒü‚ğ“ü—Í‚µ‚Ä"); }
+                        else { Debug.Log("ã‚¨ãƒ©ãƒ¼ï¼šFishingPlaceã®æ–¹å‘ã‚’å…¥åŠ›ã—ã¦"); }
                     }
                     StartFishingReturn = true;
-                    //ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ÌL‚Ñk‚İ‚ğ‚â‚ß‘€ì‚ğó‚¯•t‚¯‚È‚­‚·‚é
+                    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã®ä¼¸ã³ç¸®ã¿ã‚’ã‚„ã‚æ“ä½œã‚’å—ã‘ä»˜ã‘ãªãã™ã‚‹
                     gameObject.GetComponent<Strech>().StrechCan = false;
                     charaOperation.CanRun = false;
                     yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
-                    // ƒŠƒ^[ƒ“orZ‚ÅƒEƒL‚ğ•‚‚©‚×‚é
+                    // ãƒªã‚¿ãƒ¼ãƒ³orZã§ã‚¦ã‚­ã‚’æµ®ã‹ã¹ã‚‹
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                     {
                         phase = Phase.StartFloat;
                     }
-                    // ƒXƒy[ƒXorX‚Å’Ş‚è‚ğI—¹
+                    // ã‚¹ãƒšãƒ¼ã‚¹orXã§é‡£ã‚Šã‚’çµ‚äº†
                     else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
                         FishingEnd();
@@ -339,10 +339,10 @@ public class FishingManager : MonoBehaviour
                     }
                     break;
                 case Phase.StartFloat:
-                    // ƒJ[ƒ\ƒ‹‚ğÁ‚µ‚ÄƒEƒL‚ğo‚·
+                    // ã‚«ãƒ¼ã‚½ãƒ«ã‚’æ¶ˆã—ã¦ã‚¦ã‚­ã‚’å‡ºã™
                     Corsor_Obj.SetActive(false);
                     FishingFloat_Obj.SetActive(true);
-                    // ƒAƒjƒ[ƒVƒ‡ƒ“
+                    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
                     {
                         PlayerAnime.SetBool("Fishing", true);
                         PlayerAnime.SetBool("FishingFloatEnd", false);
@@ -379,58 +379,58 @@ public class FishingManager : MonoBehaviour
 
                         }
                     }
-                    // ƒEƒL‚ğ“®‚©‚·€”õ
+                    // ã‚¦ã‚­ã‚’å‹•ã‹ã™æº–å‚™
                     FishingFloat_Obj.transform.position = transform.position;
                     FishingFloat_Obj.transform.localScale = new Vector3(1, 1, 1);
                     CorsorPosition = Corsor_Obj.transform.position;
                     OriginalDistance = Vector3.Distance(FishingFloat_Obj.transform.position, CorsorPosition);
                     //SE
                     GetComponent<AudioSource>().PlayOneShot(FloatThrow);
-                    // ‚È‚ñ‚Ì‹›‚ª’Ş‚ê‚éH
+                    // ãªã‚“ã®é­šãŒé‡£ã‚Œã‚‹ï¼Ÿ
                     FishData = ChooseFishBasedOnRarity(FishingPlaceScript.FishBornList);
-                    // ‰½•bŒã‚ÉHITH
-                    FishingTime_Hit = Random.Range(3.0f, 3.1f);//<------------‚±‚±‚Í«—ˆ•Ï‚¦‚é
+                    // ä½•ç§’å¾Œã«HITï¼Ÿ
+                    FishingTime_Hit = Random.Range(3.0f, 3.1f);//<------------ã“ã“ã¯å°†æ¥å¤‰ãˆã‚‹
                     FishingTime_Throw = Time.time;
-                    Debug.Log("ƒEƒL‚ğŠJnF" + FishingTime_Hit + "•bŒã‚ÉHIT");
+                    Debug.Log("ã‚¦ã‚­ã‚’é–‹å§‹ï¼š" + FishingTime_Hit + "ç§’å¾Œã«HIT");
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || FishingTime_Hit + FishingTime_Throw <= Time.time);
-                    // ƒŠƒ^[ƒ“orZ‚ÅƒJ[ƒ\ƒ‹‚É–ß‚é
+                    // ãƒªã‚¿ãƒ¼ãƒ³orZã§ã‚«ãƒ¼ã‚½ãƒ«ã«æˆ»ã‚‹
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                     {
                         FishingFloatEnd();
                         phase = Phase.StartFishing;
                     }
-                    // ƒXƒy[ƒXorX‚Å’Ş‚è‚ğI—¹
+                    // ã‚¹ãƒšãƒ¼ã‚¹orXã§é‡£ã‚Šã‚’çµ‚äº†
                     else if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
                         FishingEnd();
                         phase = Phase.End;
                     }
-                    // ŠÔ‚É‚È‚Á‚½‚çHIT
+                    // æ™‚é–“ã«ãªã£ãŸã‚‰HIT
                     else
                     {
                         phase = Phase.Hit;
                     }
                     break;
                 case Phase.Hit:
-                    // ƒJƒƒ‰‘€ì
+                    // ã‚«ãƒ¡ãƒ©æ“ä½œ
                     CamScript.CamReset();
-                    CamScript.CamMove(5, (FishingFloat_Obj.transform.position - transform.position) / 2);//(ƒJƒƒ‰‚ÌƒXƒs[ƒh, +ˆÚ“®‚·‚éÀ•W)
+                    CamScript.CamMove(5, (FishingFloat_Obj.transform.position - transform.position) / 2);//(ã‚«ãƒ¡ãƒ©ã®ã‚¹ãƒ”ãƒ¼ãƒ‰, +ç§»å‹•ã™ã‚‹åº§æ¨™)
                     CamScript.CamZoom(3, 1.1f);
-                    // ƒ}[ƒN
+                    // ãƒãƒ¼ã‚¯
                     GameObject.Find("EventManager").GetComponent<Reaction>().Suprise(transform.position + new Vector3(1, 1.5f, 0), 0.75f);
-                    // 0.75•b‘Ò‚Â
+                    // 0.75ç§’å¾…ã¤
                     yield return new WaitForSeconds(0.75f);
-                    // ƒJƒƒ‰
-                    CamScript.CamZoom(5, 1.2f);// ƒJƒƒ‰ƒY[ƒ€(ƒY[ƒ€”{—¦, ƒY[ƒ€ƒXƒs[ƒh)
-                    CamScript.CamShake(0.005f, 0.1f);// ƒJƒƒ‰U“®(U“®‚Ì‘å‚«‚³)
+                    // ã‚«ãƒ¡ãƒ©
+                    CamScript.CamZoom(5, 1.2f);// ã‚«ãƒ¡ãƒ©ã‚ºãƒ¼ãƒ (ã‚ºãƒ¼ãƒ å€ç‡, ã‚ºãƒ¼ãƒ ã‚¹ãƒ”ãƒ¼ãƒ‰)
+                    CamScript.CamShake(0.005f, 0.1f);// ã‚«ãƒ¡ãƒ©æŒ¯å‹•(æŒ¯å‹•ã®å¤§ãã•)
                     // SE(FishBuzzing)
                     GetComponent<AudioSource>().Play();
-                    // ’Ş‚è‚Ì’·‚³
+                    // é‡£ã‚Šã®é•·ã•
                     FishingTime_ToHitEnd = Random.Range(3.0f, 5.0f);
-                    Debug.Log("HITF" + FishingTime_ToHitEnd + "•bŒã‚ÉHITI—¹");
-                    // ƒ[ƒ^[‚ğ¶¬
-                    FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.gameObject.transform.position, Quaternion.identity);// HIT‚Ìƒ[ƒ^[‚ğ¶¬‚·‚é
-                    FishingMeter_MaskTrs = FishingMeter_Obj.transform.Find("FishingMeterMask").transform;// FishingMeterMaskTrs‚Éƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğ“ü‚ê‚é
+                    Debug.Log("HITï¼š" + FishingTime_ToHitEnd + "ç§’å¾Œã«HITçµ‚äº†");
+                    // ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ç”Ÿæˆ
+                    FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.gameObject.transform.position, Quaternion.identity);// HITæ™‚ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ç”Ÿæˆã™ã‚‹
+                    FishingMeter_MaskTrs = FishingMeter_Obj.transform.Find("FishingMeterMask").transform;// FishingMeterMaskTrsã«ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚’å…¥ã‚Œã‚‹
                     FishingMeter_MaskTrs.localScale = new Vector3(2, 1, 1);
                     FishingMeter_Obj.transform.Find("FishingMeterOKLineLower").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMin, 1, 1);
                     FishingMeter_Obj.transform.Find("FishingMeterOKLineUpper").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMax, 1, 1);
@@ -438,37 +438,37 @@ public class FishingManager : MonoBehaviour
                     FishingMeterBarClone_Trs = FishingMeter_Obj.transform.Find("FishingMeterBarClone").transform;
                     FishingMeterBar_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
                     FishingMeterBarClone_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
-                    FishingLineMeter_Obj = Instantiate(FishingLineMeter_Prefab, FishingFloat_Obj.gameObject.transform.position + new Vector3(0, 1, 0), Quaternion.identity);// ’Ş‚è…‚Ìƒ[ƒ^[
+                    FishingLineMeter_Obj = Instantiate(FishingLineMeter_Prefab, FishingFloat_Obj.gameObject.transform.position + new Vector3(0, 1, 0), Quaternion.identity);// é‡£ã‚Šç³¸ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼
                     FishingLineMeterMask_Trs = FishingLineMeter_Obj.transform.Find("FishingLineMeterMask");
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;
-                    // SE‚ğ’â~
+                    // SEã‚’åœæ­¢
                     GetComponent<AudioSource>().Stop();
                     GetComponents<AudioSource>()[1].Stop();
-                    // ƒXƒy[ƒXorX‚È‚ç’Ş‚è‚ğI—¹
+                    // ã‚¹ãƒšãƒ¼ã‚¹orXãªã‚‰é‡£ã‚Šã‚’çµ‚äº†
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
                         PlayerAnime.SetBool("FishingEnd", true);
                         FishingEnd();
                         phase = Phase.End;
                     }
-                    // ¬Œ÷‚à‚µ‚­‚Í¸”s‚µ‚Ä‚¢‚½‚çResult‚Ö
+                    // æˆåŠŸã‚‚ã—ãã¯å¤±æ•—ã—ã¦ã„ãŸã‚‰Resultã¸
                     else if (HitSuccess || HitFailure)
                     {
                         phase = Phase.Result;
                     }
                     break;
                 case Phase.Result:
-                    // ƒAƒjƒ[ƒVƒ‡ƒ“
+                    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
                     PlayerAnime.SetBool("FishingFloatEnd", true);
                     PlayerAnime.SetBool("ThrowFloatBack", false);
                     PlayerAnime.SetBool("ThrowFloatFlont", false);
                     PlayerAnime.SetBool("ThrowFloatSide", false);
-                    // ƒ[ƒ^[‚ğÁ‚·
+                    // ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’æ¶ˆã™
                     Destroy(FishingMeter_Obj);
                     Destroy(FishingLineMeter_Obj);
-                    //ƒJƒƒ‰‚ğ“®‚©‚·&ƒJ[ƒ\ƒ‹‚ğŒ³‚ÌˆÊ’u‚É–ß‚·
+                    //ã‚«ãƒ¡ãƒ©ã‚’å‹•ã‹ã™&ã‚«ãƒ¼ã‚½ãƒ«ã‚’å…ƒã®ä½ç½®ã«æˆ»ã™
                     CamScript.CamReset();
                     {
                         if (FishingPlaceScript.direction == FishingPlace.Direction.Up)
@@ -511,59 +511,59 @@ public class FishingManager : MonoBehaviour
                             CamScript.CamMove(6, new Vector3(-3, -3, 0));
                             Corsor_Obj.transform.position += new Vector3(-2, -2, 0);
                         }
-                        else { Debug.Log("ƒGƒ‰[FFishingPlace‚Ì•ûŒü‚ğ“ü—Í‚µ‚Ä"); }
+                        else { Debug.Log("ã‚¨ãƒ©ãƒ¼ï¼šFishingPlaceã®æ–¹å‘ã‚’å…¥åŠ›ã—ã¦"); }
                     }
-                    // ¬Œ÷
+                    // æˆåŠŸ
                     if (HitSuccess)
                     {
-                        // ƒAƒCƒeƒ€‚ğƒ|ƒPƒbƒgƒf[ƒ^ƒx[ƒX‚É’Ç‰Á
+                        // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ãƒã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«è¿½åŠ 
                         GameObject FishDataBaseManagerObj = GameObject.Find("DataBaseManager");
                         FishDataBeseManager FishDataBaseManagerScript = FishDataBaseManagerObj.GetComponent<FishDataBeseManager>();
                         FishDataBaseManagerScript.AddFishData(FishData);
-                        // ‹›‚ğ’Ş‚èã‚°‚é
+                        // é­šã‚’é‡£ã‚Šä¸Šã’ã‚‹
                         FishImage_Obj = Instantiate(FishImage_Prefab, FishingFloat_Obj.gameObject.transform.position, Quaternion.identity);
                         FishImage_Obj.GetComponent<SpriteRenderer>().sprite = FishData.FishImage;
                         FishImage_Move = true;
-                        // ‚à‚µVí‚È‚çƒEƒBƒ“ƒhƒE‚ğ•\¦
+                        // ã‚‚ã—æ–°ç¨®ãªã‚‰ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
                         if (FishData.NewFish)
                         {
-                            // ‹›‚Ì‰æ‘œ‚ğ•‚­‚·‚é
+                            // é­šã®ç”»åƒã‚’é»’ãã™ã‚‹
                             FishImage_Obj.GetComponent<SpriteRenderer>().color = Color.black;
                             yield return new WaitForSeconds(0.75f);
-                            // ƒEƒBƒ“ƒhƒE‚ğ¶¬‚·‚é
+                            // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ç”Ÿæˆã™ã‚‹
                             WindowController window = GameObject.Find("WindowContoller").GetComponent<WindowController>();
                             window.NewFishWindow_Creat(FishData);
-                            // ƒL[‚ª‰Ÿ‚·‚©Š®‘S‚ÉˆÚ“®‚·‚é‚Ì‚ğ‘Ò‚Â
+                            // ã‚­ãƒ¼ãŒæŠ¼ã™ã‹å®Œå…¨ã«ç§»å‹•ã™ã‚‹ã®ã‚’å¾…ã¤
                             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || window.ShakeRun);
-                            // ‚à‚µ‚¢‚¸‚ê‚©‚ÌƒL[‚ğ‰Ÿ‚µ‚½‚çƒEƒBƒ“ƒhƒE‚ªŠ®‘S‚ÉˆÚ“®‚·‚é
+                            // ã‚‚ã—ã„ãšã‚Œã‹ã®ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãŒå®Œå…¨ã«ç§»å‹•ã™ã‚‹
                             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                             {
                                 window.NewFishWindow_Click();
                                 yield return new WaitForSeconds(0.1f);
                             }
-                            // ƒL[‚ª‰Ÿ‚³‚ê‚é‚Ì‚ğ‘Ò‚Â
+                            // ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã‚‹ã®ã‚’å¾…ã¤
                             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z));
                             window.NewFishWindow_Destroy();
                             FishImage_Move = false;
                         }
-                        // Ví‚Å‚È‚¢‚È‚çƒAƒCƒeƒ€Šl“¾ƒ|ƒbƒvƒAƒbƒv‚ğo‚·
+                        // æ–°ç¨®ã§ãªã„ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ ç²å¾—ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’å‡ºã™
                         else
                         {
                             yield return new WaitForSeconds(0.75f);
-                            // ƒ|ƒbƒvƒAƒbƒv‚ğ•\¦‚ğƒ|ƒbƒvƒAƒbƒvƒRƒ“ƒgƒ[ƒ‰‚Éw¦
+                            // ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤ºã‚’ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã«æŒ‡ç¤º
                             GameObject.Find("PopupController").GetComponent<PopupController>().SubmitPopup(FishData.FishName, FishData.FishImage);
                             FishingFloatEnd();
                         }
                     }
-                    // ƒtƒ‰ƒO‚ğ–ß‚·
+                    // ãƒ•ãƒ©ã‚°ã‚’æˆ»ã™
                     HitSuccess = false;
                     HitFailure = false;
-                    // ƒJ[ƒ\ƒ‹‚Ö–ß‚é
+                    // ã‚«ãƒ¼ã‚½ãƒ«ã¸æˆ»ã‚‹
                     FishingFloatEnd();
                     phase = Phase.StartFishing;
                     break;
                 case Phase.End:
-                    Debug.Log("Phase‚ª‚¨‚©‚µ‚¢‚É‚å");
+                    Debug.Log("PhaseãŒãŠã‹ã—ã„ã«ã‚‡");
                     break;
             }
         }
@@ -571,21 +571,21 @@ public class FishingManager : MonoBehaviour
 
     void FishingEnd()
     {
-        // ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ªL‚Ñk‚İ‚ğÄŠJ‘€ì‚ğó•t
+        // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ãŒä¼¸ã³ç¸®ã¿ã‚’å†é–‹æ“ä½œã‚’å—ä»˜
         gameObject.GetComponent<Strech>().StrechCan = true;
         charaOperation.CanRun = true;
-        //ƒJ[ƒ\ƒ‹‚ğ–ß‚·
+        //ã‚«ãƒ¼ã‚½ãƒ«ã‚’æˆ»ã™
         Corsor_Obj.SetActive(false);
         Corsor_Obj.transform.position = transform.position;
-        // ƒEƒL‚ğ–ß‚·
+        // ã‚¦ã‚­ã‚’æˆ»ã™
         FishingFloat_Obj.SetActive(false);
-        // ƒJƒƒ‰‚ğˆÚ“®
+        // ã‚«ãƒ¡ãƒ©ã‚’ç§»å‹•
         CamScript.CamReset();
-        // ‘¼ƒtƒ‰ƒO‚ğ–ß‚·
+        // ä»–ãƒ•ãƒ©ã‚°ã‚’æˆ»ã™
         StartFishingReturn = false;
         FloatLandingWater_Run = false;
         //mainMenuContoller.CanMainMenu = true;
-        // ƒAƒjƒ[ƒVƒ‡ƒ“
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
         PlayerAnime.SetBool("Fishing", false);
         PlayerAnime.SetBool("FishingFloatEnd", false);
         PlayerAnime.SetBool("ThrowFloatBack", false);
@@ -596,29 +596,29 @@ public class FishingManager : MonoBehaviour
             Destroy(FishingMeter_Obj);
             Destroy(FishingLineMeter_Obj);
         }
-        Debug.Log("I—¹");
+        Debug.Log("çµ‚äº†");
     }
     void FishingFloatEnd()
     {
-        // ƒJ[ƒ\ƒ‹‚ğŒ³‚ÌˆÊ’u‚É–ß‚·
+        // ã‚«ãƒ¼ã‚½ãƒ«ã‚’å…ƒã®ä½ç½®ã«æˆ»ã™
         Corsor_Obj.transform.position = CorsorPosition;
         Corsor_Obj.SetActive(true);
-        // ƒEƒL‚ğ”ñ•\¦‚É‚·‚é
+        // ã‚¦ã‚­ã‚’éè¡¨ç¤ºã«ã™ã‚‹
         FishingFloat_Obj.SetActive(false);
-        // ƒtƒ‰ƒO‚ğ–ß‚·
+        // ãƒ•ãƒ©ã‚°ã‚’æˆ»ã™
         FloatLandingWater_Run = false;
-        // ƒAƒjƒ[ƒVƒ‡ƒ“
+        // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³
         PlayerAnime.SetBool("FishingFloatEnd", true);
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
     }
-    public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// ‹›‚ÌƒŒƒAƒŠƒeƒB‚É‰‚¶‚Äƒ‰ƒ“ƒ_ƒ€‚É’Š‘I‚·‚é
+    public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// é­šã®ãƒ¬ã‚¢ãƒªãƒ†ã‚£ã«å¿œã˜ã¦ãƒ©ãƒ³ãƒ€ãƒ ã«æŠ½é¸ã™ã‚‹
     {
         float total = 0;
         foreach (var fish in FishList)
         {
-            if (fish.Rarity < 1 || fish.Rarity > 5) Debug.Log(fish + "‚ÌƒŒƒAƒŠƒeƒB‚ª‹K’è’l‚ğŠO‚ê‚Ä‚¢‚Ü‚·");
+            if (fish.Rarity < 1 || fish.Rarity > 5) Debug.Log(fish + "ã®ãƒ¬ã‚¢ãƒªãƒ†ã‚£ãŒè¦å®šå€¤ã‚’å¤–ã‚Œã¦ã„ã¾ã™");
             total += 6.0f - fish.Rarity;
         }
         float randomPoint = Random.value * total;
@@ -631,7 +631,7 @@ public class FishingManager : MonoBehaviour
                 randomPoint -= 6.0f - FishList[i].Rarity;
         }
 
-        return null; // ‚±‚±‚É“’B‚·‚é‚±‚Æ‚Í‚ ‚è‚Ü‚¹‚ñ
+        return null; // ã“ã“ã«åˆ°é”ã™ã‚‹ã“ã¨ã¯ã‚ã‚Šã¾ã›ã‚“
     }
     void OnTriggerStay2D(Collider2D collision)
     {

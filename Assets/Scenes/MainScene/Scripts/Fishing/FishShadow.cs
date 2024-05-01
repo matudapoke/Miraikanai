@@ -9,47 +9,47 @@ using static UnityEngine.GraphicsBuffer;
 public class FishShadow : MonoBehaviour
 {
     /// <summary>
-    /// 1.‹›‚ªƒJ[ƒ\ƒ‹•ûŒü‚É‰ñ“](ƒJ[ƒ\ƒ‹ƒAƒ‰ƒEƒ“ƒh‚É“–‚½‚Á‚Ä’Ş‚èŠÆ‚Ì«”\‚ªŒ©‡‚Á‚Ä‚¢‚½‚ç)
-    /// 2.‹›‚ªƒJ[ƒ\ƒ‹‚É‹ß‚Ã‚­
-    /// 3.ƒJ[ƒ\ƒ‹‚ğ‚Â‚Â‚­(‚±‚ê‚ÍÀs‚µ‚È‚¢)
-    /// 4.ƒqƒbƒg
-    /// 5.Œ‹‰Ê(‚à‚µ‚àFƒ[ƒ^[‚ª‰E’[‚Ü‚Ås‚Á‚½‚ç && OK”ÍˆÍ‚Ì’†‚É—¯‚ß‚½‚ç)
-    /// 6.‹›‚ª“¦‚°‚é(‚à‚µ‚àFƒ[ƒ^[‚ª¶’[‚Ü‚Ås‚Á‚½‚ç && OK”ÍˆÍ‚ÌŠO‚È‚ç)
+    /// 1.é­šãŒã‚«ãƒ¼ã‚½ãƒ«æ–¹å‘ã«å›è»¢(ã‚«ãƒ¼ã‚½ãƒ«ã‚¢ãƒ©ã‚¦ãƒ³ãƒ‰ã«å½“ãŸã£ã¦é‡£ã‚Šç«¿ã®æ€§èƒ½ãŒè¦‹åˆã£ã¦ã„ãŸã‚‰)
+    /// 2.é­šãŒã‚«ãƒ¼ã‚½ãƒ«ã«è¿‘ã¥ã
+    /// 3.ã‚«ãƒ¼ã‚½ãƒ«ã‚’ã¤ã¤ã(ã“ã‚Œã¯å®Ÿè¡Œã—ãªã„)
+    /// 4.ãƒ’ãƒƒãƒˆ
+    /// 5.çµæœ(ã‚‚ã—ã‚‚ï¼šãƒ¡ãƒ¼ã‚¿ãƒ¼ãŒå³ç«¯ã¾ã§è¡Œã£ãŸã‚‰ && OKç¯„å›²ã®ä¸­ã«ç•™ã‚ãŸã‚‰)
+    /// 6.é­šãŒé€ƒã’ã‚‹(ã‚‚ã—ã‚‚ï¼šãƒ¡ãƒ¼ã‚¿ãƒ¼ãŒå·¦ç«¯ã¾ã§è¡Œã£ãŸã‚‰ && OKç¯„å›²ã®å¤–ãªã‚‰)
     /// </summary>
     
 
-    [Tooltip("yƒtƒ‰ƒOzFishing‚ªÀs‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€ãƒ•ãƒ©ã‚°ã€‘FishingãŒå®Ÿè¡Œã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool FishingRun;
-    [Tooltip("yƒtƒ‰ƒOzƒJƒƒ‰‚ÌƒY[ƒ€‚ÇU“®‚ğs‚Á‚½‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€ãƒ•ãƒ©ã‚°ã€‘ã‚«ãƒ¡ãƒ©ã®ã‚ºãƒ¼ãƒ ã©æŒ¯å‹•ã‚’è¡Œã£ãŸã‹ã©ã†ã‹")]
     bool CamZoomRun;
-    [Tooltip("yƒtƒ‰ƒOz‹›‚Ì‰ñ“]‚ğs‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€ãƒ•ãƒ©ã‚°ã€‘é­šã®å›è»¢ã‚’è¡Œã£ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool FishTurnRun;
-    [Tooltip("yƒtƒ‰ƒOz‹›‚ªƒJ[ƒ\ƒ‹‚É‚¿‚©‚Ã‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€ãƒ•ãƒ©ã‚°ã€‘é­šãŒã‚«ãƒ¼ã‚½ãƒ«ã«ã¡ã‹ã¥ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool FishApproacheRun;
-    [Tooltip("yƒtƒ‰ƒOz‹›‚ªHIT‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€ãƒ•ãƒ©ã‚°ã€‘é­šãŒHITã—ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool FishHitRun;
-    //[Tooltip("y“–‚½‚è”»’èzƒJ[ƒ\ƒ‹ƒAƒ‰ƒEƒ“ƒh‚É“–‚½‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    //[Tooltip("ã€å½“ãŸã‚Šåˆ¤å®šã€‘ã‚«ãƒ¼ã‚½ãƒ«ã‚¢ãƒ©ã‚¦ãƒ³ãƒ‰ã«å½“ãŸã£ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     //bool CorsorAroundCollided;
-    [Tooltip("y“–‚½‚è”»’èzƒJ[ƒ\ƒ‹‚É“–‚½‚Á‚½‚©‚Ç‚¤‚©")]
+    [Tooltip("ã€å½“ãŸã‚Šåˆ¤å®šã€‘ã‚«ãƒ¼ã‚½ãƒ«ã«å½“ãŸã£ãŸã‹ã©ã†ã‹")]
     bool CorsorCollided;
 
-    [Tooltip("‹›‚Ìƒf[ƒ^(ƒCƒ“ƒXƒyƒNƒ^[‚Å•ÒW‚µ‚È‚¢‚Å)")]
+    [Tooltip("é­šã®ãƒ‡ãƒ¼ã‚¿(ã‚¤ãƒ³ã‚¹ãƒšã‚¯ã‚¿ãƒ¼ã§ç·¨é›†ã—ãªã„ã§)")]
     public FishData FishData;
 
-    [Tooltip("ƒJ[ƒ\ƒ‹‚É‹ß‚Ã‚­‚ÌŠp“x‚ğ‹L˜^‚µ‚Ä‚¨‚­")]
+    [Tooltip("ã‚«ãƒ¼ã‚½ãƒ«ã«è¿‘ã¥ãæ™‚ã®è§’åº¦ã‚’è¨˜éŒ²ã—ã¦ãŠã")]
     float InitialRotation;
 
-    [SerializeField, Tooltip("HIT‚Ìƒ[ƒ^[ƒvƒŒƒnƒu")]
+    [SerializeField, Tooltip("HITæ™‚ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ãƒ—ãƒ¬ãƒãƒ–")]
     GameObject FishingMeterPrefab;
-    [Tooltip("ƒ[ƒ^[ƒvƒŒƒnƒu‚ÌƒIƒuƒWƒFƒNƒg")]
+    [Tooltip("ãƒ¡ãƒ¼ã‚¿ãƒ¼ãƒ—ãƒ¬ãƒãƒ–ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject FishingMeterObj;
-    [Tooltip("HIT‚Ìƒ[ƒ^[ƒ}ƒXƒN‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€")]
+    [Tooltip("HITæ™‚ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ãƒã‚¹ã‚¯ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ")]
     Transform FishingMeterMaskTrs;
-    [Tooltip("ƒJ[ƒ\ƒ‹‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€")]
+    [Tooltip("ã‚«ãƒ¼ã‚½ãƒ«ã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ")]
     Transform CorsorTrs;
-    [Tooltip("ƒJƒƒ‰‚ÌƒXƒNƒŠƒvƒg")]
+    [Tooltip("ã‚«ãƒ¡ãƒ©ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     Cam CamScript;
-    [Tooltip("ƒvƒŒƒCƒ„[ƒXƒNƒŠƒvƒg")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     //Player PlayerScript;
 
 
@@ -59,7 +59,7 @@ public class FishShadow : MonoBehaviour
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
     }
 
-    //“–‚½‚è”»’è---------------------------------------------------------------
+    //å½“ãŸã‚Šåˆ¤å®š---------------------------------------------------------------
 
     void OnTriggerStay2D(Collider2D collision)
     {
@@ -91,19 +91,19 @@ public class FishShadow : MonoBehaviour
 
     void Update()
     {
-        // “–‚½‚è”»’è‚ğ‚Æ‚Á‚Äƒtƒ‰ƒO‚ğ—§‚Ä‚é && ƒvƒŒƒCƒ„[‚ªƒEƒL‚ğ•‚‚©‚×‚Ä‚¢‚é‚©-----------------------------------
+        // å½“ãŸã‚Šåˆ¤å®šã‚’ã¨ã£ã¦ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹ && ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒã‚¦ã‚­ã‚’æµ®ã‹ã¹ã¦ã„ã‚‹ã‹-----------------------------------
         //if (CorsorAroundCollided && PlayerScript.F_FishingFloat)
         //{
             if (!FishingRun)
             {
-                //ƒJ[ƒ\ƒ‹‚Ìü‚è‚É“–‚½‚Á‚½‚çˆê’èŠÔŠu‚Åƒtƒ‰ƒO‚ğ—§‚Ä‚é(Fishing‚ğÀs)
+                //ã‚«ãƒ¼ã‚½ãƒ«ã®å‘¨ã‚Šã«å½“ãŸã£ãŸã‚‰ä¸€å®šé–“éš”ã§ãƒ•ãƒ©ã‚°ã‚’ç«‹ã¦ã‚‹(Fishingã‚’å®Ÿè¡Œ)
                 StartCoroutine(Fishing());
                 FishingRun = true;
             }
         //}
         else
         {
-            //ƒJ[ƒ\ƒ‹‚Ìü‚è‚É“–‚½‚Á‚Ä‚¢‚È‚©‚Á‚½‚çƒtƒ‰ƒO‚ğŠO‚·
+            //ã‚«ãƒ¼ã‚½ãƒ«ã®å‘¨ã‚Šã«å½“ãŸã£ã¦ã„ãªã‹ã£ãŸã‚‰ãƒ•ãƒ©ã‚°ã‚’å¤–ã™
             FishTurnRun = false;
             FishApproacheRun = false;
             FishHitRun = false;
@@ -112,76 +112,76 @@ public class FishShadow : MonoBehaviour
         }
 
 
-        //ƒtƒ‰ƒO‚ª‚½‚Á‚½‚çÀs------------------------------------------------
+        //ãƒ•ãƒ©ã‚°ãŒãŸã£ãŸã‚‰å®Ÿè¡Œ------------------------------------------------
 
         if (FishTurnRun)
         {
             GameObject CorsorObj = GameObject.Find("Corsor");
             CorsorTrs = CorsorObj.GetComponent<Transform>();
-            // Œü‚«‚½‚¢•ûŒü‚ğŒvZ
+            // å‘ããŸã„æ–¹å‘ã‚’è¨ˆç®—
             Vector3 dir = CorsorTrs.position - transform.position;
-            // ‚±‚±‚ÅŒü‚«‚½‚¢•ûŒü‚É‰ñ“]‚³‚¹‚Ä‚Ü‚·
+            // ã“ã“ã§å‘ããŸã„æ–¹å‘ã«å›è»¢ã•ã›ã¦ã¾ã™
             Quaternion targetRotation = Quaternion.FromToRotation(Vector3.up, dir);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * FishData.FishTurnSmoothness);
-        }// 1.‹›‚ªƒJ[ƒ\ƒ‹•ûŒü‚É‰ñ“]
+        }// 1.é­šãŒã‚«ãƒ¼ã‚½ãƒ«æ–¹å‘ã«å›è»¢
 
         if (FishApproacheRun)
         {
             transform.position = Vector3.Lerp(transform.position, CorsorTrs.position, FishData.FishShadowSpeed * Time.deltaTime);
-        }// 2.‹›ƒJ[ƒ\ƒ‹‚É‹ß‚Ã‚­
+        }// 2.é­šã‚«ãƒ¼ã‚½ãƒ«ã«è¿‘ã¥ã
 
         if (FishHitRun && CorsorCollided)
         {
-            if (!CamZoomRun)//ˆê“x‚¾‚¯ƒJƒƒ‰‚ğ‘€ì
+            if (!CamZoomRun)//ä¸€åº¦ã ã‘ã‚«ãƒ¡ãƒ©ã‚’æ“ä½œ
             {
                 CamScript.CamReset();
-                CamScript.CamMove(5, transform.position - GameObject.Find("Reizi").GetComponent<Transform>().position);//(ƒJƒƒ‰‚ÌƒXƒs[ƒh, +ˆÚ“®‚·‚éÀ•W)
-                CamScript.CamZoom(1.2f, 5);// ƒJƒƒ‰ƒY[ƒ€(ƒY[ƒ€”{—¦, ƒY[ƒ€ƒXƒs[ƒh)
-                //CamScript.CamShake(0.05f);// ƒJƒƒ‰U“®(U“®‚Ì‘å‚«‚³)
+                CamScript.CamMove(5, transform.position - GameObject.Find("Reizi").GetComponent<Transform>().position);//(ã‚«ãƒ¡ãƒ©ã®ã‚¹ãƒ”ãƒ¼ãƒ‰, +ç§»å‹•ã™ã‚‹åº§æ¨™)
+                CamScript.CamZoom(1.2f, 5);// ã‚«ãƒ¡ãƒ©ã‚ºãƒ¼ãƒ (ã‚ºãƒ¼ãƒ å€ç‡, ã‚ºãƒ¼ãƒ ã‚¹ãƒ”ãƒ¼ãƒ‰)
+                //CamScript.CamShake(0.05f);// ã‚«ãƒ¡ãƒ©æŒ¯å‹•(æŒ¯å‹•ã®å¤§ãã•)
                 CamZoomRun = true;
             }
-            // Œ»İ‚ÌŠÔ‚ÉŠî‚Ã‚¢‚ÄŠp“x‚ğŒvZiƒIƒVƒŒ[ƒVƒ‡ƒ“j(FishTurnSmoothness‚Ì20”{‚ÌƒXƒs[ƒh‚Å‰ñ“])
+            // ç¾åœ¨ã®æ™‚é–“ã«åŸºã¥ã„ã¦è§’åº¦ã‚’è¨ˆç®—ï¼ˆã‚ªã‚·ãƒ¬ãƒ¼ã‚·ãƒ§ãƒ³ï¼‰(FishTurnSmoothnessã®20å€ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã§å›è»¢)
             float rotation = InitialRotation + FishData.FishTurnAngle * Mathf.Sin(Time.time * FishData.FishTurnSmoothness * 20);
-            transform.eulerAngles = new Vector3(0, 0, rotation);// V‚µ‚¢Šp“x‚ğİ’è
+            transform.eulerAngles = new Vector3(0, 0, rotation);// æ–°ã—ã„è§’åº¦ã‚’è¨­å®š
 
-            // ƒ[ƒ^[‘€ì
+            // ãƒ¡ãƒ¼ã‚¿ãƒ¼æ“ä½œ
             if (Input.GetKeyDown(KeyCode.Return))
             {
                 FishingMeterMaskTrs.localScale += new Vector3(0.1f, 0, 0);
             }
             if (FishingMeterMaskTrs.localScale.x >= 0) FishingMeterMaskTrs.localScale -= new Vector3(0.001f, 0, 0);
-        }// 4.‹›‚ªHIT
+        }// 4.é­šãŒHIT
     }
 
 
-    IEnumerator Fishing() // Šeƒtƒ‰ƒO‚ğˆê’èŠÔŠu‚Å—§‚Ä‚Ü‚·BƒJ[ƒ\ƒ‹‚É“–‚½‚Á‚½uŠÔ‚Éˆê“x‚¾‚¯Às‚µ‚Ü‚·B
+    IEnumerator Fishing() // å„ãƒ•ãƒ©ã‚°ã‚’ä¸€å®šé–“éš”ã§ç«‹ã¦ã¾ã™ã€‚ã‚«ãƒ¼ã‚½ãƒ«ã«å½“ãŸã£ãŸç¬é–“ã«ä¸€åº¦ã ã‘å®Ÿè¡Œã—ã¾ã™ã€‚
     {
-        // 1.‹›‚ªƒJ[ƒ\ƒ‹•ûŒü‚É‰ñ“]
+        // 1.é­šãŒã‚«ãƒ¼ã‚½ãƒ«æ–¹å‘ã«å›è»¢
         {
             FishTurnRun = true;
             yield return new WaitForSeconds(Random.Range(FishData.FishBiteTime, FishData.FishBiteTime * 1.5f));
         }
 
-        // 2.‹›ƒJ[ƒ\ƒ‹‚É‹ß‚Ã‚­
+        // 2.é­šã‚«ãƒ¼ã‚½ãƒ«ã«è¿‘ã¥ã
         {
             FishApproacheRun = true;
             yield return new WaitForSeconds(Random.Range(FishData.FishBiteTime / 2, FishData.FishBiteTime / 1.5f));
         }
 
-        // 4.‹›‚ªHIT
+        // 4.é­šãŒHIT
         {
-            InitialRotation = transform.eulerAngles.z;// Œ³‚ÌŠp“x‚ğ“ü‚ê‚Ä‚¨‚­
-            // ƒ[ƒ^[‚ğ¶¬
-            Instantiate(FishingMeterPrefab, transform.position, Quaternion.identity);// HIT‚Ìƒ[ƒ^[‚ğ¶¬‚·‚é
+            InitialRotation = transform.eulerAngles.z;// å…ƒã®è§’åº¦ã‚’å…¥ã‚Œã¦ãŠã
+            // ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ç”Ÿæˆ
+            Instantiate(FishingMeterPrefab, transform.position, Quaternion.identity);// HITæ™‚ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ã‚’ç”Ÿæˆã™ã‚‹
             FishingMeterObj = GameObject.Find("FishingMeter(Clone)");
-            FishingMeterMaskTrs = FishingMeterObj.transform.Find("FishingMeterMask").gameObject.transform;// FishingMeterMaskTrs‚Éƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚ğ“ü‚ê‚é
+            FishingMeterMaskTrs = FishingMeterObj.transform.Find("FishingMeterMask").gameObject.transform;// FishingMeterMaskTrsã«ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã‚’å…¥ã‚Œã‚‹
             FishingMeterMaskTrs.localScale = new Vector3(2, 1, 1);
             // PlayerScript.FishingHitNow = true;
             FishHitRun = true;
             // yield return new WaitForSeconds();
         }
 
-        //6.‹›‚ª“¦‚°‚é(‚à‚µ‚àFƒ[ƒ^[‚ª¶’[‚Ü‚Ås‚Á‚½‚ç && OK”ÍˆÍ‚ÌŠO‚È‚ç)
+        //6.é­šãŒé€ƒã’ã‚‹(ã‚‚ã—ã‚‚ï¼šãƒ¡ãƒ¼ã‚¿ãƒ¼ãŒå·¦ç«¯ã¾ã§è¡Œã£ãŸã‚‰ && OKç¯„å›²ã®å¤–ãªã‚‰)
         {
             //PlayerScript.FishingHitNow = false;
             //FishiHitTimeEnd

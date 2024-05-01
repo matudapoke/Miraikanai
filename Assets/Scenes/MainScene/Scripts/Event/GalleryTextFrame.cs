@@ -7,24 +7,24 @@ using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class GalleryTextFrame : MonoBehaviour
 {
-    [Tooltip("ƒLƒƒƒ‰‚ÌƒZƒŠƒt‚ğ“ü‚ê‚é”z—ñ")]
+    [Tooltip("ã‚­ãƒ£ãƒ©ã®ã‚»ãƒªãƒ•ã‚’å…¥ã‚Œã‚‹é…åˆ—")]
     public string[] Texts;
-    [Tooltip("Text‚ª•\¦‚³‚ê‚éƒXƒs[ƒh(•b)")]
+    [Tooltip("TextãŒè¡¨ç¤ºã•ã‚Œã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰(ç§’)")]
     public float TextSpeed;
 
-    [Tooltip("”z—ñ‚ğ”‚¦‚é")]
+    [Tooltip("é…åˆ—ã‚’æ•°ãˆã‚‹")]
     int ArrayCount;
-    [Tooltip("Œ»İ•\¦‚µ‚Ä‚¢‚éƒeƒLƒXƒg")]
+    [Tooltip("ç¾åœ¨è¡¨ç¤ºã—ã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     string CurrentText = "";
-    [SerializeField, Tooltip("ƒtƒŒ[ƒ€‚ª‘å‚«‚­‚È‚éƒXƒs[ƒh")]
+    [SerializeField, Tooltip("ãƒ•ãƒ¬ãƒ¼ãƒ ãŒå¤§ãããªã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float GrowSpeed;
 
-    [Tooltip("TextMeshPro‚ğ“ü‚ê‚é")]
+    [Tooltip("TextMeshProã‚’å…¥ã‚Œã‚‹")]
     public TextMeshProUGUI TextmeshPro;
 
     public void TextFrameStart()
     {
-        TextmeshPro.gameObject.SetActive(true);//TextmeshPro‚ğ•\¦‚·‚é
+        TextmeshPro.gameObject.SetActive(true);//TextmeshProã‚’è¡¨ç¤ºã™ã‚‹
         StartCoroutine(ZoomFrame());
     }
 
@@ -43,19 +43,19 @@ public class GalleryTextFrame : MonoBehaviour
 
     void TextFrameSet()
     {
-        CurrentText = "";//•\¦‚³‚ê‚éƒeƒLƒXƒg‚ğƒJƒ‰‚É‚·‚é
-        if (Texts.Length <= 0) Debug.Log("ƒeƒLƒXƒgƒtƒŒ[ƒ€ƒGƒ‰[F" + gameObject + "‚ÍƒeƒLƒXƒg‚ª“ü‚Á‚Ä‚¢‚Ü‚¹‚ñ");
+        CurrentText = "";//è¡¨ç¤ºã•ã‚Œã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚’ã‚«ãƒ©ã«ã™ã‚‹
+        if (Texts.Length <= 0) Debug.Log("ãƒ†ã‚­ã‚¹ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‚¨ãƒ©ãƒ¼ï¼š" + gameObject + "ã¯ãƒ†ã‚­ã‚¹ãƒˆãŒå…¥ã£ã¦ã„ã¾ã›ã‚“");
         else StartCoroutine(ShowText());
-        ArrayCount += 1;//”z—ñ“à‚ÌŸ‚ÌƒeƒLƒXƒg‚Ö
+        ArrayCount += 1;//é…åˆ—å†…ã®æ¬¡ã®ãƒ†ã‚­ã‚¹ãƒˆã¸
     }
 
-    IEnumerator ShowText()//ƒeƒLƒXƒg‚ğˆê•¶š‚¸‚Â•\¦‚·‚é
+    IEnumerator ShowText()//ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹
     {
         string Text = Texts[ArrayCount];
         for (int i = 0; i < Text.Length; i++)
         {
-            CurrentText += Text[i];// ˆê•¶š‚¸‚Â’Ç‰Á‚µ‚Ü‚·
-            TextmeshPro.text = CurrentText; // ƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg‚ğXV‚µ‚Ü‚·
+            CurrentText += Text[i];// ä¸€æ–‡å­—ãšã¤è¿½åŠ ã—ã¾ã™
+            TextmeshPro.text = CurrentText; // ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°ã—ã¾ã™
             yield return new WaitForSeconds(TextSpeed);
         }
     }
@@ -63,7 +63,7 @@ public class GalleryTextFrame : MonoBehaviour
 
     public void TextFrameEnd()
     {
-        TextmeshPro.gameObject.SetActive(false);//TextmeshPro‚ğ”ñ•\¦‚É‚·‚é
+        TextmeshPro.gameObject.SetActive(false);//TextmeshProã‚’éè¡¨ç¤ºã«ã™ã‚‹
         ArrayCount = 0;
         StartCoroutine(ZoomOutFrame());
     }
@@ -75,6 +75,6 @@ public class GalleryTextFrame : MonoBehaviour
             transform.localScale -= new Vector3(GrowSpeed * 4, GrowSpeed * 2, GrowSpeed) * Time.deltaTime;
             yield return null;
         }
-        gameObject.SetActive(false);//TextFrame‚ğ”ñ•\¦‚É‚·‚é
+        gameObject.SetActive(false);//TextFrameã‚’éè¡¨ç¤ºã«ã™ã‚‹
     }
 }

@@ -5,27 +5,27 @@ using UnityEngine.UIElements;
 
 public class Cam : MonoBehaviour
 {
-    [Tooltip("’Ç]‚·‚éƒ^[ƒQƒbƒg")]
+    [Tooltip("è¿½å¾“ã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ")]
     public Transform Target;
-    [Tooltip("ƒJƒƒ‰‚Ì‚¸‚ç‚·ˆÊ’u")]
+    [Tooltip("ã‚«ãƒ¡ãƒ©ã®ãšã‚‰ã™ä½ç½®")]
     public Vector3 ShiftPos;
-    [Tooltip("ƒJƒƒ‰‚ÌƒXƒs[ƒh")]
+    [Tooltip("ã‚«ãƒ¡ãƒ©ã®ã‚¹ãƒ”ãƒ¼ãƒ‰")]
     public float CamSpeed;
-    [Tooltip("‰¼‚ÉƒJƒƒ‰ƒXƒs[ƒh‚ğ“ü‚ê‚Ä‚¨‚­")]
+    [Tooltip("ä»®ã«ã‚«ãƒ¡ãƒ©ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’å…¥ã‚Œã¦ãŠã")]
     float CamSpeedTem;
-    [Tooltip("ƒJƒƒ‰‚ª’Ç]‚·‚éˆÊ’u")]
+    [Tooltip("ã‚«ãƒ¡ãƒ©ãŒè¿½å¾“ã™ã‚‹ä½ç½®")]
     Vector3 CamPos;
 
-    [Tooltip("ƒJƒƒ‰‚Ì‘å‚«‚³")]
+    [Tooltip("ã‚«ãƒ¡ãƒ©ã®å¤§ãã•")]
     float CamZoomNow;
-    [Tooltip("‚Ç‚ê‚¾‚¯ƒY[ƒ€‚·‚é‚©")]
+    [Tooltip("ã©ã‚Œã ã‘ã‚ºãƒ¼ãƒ ã™ã‚‹ã‹")]
     float CamZoomPulas = 5;
-    [Tooltip("ƒY[ƒ€‚Ì‘¬‚³")]
+    [Tooltip("ã‚ºãƒ¼ãƒ ã®é€Ÿã•")]
     float CamZoomSpeed;
 
-    [Tooltip("k‚¦‚Ì—Ê")]
-    float CamShake_Amount; // k‚¦‚Ì—Ê
-    [Tooltip("ƒJƒƒ‰‚ªk‚¦‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("éœ‡ãˆã®é‡")]
+    float CamShake_Amount; // éœ‡ãˆã®é‡
+    [Tooltip("ã‚«ãƒ¡ãƒ©ãŒéœ‡ãˆã‚‹ã‹ã©ã†ã‹")]
     bool CamShakeNow;
 
     float DeltaTIme;
@@ -38,11 +38,11 @@ public class Cam : MonoBehaviour
         CamPos = Target.position + ShiftPos;
         CamPos.z = -1;
         transform.position = Vector3.Lerp(transform.position, CamPos, CamSpeed * Time.deltaTime);
-        //ƒJƒƒ‰ƒY[ƒ€
+        //ã‚«ãƒ¡ãƒ©ã‚ºãƒ¼ãƒ 
         CamZoomNow = Camera.main.orthographicSize;
         Camera.main.orthographicSize = Mathf.Lerp(CamZoomNow, CamZoomPulas, CamZoomSpeed * Time.deltaTime);
 
-        // k‚¦
+        // éœ‡ãˆ
         DeltaTIme += Time.deltaTime;
         if (DeltaTIme >= CamShake_IntervalTime && CamShakeNow)
         {
@@ -70,16 +70,16 @@ public class Cam : MonoBehaviour
 
     public void CamMove(float Speed, Vector3 MoveValue)
     {
-        //Œ³‚ÌƒJƒƒ‰ƒXƒs[ƒh‚ğŠi”[
+        //å…ƒã®ã‚«ãƒ¡ãƒ©ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’æ ¼ç´
         CamSpeedTem = CamSpeed;
-        //ƒJƒƒ‰ˆÚ“®
+        //ã‚«ãƒ¡ãƒ©ç§»å‹•
         CamSpeed = Speed;
         ShiftPos += MoveValue;
     }
 
     public void CamZoom(float ZoomSpeed, float CamZoomLevel)
     {
-        CamZoomPulas = CamZoomNow / CamZoomLevel; // –Ú•W‚ÌƒY[ƒ€ƒŒƒxƒ‹‚ğİ’è
+        CamZoomPulas = CamZoomNow / CamZoomLevel; // ç›®æ¨™ã®ã‚ºãƒ¼ãƒ ãƒ¬ãƒ™ãƒ«ã‚’è¨­å®š
         CamZoomSpeed = ZoomSpeed;
     }
 

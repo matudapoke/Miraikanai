@@ -13,7 +13,7 @@ public class DynamicLayering : MonoBehaviour
 
     void Update()
     {
-        // ƒIƒuƒWƒFƒNƒg‚ÌYÀ•W‚ÉŠî‚Ã‚¢‚ÄsortingOrder‚ğXV‚µ‚Ü‚·
+        // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Yåº§æ¨™ã«åŸºã¥ã„ã¦sortingOrderã‚’æ›´æ–°ã—ã¾ã™
         spriteRenderer.sortingOrder = (int)(transform.position.y * -100);
     }
 }

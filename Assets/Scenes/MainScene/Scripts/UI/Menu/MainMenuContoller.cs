@@ -5,18 +5,18 @@ using UnityEngine.EventSystems;
 
 public class MainMenuContoller : MonoBehaviour
 {
-    // ƒtƒ‰ƒO
+    // ãƒ•ãƒ©ã‚°
     public bool CanMainMenuOpen;
     [HideInInspector]
     public bool MenuNow;
-    // ’l
-    [Tooltip("ƒƒjƒ…[‚ª‚Ç‚ÌˆÊ’u‚ÉˆÚ“®‚µ‚Ä‚­‚é‚©")]
+    // å€¤
+    [Tooltip("ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒã©ã®ä½ç½®ã«ç§»å‹•ã—ã¦ãã‚‹ã‹")]
     public Vector3 MenuWindowMovePosition;
-    [Tooltip("ƒƒjƒ…[‚ª‚Ç‚ÌˆÊ’u‚É–ß‚é‚©")]
+    [Tooltip("ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒã©ã®ä½ç½®ã«æˆ»ã‚‹ã‹")]
     public Vector3 MenuWindowRetrunPosition;
-    [Tooltip("ƒƒjƒ…[‚ªˆÚ“®‚·‚é‘¬‚³)")]
+    [Tooltip("ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒç§»å‹•ã™ã‚‹é€Ÿã•)")]
     public float MenuMoveSpeed;
-    // ƒRƒ“ƒ|[ƒlƒ“ƒg
+    // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     MainMenu mainMenu;
     Cam CamScript;
     CharaOperation charaOperation;
@@ -46,7 +46,7 @@ public class MainMenuContoller : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Tab) && fishingManager.phase == FishingManager.Phase.StartFishing)
         {
-            // «‹›ƒƒjƒ…[‚É‚·‚é
+            // â†“é­šãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã™ã‚‹
             if (!mainMenu.MainMenuWindowMove)
             {
                 mainMenu.MainMenuWindowMove = true;
@@ -61,21 +61,21 @@ public class MainMenuContoller : MonoBehaviour
     }
     public void MainMenuStart()
     {
-        // ƒJƒƒ‰‚ğ“®‚©‚·
+        // ã‚«ãƒ¡ãƒ©ã‚’å‹•ã‹ã™
         CamScript.CamMove(10, new Vector3(1.4f, 0, 0));
         CamScript.CamZoom(10, 2.5f);
-        // ƒLƒƒƒ‰‚ğ‘€ì‚Å‚«‚È‚­‚·‚é
+        // ã‚­ãƒ£ãƒ©ã‚’æ“ä½œã§ããªãã™ã‚‹
         charaOperation.CanRun = false;
-        // ƒtƒ‰ƒO
+        // ãƒ•ãƒ©ã‚°
         MenuNow = true;
     }
     public void MainMenuEnd()
     {
-        // ƒJƒƒ‰‚ğ–ß‚·
+        // ã‚«ãƒ¡ãƒ©ã‚’æˆ»ã™
         CamScript.CamReset();
-        // ƒLƒƒƒ‰‚ğ‘€ì‚Å‚«‚È‚­‚·‚é
+        // ã‚­ãƒ£ãƒ©ã‚’æ“ä½œã§ããªãã™ã‚‹
         charaOperation.CanRun = true;
-        // ƒtƒ‰ƒO
+        // ãƒ•ãƒ©ã‚°
         MenuNow = false;
     }
 }

@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
-    // ƒtƒ‰ƒO
+    // ãƒ•ãƒ©ã‚°
     [HideInInspector]
     public bool MainMenuWindowMove;
-    // ƒRƒ“ƒ|[ƒlƒ“ƒg
+    // ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
     MainMenuContoller MainMenuContoller;
     void Start()
     {
@@ -16,12 +16,12 @@ public class MainMenu : MonoBehaviour
 
     void Update()
     {
-        // MainMenuWindow‚ğo‚·
+        // MainMenuWindowã‚’å‡ºã™
         if (MainMenuWindowMove)
         {
             transform.position = Vector3.Lerp(transform.position, MainMenuContoller.MenuWindowMovePosition, MainMenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
-        // MainMenuWindow‚ğ‚µ‚Ü‚¤B
+        // MainMenuWindowã‚’ã—ã¾ã†ã€‚
         else
         {
             transform.position = Vector3.Lerp(transform.position, MainMenuContoller.MenuWindowRetrunPosition, MainMenuContoller.MenuMoveSpeed * Time.deltaTime);

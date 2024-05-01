@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField, Tooltip("‚È‚ñ‚Ì‹›H")]
+    [SerializeField, Tooltip("ãªã‚“ã®é­šï¼Ÿ")]
     FishData FishData;
 
-    [SerializeField, Tooltip("‚à‚Æ‚Ì‘å‚«‚³‚©‚çˆø‚­’l")]
+    [SerializeField, Tooltip("ã‚‚ã¨ã®å¤§ãã•ã‹ã‚‰å¼•ãå€¤")]
     float MinusScale = 1;
-    [SerializeField, Tooltip("L‚Ñk‚İ‚·‚éŠÔŠu(•b)")]
+    [SerializeField, Tooltip("ä¼¸ã³ç¸®ã¿ã™ã‚‹é–“éš”(ç§’)")]
     float StrechInterval;
-    [Tooltip("“®‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F‚·‚é‚½‚ß‚ÌÅŒã‚ÌˆÊ’u")]
+    [Tooltip("å‹•ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹ãŸã‚ã®æœ€å¾Œã®ä½ç½®")]
     Vector3 LastPosition;
-    [Tooltip("“®‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("å‹•ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool Move = false;
-    [Tooltip("StrechHeight‚ªÀs‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("StrechHeightãŒå®Ÿè¡Œã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool StrechHeightRunning = false;
-    [Tooltip("‚à‚Æ‚Ì‘å‚«‚³")]
+    [Tooltip("ã‚‚ã¨ã®å¤§ãã•")]
     Vector3 OriginalScale;
 
     void Start()
     {
-        OriginalScale = transform.localScale;// ‚à‚Æ‚Ì‘å‚«‚³‚ğ“ü‚ê‚Ä‚¨‚­
+        OriginalScale = transform.localScale;// ã‚‚ã¨ã®å¤§ãã•ã‚’å…¥ã‚Œã¦ãŠã
         StartCoroutine(StrechHeight());
     }
 
@@ -30,17 +30,17 @@ public class Item : MonoBehaviour
     {
         if (transform.position != LastPosition)
         {
-            Move = true;// “®‚¢‚Ä‚¢‚½‚çMove‚ªtrue
+            Move = true;// å‹•ã„ã¦ã„ãŸã‚‰MoveãŒtrue
             if (transform.localScale != OriginalScale)
             {
-                transform.localScale = OriginalScale;// Œ³‚Ì‘å‚«‚³‚É–ß‚·
+                transform.localScale = OriginalScale;// å…ƒã®å¤§ãã•ã«æˆ»ã™
                 MinusScale = -MinusScale;
             }
         }
         else
         {
-            Move = false; // “®‚¢‚Ä‚¢‚È‚©‚Á‚½‚çMove‚ªfalse
-            if (!StrechHeightRunning)// ƒRƒ‹[ƒ`ƒ“‚ªÀs’†‚Å‚È‚¯‚ê‚ÎƒRƒ‹[ƒ`ƒ“‚ğŠJn
+            Move = false; // å‹•ã„ã¦ã„ãªã‹ã£ãŸã‚‰MoveãŒfalse
+            if (!StrechHeightRunning)// ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒå®Ÿè¡Œä¸­ã§ãªã‘ã‚Œã°ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é–‹å§‹
             {
                 StartCoroutine(StrechHeight());
             }
@@ -50,34 +50,34 @@ public class Item : MonoBehaviour
 
     IEnumerator StrechHeight()
     {
-        StrechHeightRunning = true; // ƒRƒ‹[ƒ`ƒ“‚ªŠJn‚µ‚½‚Ì‚Åƒtƒ‰ƒO‚ğtrue‚Éİ’è
-        while (!Move)// “®‚¢‚Ä‚¢‚È‚©‚Á‚½‚ç
+        StrechHeightRunning = true; // ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒé–‹å§‹ã—ãŸã®ã§ãƒ•ãƒ©ã‚°ã‚’trueã«è¨­å®š
+        while (!Move)// å‹•ã„ã¦ã„ãªã‹ã£ãŸã‚‰
         {
             transform.localScale -= new Vector3(0, MinusScale, 0);
             MinusScale = -MinusScale;
             yield return new WaitForSeconds(StrechInterval);
         }
-        StrechHeightRunning = false;// ƒRƒ‹[ƒ`ƒ“‚ªI—¹‚µ‚½‚Ì‚Åƒtƒ‰ƒO‚ğfalse‚Éİ’è
+        StrechHeightRunning = false;// ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒçµ‚äº†ã—ãŸã®ã§ãƒ•ãƒ©ã‚°ã‚’falseã«è¨­å®š
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (FishData != null)// ƒAƒCƒeƒ€‚ª‹›‚¾‚Á‚½‚ç
+            if (FishData != null)// ã‚¢ã‚¤ãƒ†ãƒ ãŒé­šã ã£ãŸã‚‰
             {
-                // ƒAƒCƒeƒ€‚ğƒ|ƒPƒbƒgƒf[ƒ^ƒx[ƒX‚É’Ç‰Á
+                // ã‚¢ã‚¤ãƒ†ãƒ ã‚’ãƒã‚±ãƒƒãƒˆãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«è¿½åŠ 
                 GameObject FishDataBaseManagerObj = GameObject.Find("DataBaseManager");
                 FishDataBeseManager FishDataBaseManagerScript = FishDataBaseManagerObj.GetComponent<FishDataBeseManager>();
                 FishDataBaseManagerScript.AddFishData(FishData);
                 
-                // ƒ|ƒbƒvƒAƒbƒv‚ğ•\¦‚ğƒ|ƒbƒvƒAƒbƒvƒRƒ“ƒgƒ[ƒ‰‚Éw¦
+                // ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’è¡¨ç¤ºã‚’ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã«æŒ‡ç¤º
                 GameObject PopupControllerObj = GameObject.Find("PopupController");
                 PopupController PopupControllerScript = PopupControllerObj.GetComponent<PopupController>();
                 PopupControllerScript.SubmitPopup(FishData.FishName , FishData.FishImage);
             }
 
-            Destroy(gameObject);// ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg‚ğÁ‚·‚Æ‚»‚Ì‚ ‚Æ‚ÌƒR[ƒh‚ÍÀs‚³‚ê‚È‚¢
+            Destroy(gameObject);// ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆã™ã¨ãã®ã‚ã¨ã®ã‚³ãƒ¼ãƒ‰ã¯å®Ÿè¡Œã•ã‚Œãªã„
         }
     }
 }

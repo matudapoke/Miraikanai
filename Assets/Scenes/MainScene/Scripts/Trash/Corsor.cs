@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Corsor : MonoBehaviour
 {
-    [Tooltip("‹›‚ªƒqƒbƒg‚µ‚½‚©‚Ç‚¤‚©")]
+    [Tooltip("é­šãŒãƒ’ãƒƒãƒˆã—ãŸã‹ã©ã†ã‹")]
     public bool Hit;
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -24,7 +24,7 @@ public class Corsor : MonoBehaviour
     }
 }
 
-//‹›‚ªCorsor‚É“–‚½‚é
-//‘€ì‚ª‚Å‚«‚È‚­‚È‚é
-//FishCatchBar‚ªo‚é
-//ƒGƒ“ƒ^[‚ğ‰Ÿ‚·‚Æƒo[‚ªi‚Ş
+//é­šãŒCorsorã«å½“ãŸã‚‹
+//æ“ä½œãŒã§ããªããªã‚‹
+//FishCatchBarãŒå‡ºã‚‹
+//ã‚¨ãƒ³ã‚¿ãƒ¼ã‚’æŠ¼ã™ã¨ãƒãƒ¼ãŒé€²ã‚€

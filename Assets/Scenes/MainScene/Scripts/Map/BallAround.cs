@@ -30,17 +30,17 @@ public class BallAround : MonoBehaviour
     }
     private void ApplyForceWithAngle()
     {
-        // Šp“x‚ğƒ‰ƒWƒAƒ“‚É•ÏŠ·
+        // è§’åº¦ã‚’ãƒ©ã‚¸ã‚¢ãƒ³ã«å¤‰æ›
         float angleRadians = Mathf.Atan2(Ball_Trs.position.y - Player_Trs.position.y, Ball_Trs.position.x - Player_Trs.position.x);
 
-        // X¬•ª‚ÆY¬•ª‚ğŒvZ
+        // Xæˆåˆ†ã¨Yæˆåˆ†ã‚’è¨ˆç®—
         float forceX = Mathf.Cos(angleRadians);
         float forceY = Mathf.Sin(angleRadians);
 
-        // —Í‚ÌƒxƒNƒgƒ‹‚ğì¬
+        // åŠ›ã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ä½œæˆ
         Vector2 forceVector = new Vector3(forceX, forceY);
 
-        // —Í‚ğ‰Á‚¦‚é
+        // åŠ›ã‚’åŠ ãˆã‚‹
         Ball_Rb.AddForce(forceVector * Power);
     }
 

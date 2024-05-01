@@ -5,6 +5,6 @@ using UnityEngine;
 [SerializeField]
 public class PocketFishDataBase : ScriptableObject
 {
-    [Tooltip("ƒvƒŒƒCƒ„[‚ª‚Á‚Ä‚¢‚é‹›‚ÌƒŠƒXƒg")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæŒã£ã¦ã„ã‚‹é­šã®ãƒªã‚¹ãƒˆ")]
     public List<FishData> PocketFishDataBaseList = new List<FishData>();
 }

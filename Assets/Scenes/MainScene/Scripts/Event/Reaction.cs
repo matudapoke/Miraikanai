@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Reaction : MonoBehaviour
 {
-    // -------------Suprise(ビックリマーク)----------------
+    // -------------Suprise(繝薙ャ繧ｯ繝ｪ繝槭�ｼ繧ｯ)----------------
     [SerializeField] GameObject Suprise_Prefab;
     GameObject Suprise_Obj;
     public void Suprise(Vector3 Position, float Time)
@@ -20,7 +20,7 @@ public class Reaction : MonoBehaviour
         }
     }
 
-    // -------------Action(アクションマーク)----------------
+    // -------------Action(繧｢繧ｯ繧ｷ繝ｧ繝ｳ繝槭�ｼ繧ｯ)----------------
     [SerializeField] GameObject Action_Prefab;
     GameObject Action_Obj;
     SpriteRenderer ActionSpriteRenderer;

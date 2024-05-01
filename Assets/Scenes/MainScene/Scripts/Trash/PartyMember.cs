@@ -5,49 +5,49 @@ using static UnityEngine.GraphicsBuffer;
 
 public class PartyMember : MonoBehaviour
 {
-    [Tooltip("“®‚­ƒXƒs[ƒh")]
+    [Tooltip("å‹•ãã‚¹ãƒ”ãƒ¼ãƒ‰")]
     float MoveSpeedPlayer;
-    [SerializeField, Tooltip("ƒvƒŒƒCƒ„[‚Ì“®‚­ƒXƒs[ƒh‚Ì‰½”{‚©")]
+    [SerializeField, Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‹•ãã‚¹ãƒ”ãƒ¼ãƒ‰ã®ä½•å€ã‹")]
     float MoveSpeedRatio;
-    [SerializeField, Tooltip("’Ç”ö‚·‚é‚©‚Ç‚¤‚©(—£‚ê‚é‹——£‚ğ•\‚·ƒIƒuƒWƒFƒNƒg‚ÉN“ü‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©)")]
+    [SerializeField, Tooltip("è¿½å°¾ã™ã‚‹ã‹ã©ã†ã‹(é›¢ã‚Œã‚‹è·é›¢ã‚’è¡¨ã™ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ä¾µå…¥ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹)")]
     bool Follow;
-    [SerializeField, Tooltip("—£‚ê‚é‹——£‚ğ•\‚·ƒQ[ƒ€ƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Tooltip("é›¢ã‚Œã‚‹è·é›¢ã‚’è¡¨ã™ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject DistanceObj;
-    [SerializeField, Tooltip("’Ç”ö‚·‚é‘ÎÛ‚ÌƒQ[ƒ€ƒIƒuƒWƒFƒNƒg")]
+    [SerializeField, Tooltip("è¿½å°¾ã™ã‚‹å¯¾è±¡ã®ã‚²ãƒ¼ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject TargetObj;
-    [Tooltip("’Ç”ö‚·‚éƒIƒuƒWƒFƒNƒg‚Ìƒgƒ‰ƒ“ƒXƒtƒH[ƒ€")]
+    [Tooltip("è¿½å°¾ã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ")]
     Transform TargetTrs;
 
-    //uŠÔˆÚ“®
-    [SerializeField, Tooltip("uŠÔˆÚ“®‚·‚é‹——£")]
+    //ç¬é–“ç§»å‹•
+    [SerializeField, Tooltip("ç¬é–“ç§»å‹•ã™ã‚‹è·é›¢")]
     float DistanceMax;
-    [SerializeField, Tooltip("ƒXƒs[ƒh‚ª1.5”{‚É‚È‚é‹——£")]
+    [SerializeField, Tooltip("ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒ1.5å€ã«ãªã‚‹è·é›¢")]
     float DistanceA;
-    [SerializeField, Tooltip("ƒXƒs[ƒh‚ª2”{‚É‚È‚é‹——£")]
+    [SerializeField, Tooltip("ã‚¹ãƒ”ãƒ¼ãƒ‰ãŒ2å€ã«ãªã‚‹è·é›¢")]
     float DistanceB;
-    [Tooltip("MoveSpeedRatio‚ğ‰¼‚É“ü‚ê‚Ä‚¨‚­")]
+    [Tooltip("MoveSpeedRatioã‚’ä»®ã«å…¥ã‚Œã¦ãŠã")]
     float MoveSpeedRatioTem;
 
-    //List‚ÉÀ•W‚ğ“ü‚ê‚ÄƒvƒŒƒCƒ„[‚ğ’Ç”ö
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ“ü‚ê‚Ä‚¨‚­ƒŠƒXƒg")]
+    //Listã«åº§æ¨™ã‚’å…¥ã‚Œã¦ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚’è¿½å°¾
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’å…¥ã‚Œã¦ãŠããƒªã‚¹ãƒˆ")]
     List<Vector3> PlayerPositions = new List<Vector3>();
-    [SerializeField, Tooltip("ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğÄæ“¾‚·‚é‚Ü‚Å‚ÌŠÔ")]
+    [SerializeField, Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’å†å–å¾—ã™ã‚‹ã¾ã§ã®æ™‚é–“")]
     float RecordInterval;
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ”‚¦‚é")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’æ•°ãˆã‚‹")]
     int PlayerPositionsCount = 0;
 
 
     void Start()
     {
         TargetTrs = TargetObj.GetComponent<Transform>();
-        PlayerPositions.Add(TargetTrs.position);//Å‰‚ÉƒŠƒXƒg‚ÉƒvƒŒƒCƒ„[‚ÌÀ•W‚ğ“ü‚ê‚é
+        PlayerPositions.Add(TargetTrs.position);//æœ€åˆã«ãƒªã‚¹ãƒˆã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åº§æ¨™ã‚’å…¥ã‚Œã‚‹
 
-        //Player‚ÌMoveSpeed‚ğæ“¾
+        //Playerã®MoveSpeedã‚’å–å¾—
         //Player PlayerScript;
-        //PlayerScript = TargetObj.GetComponent<Player>(); //•t‚¢‚Ä‚¢‚éƒXƒNƒŠƒvƒg‚ğæ“¾
+        //PlayerScript = TargetObj.GetComponent<Player>(); //ä»˜ã„ã¦ã„ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’å–å¾—
         //MoveSpeedPlayer = PlayerScript.MoveSpeed;
         
-        Follow = true;//Å‰‚Í‚Â‚¢‚Ä‚¢‚­
+        Follow = true;//æœ€åˆã¯ã¤ã„ã¦ã„ã
         MoveSpeedRatioTem = MoveSpeedRatio;
     }
 
@@ -64,7 +64,7 @@ public class PartyMember : MonoBehaviour
                 }
         }
 
-        var Heading = TargetTrs.position - transform.position;//ƒ^[ƒQƒbƒg‚Æ‚Ì‹——£
+        var Heading = TargetTrs.position - transform.position;//ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã®è·é›¢
         if (Heading.x >= DistanceA || Heading.x <= -DistanceA || Heading.y >= DistanceA || Heading.y <= -DistanceA)
         {
             MoveSpeedRatio = 3;

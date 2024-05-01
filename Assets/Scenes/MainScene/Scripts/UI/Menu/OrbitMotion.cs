@@ -3,9 +3,9 @@ using UnityEngine;
 public class OrbitMotion : MonoBehaviour
 {
     [HideInInspector] public bool CanOrbitMotion;
-    public Transform centerObject; // ’†S‚Æ‚È‚éƒIƒuƒWƒFƒNƒg
-    public float radius = 5f; // ‰~‰^“®‚Ì”¼Œa
-    public float speed = 1f; // ‰~‰^“®‚Ì‘¬“x
+    public Transform centerObject; // ä¸­å¿ƒã¨ãªã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+    public float radius = 5f; // å††é‹å‹•ã®åŠå¾„
+    public float speed = 1f; // å††é‹å‹•ã®é€Ÿåº¦
 
     private Vector3 initialPosition;
 
@@ -18,15 +18,15 @@ public class OrbitMotion : MonoBehaviour
     {
         if (CanOrbitMotion)
         {
-            // ’†SƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğæ“¾
+            // ä¸­å¿ƒã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’å–å¾—
             Vector3 centerPosition = centerObject.position;
 
-            // ‰~‰^“®‚ÌŒvZ
+            // å††é‹å‹•ã®è¨ˆç®—
             float angle = Time.time * speed;
             float x = centerPosition.x + radius * Mathf.Cos(angle);
             float z = centerPosition.z + radius * Mathf.Sin(angle);
 
-            // ƒIƒuƒWƒFƒNƒg‚ÌˆÊ’u‚ğXV
+            // ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ä½ç½®ã‚’æ›´æ–°
             transform.position = new Vector3(x, initialPosition.y, z);
         }
     }

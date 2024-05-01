@@ -4,26 +4,26 @@ using UnityEngine;
 
 public class Strech : MonoBehaviour
 {
-    [Tooltip("ƒLƒƒƒ‰‚ªL‚Ñk‚İ‚·‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ã‚­ãƒ£ãƒ©ãŒä¼¸ã³ç¸®ã¿ã™ã‚‹ã‹ã©ã†ã‹")]
     public bool StrechCan = true;
-    [SerializeField,Tooltip("“®‚¢‚Ä‚¢‚é‚Æ‚«‚É“K‰‚·‚é‚©‚Ç‚¤‚©")]
+    [SerializeField,Tooltip("å‹•ã„ã¦ã„ã‚‹ã¨ãã«é©å¿œã™ã‚‹ã‹ã©ã†ã‹")]
     bool Adaptwheninmotion;
-    [SerializeField,Tooltip("‚à‚Æ‚Ì‘å‚«‚³‚©‚çˆø‚­’l")]
+    [SerializeField,Tooltip("ã‚‚ã¨ã®å¤§ãã•ã‹ã‚‰å¼•ãå€¤")]
     float MinusScale = 1;
-    [SerializeField, Tooltip("L‚Ñk‚İ‚·‚éŠÔŠu(•b)")]
+    [SerializeField, Tooltip("ä¼¸ã³ç¸®ã¿ã™ã‚‹é–“éš”(ç§’)")]
     float StrechInterval;
-    [Tooltip("“®‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F‚·‚é‚½‚ß‚ÌÅŒã‚ÌˆÊ’u")]
+    [Tooltip("å‹•ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹ã‚’ç¢ºèªã™ã‚‹ãŸã‚ã®æœ€å¾Œã®ä½ç½®")]
     Vector3 LastPosition;
-    [Tooltip("“®‚¢‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("å‹•ã„ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool Move = false;
-    [Tooltip("StrechHeight‚ªÀs‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("StrechHeightãŒå®Ÿè¡Œã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool StrechHeightRunning = false;
-    [Tooltip("‚à‚Æ‚Ì‘å‚«‚³")]
+    [Tooltip("ã‚‚ã¨ã®å¤§ãã•")]
     Vector3 OriginalScale;
 
     void Start()
     {
-        OriginalScale = transform.localScale;// ‚à‚Æ‚Ì‘å‚«‚³‚ğ“ü‚ê‚Ä‚¨‚­
+        OriginalScale = transform.localScale;// ã‚‚ã¨ã®å¤§ãã•ã‚’å…¥ã‚Œã¦ãŠã
         StartCoroutine(StrechHeight());
     }
 
@@ -35,17 +35,17 @@ public class Strech : MonoBehaviour
             {
                 if (transform.position != LastPosition)
                 {
-                    Move = true;// “®‚¢‚Ä‚¢‚½‚çMove‚ªtrue
+                    Move = true;// å‹•ã„ã¦ã„ãŸã‚‰MoveãŒtrue
                     if (transform.localScale != OriginalScale)
                     {
-                        transform.localScale = OriginalScale;// Œ³‚Ì‘å‚«‚³‚É–ß‚·
+                        transform.localScale = OriginalScale;// å…ƒã®å¤§ãã•ã«æˆ»ã™
                         MinusScale = -MinusScale;
                     }
                 }
                 else
                 {
-                    Move = false; // “®‚¢‚Ä‚¢‚È‚©‚Á‚½‚çMove‚ªfalse
-                    if (!StrechHeightRunning)// ƒRƒ‹[ƒ`ƒ“‚ªÀs’†‚Å‚È‚¯‚ê‚ÎƒRƒ‹[ƒ`ƒ“‚ğŠJn
+                    Move = false; // å‹•ã„ã¦ã„ãªã‹ã£ãŸã‚‰MoveãŒfalse
+                    if (!StrechHeightRunning)// ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒå®Ÿè¡Œä¸­ã§ãªã‘ã‚Œã°ã‚³ãƒ«ãƒ¼ãƒãƒ³ã‚’é–‹å§‹
                     {
                         StartCoroutine(StrechHeight());
                     }
@@ -59,13 +59,13 @@ public class Strech : MonoBehaviour
 
     IEnumerator StrechHeight()
     {
-        StrechHeightRunning = true; // ƒRƒ‹[ƒ`ƒ“‚ªŠJn‚µ‚½‚Ì‚Åƒtƒ‰ƒO‚ğtrue‚Éİ’è
-        while (!Move)// “®‚¢‚Ä‚¢‚È‚©‚Á‚½‚ç
+        StrechHeightRunning = true; // ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒé–‹å§‹ã—ãŸã®ã§ãƒ•ãƒ©ã‚°ã‚’trueã«è¨­å®š
+        while (!Move)// å‹•ã„ã¦ã„ãªã‹ã£ãŸã‚‰
         {
             transform.localScale -= new Vector3(0, MinusScale, 0);
             MinusScale = -MinusScale;
             yield return new WaitForSeconds(StrechInterval);
         }
-        StrechHeightRunning = false;// ƒRƒ‹[ƒ`ƒ“‚ªI—¹‚µ‚½‚Ì‚Åƒtƒ‰ƒO‚ğfalse‚Éİ’è
+        StrechHeightRunning = false;// ã‚³ãƒ«ãƒ¼ãƒãƒ³ãŒçµ‚äº†ã—ãŸã®ã§ãƒ•ãƒ©ã‚°ã‚’falseã«è¨­å®š
     }
 }

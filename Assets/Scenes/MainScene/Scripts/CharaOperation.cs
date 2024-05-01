@@ -6,21 +6,21 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class CharaOperation : MonoBehaviour
 {
-    [Header("‘€ì‚µ‚Ä•à‚¯‚é‚©‚Ç‚¤‚©"),Tooltip("‘€ì‚µ‚Ä•à‚¯‚é‚©‚Ç‚¤‚©")]
+    [Header("æ“ä½œã—ã¦æ­©ã‘ã‚‹ã‹ã©ã†ã‹"),Tooltip("æ“ä½œã—ã¦æ­©ã‘ã‚‹ã‹ã©ã†ã‹")]
     public bool CanRun = true;
-    [Header("“®‚­‘¬‚³"), Tooltip("ƒvƒŒƒCƒ„[‚ª“®‚­‘¬‚³")]
+    [Header("å‹•ãé€Ÿã•"), Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå‹•ãé€Ÿã•")]
     public float MoveSpeed;
-    [SerializeField, Tooltip("Î‚ßˆÚ“®‚É‚©‚¯‚é”{—¦i‚P‚¾‚Æ’Êí‘¬“x‚Ì‚Q”{j")]
+    [SerializeField, Tooltip("æ–œã‚ç§»å‹•ã«ã‹ã‘ã‚‹å€ç‡ï¼ˆï¼‘ã ã¨é€šå¸¸é€Ÿåº¦ã®ï¼’å€ï¼‰")]
     float MoveDiagonal;
-    [Tooltip("‰E‚É“®‚¢‚Ä‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("å³ã«å‹•ã„ã¦ã‚‹ã‹ã©ã†ã‹")]
     bool RightMove;
-    [Tooltip("ã‚É“®‚¢‚Ä‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("ä¸Šã«å‹•ã„ã¦ã‚‹ã‹ã©ã†ã‹")]
     bool UpMove;
-    [Tooltip("‰EŒü‚¢‚Ä‚é‚©‚Ç‚¤‚©"), HideInInspector]
+    [Tooltip("å³å‘ã„ã¦ã‚‹ã‹ã©ã†ã‹"), HideInInspector]
     public bool RightLook;
-    [Tooltip("”½“]‚µ‚Ä‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("åè»¢ã—ã¦ã‚‹ã‹ã©ã†ã‹")]
     bool Reversal;
-    [Tooltip("ƒAƒjƒ[ƒ^[")]
+    [Tooltip("ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚¿ãƒ¼")]
     Animator Anim;
 
     void Start()

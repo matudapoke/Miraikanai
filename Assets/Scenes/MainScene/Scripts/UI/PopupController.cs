@@ -5,15 +5,15 @@ using UnityEngine.UI;
 
 public class PopupController : MonoBehaviour
 {
-    [SerializeField, Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ÌƒvƒŒƒnƒu")]
+    [SerializeField, Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®ãƒ—ãƒ¬ãƒãƒ–")]
     GameObject PopupPrefab;
 
-    [Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ªŒ»İ‰½ŒÂ‚ ‚é‚©")]
+    [Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒç¾åœ¨ä½•å€‹ã‚ã‚‹ã‹")]
     int PopupCut = 0;
     List<GameObject> PopupList = new List<GameObject> { };
-    [Tooltip("¶¬‚µ‚½ƒ|ƒbƒvƒAƒbƒvƒIƒuƒWƒFƒNƒg")]
+    [Tooltip("ç”Ÿæˆã—ãŸãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     GameObject Popup;
-    [Tooltip("ƒ|ƒbƒvƒAƒbƒv‚ÌƒXƒNƒŠƒvƒg")]
+    [Tooltip("ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     Popup PopupScript;
     AudioSource audioSource;
 
@@ -24,17 +24,17 @@ public class PopupController : MonoBehaviour
 
     public void SubmitPopup(string Name, Sprite Image)
     {
-        if (PopupList.Count > PopupCut)//ƒ|ƒbƒvƒAƒbƒv‚ª‚Ü‚¾‚ ‚Á‚½‚ç
+        if (PopupList.Count > PopupCut)//ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒã¾ã ã‚ã£ãŸã‚‰
         {
             PopupCut += 1;
             for (int i =0; i > PopupList.Count; i++)
             {
                 GameObject Popup = PopupList[i];
                 Popup.gameObject.transform.position += new Vector3(30,0,0);
-                Debug.Log("‚“");
-            }//‚à‚µ‚àƒ|ƒbƒvƒAƒbƒv‚ªo‚Ä‚«‚½‚ç¡o‚Ä‚¢‚éƒ|ƒbƒvƒAƒbƒv‚ğã‚ÉˆÚ“®‚³‚¹‚é
+                Debug.Log("ï½“");
+            }//ã‚‚ã—ã‚‚ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ãŒå‡ºã¦ããŸã‚‰ä»Šå‡ºã¦ã„ã‚‹ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã‚’ä¸Šã«ç§»å‹•ã•ã›ã‚‹
         }
-        Popup = Instantiate(PopupPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);//ƒ|ƒbƒvƒAƒbƒv‚ÌƒNƒ[ƒ“‚ğ¶¬‚·‚é
+        Popup = Instantiate(PopupPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);//ãƒãƒƒãƒ—ã‚¢ãƒƒãƒ—ã®ã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ç”Ÿæˆã™ã‚‹
         PopupScript = Popup.GetComponent<Popup>();
         PopupList.Add(Popup.gameObject);
         StartCoroutine(PopupScript.MovePopupRun(Name , Image));

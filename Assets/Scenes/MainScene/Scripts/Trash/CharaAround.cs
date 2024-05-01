@@ -5,33 +5,33 @@ using TMPro;
 
 public class CharaAround : MonoBehaviour
 {
-    [SerializeField, Tooltip("ƒLƒƒƒ‰‚ÌƒZƒŠƒt‚ğ“ü‚ê‚é”z—ñ")]
+    [SerializeField, Tooltip("ã‚­ãƒ£ãƒ©ã®ã‚»ãƒªãƒ•ã‚’å…¥ã‚Œã‚‹é…åˆ—")]
     string[] Texts;
-    [Tooltip("”z—ñ‚Ì”")]
+    [Tooltip("é…åˆ—ã®æ•°")]
     int ArrayInt;
-    [Tooltip("”z—ñ‚ğ”‚¦‚é")]
+    [Tooltip("é…åˆ—ã‚’æ•°ãˆã‚‹")]
     int ArrayCount;
-    [Tooltip("Œ»İ•\¦‚µ‚Ä‚¢‚éƒeƒLƒXƒg")]
+    [Tooltip("ç¾åœ¨è¡¨ç¤ºã—ã¦ã„ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     string CurrentText = "";
-    [SerializeField, Tooltip("Text‚ª•\¦‚³‚ê‚éƒXƒs[ƒh(•b)")]
+    [SerializeField, Tooltip("TextãŒè¡¨ç¤ºã•ã‚Œã‚‹ã‚¹ãƒ”ãƒ¼ãƒ‰(ç§’)")]
     float TextSpeed;
-    [SerializeField, Tooltip("‚«o‚µ‚ğ“ü‚ê‚é")]
+    [SerializeField, Tooltip("å¹ãå‡ºã—ã‚’å…¥ã‚Œã‚‹")]
     GameObject TextFrameObj;
-    [SerializeField, Tooltip("TextMeshPro‚ğ“ü‚ê‚é")]
+    [SerializeField, Tooltip("TextMeshProã‚’å…¥ã‚Œã‚‹")]
     TextMeshProUGUI TextmeshPro;
-    [Tooltip("Pulyer‚ªCharaAroundni‚ÉN“ü‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©")]
+    [Tooltip("PulyerãŒCharaAroundniã«ä¾µå…¥ã—ã¦ã„ã‚‹ã‹ã©ã†ã‹")]
     bool PlayerCollision;
 
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌƒIƒuƒWƒFƒNƒg")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     public GameObject PlayerObj;
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌƒXƒNƒŠƒvƒg")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     CharaOperation PlayerSclipt;
 
     void Start()
     {
-        TextFrameObj.SetActive(false);//‚«o‚µ‚ğ”ñ•\¦‚É‚·‚é
-        TextmeshPro.gameObject.SetActive(false);//ƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
-        ArrayInt = Texts.Length;//”z—ñ‚Ì”‚ğ“ü‚ê‚é
+        TextFrameObj.SetActive(false);//å¹ãå‡ºã—ã‚’éè¡¨ç¤ºã«ã™ã‚‹
+        TextmeshPro.gameObject.SetActive(false);//ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
+        ArrayInt = Texts.Length;//é…åˆ—ã®æ•°ã‚’å…¥ã‚Œã‚‹
         PlayerSclipt = PlayerObj.GetComponent<CharaOperation>();
     }
 
@@ -47,40 +47,40 @@ public class CharaAround : MonoBehaviour
 
     void TextFrameStart()
     {
-        PlayerSclipt.CanRun = false;//•à‚¯‚È‚­‚·‚é
-        TextmeshPro.gameObject.SetActive(true);//TextmeshPro‚ğ•\¦‚·‚é
-        TextFrameObj.SetActive(true);//TextFrame‚ğ•\¦‚·‚é
+        PlayerSclipt.CanRun = false;//æ­©ã‘ãªãã™ã‚‹
+        TextmeshPro.gameObject.SetActive(true);//TextmeshProã‚’è¡¨ç¤ºã™ã‚‹
+        TextFrameObj.SetActive(true);//TextFrameã‚’è¡¨ç¤ºã™ã‚‹
         TextFrameSet();
 
         PlayerObj.GetComponent<Animator>().SetBool("BackLook",false);
         PlayerObj.GetComponent<Animator>().SetBool("RunBack", false);
         Transform PlayerTrs = PlayerObj.GetComponent<Transform>();
-        GameObject.Find("Main Camera").GetComponent<Cam>().CamMove(6, (transform.position - PlayerTrs.position)/2);//ƒvƒŒƒCƒ„[‚Æ‚«o‚µ‚Ì’†ŠÔ‚ÉƒJƒƒ‰‚ğˆÚ“®‚³‚¹‚é
+        GameObject.Find("Main Camera").GetComponent<Cam>().CamMove(6, (transform.position - PlayerTrs.position)/2);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨å¹ãå‡ºã—ã®ä¸­é–“ã«ã‚«ãƒ¡ãƒ©ã‚’ç§»å‹•ã•ã›ã‚‹
     }
 
     void TextFrameEnd()
     {
-        PlayerSclipt.CanRun = true;//•à‚¯‚é‚æ‚¤‚É‚·‚é
-        TextFrameObj.SetActive(false);//TextFrame‚ğ”ñ•\¦‚É‚·‚é
-        TextmeshPro.gameObject.SetActive(false);//TextmeshPro‚ğ”ñ•\¦‚É‚·‚é
+        PlayerSclipt.CanRun = true;//æ­©ã‘ã‚‹ã‚ˆã†ã«ã™ã‚‹
+        TextFrameObj.SetActive(false);//TextFrameã‚’éè¡¨ç¤ºã«ã™ã‚‹
+        TextmeshPro.gameObject.SetActive(false);//TextmeshProã‚’éè¡¨ç¤ºã«ã™ã‚‹
         ArrayCount = 0;
         GameObject.Find("Main Camera").GetComponent<Cam>().CamReset();
     }
 
     void TextFrameSet()
     {
-        CurrentText = "";//•\¦‚³‚ê‚éƒeƒLƒXƒg‚ğƒJƒ‰‚É‚·‚é
+        CurrentText = "";//è¡¨ç¤ºã•ã‚Œã‚‹ãƒ†ã‚­ã‚¹ãƒˆã‚’ã‚«ãƒ©ã«ã™ã‚‹
         StartCoroutine(ShowText());
-        ArrayCount += 1;//”z—ñ“à‚ÌŸ‚ÌƒeƒLƒXƒg‚Ö
+        ArrayCount += 1;//é…åˆ—å†…ã®æ¬¡ã®ãƒ†ã‚­ã‚¹ãƒˆã¸
     }
 
-    IEnumerator ShowText()//ƒeƒLƒXƒg‚ğˆê•¶š‚¸‚Â•\¦‚·‚é
+    IEnumerator ShowText()//ãƒ†ã‚­ã‚¹ãƒˆã‚’ä¸€æ–‡å­—ãšã¤è¡¨ç¤ºã™ã‚‹
     {
         string Text = Texts[ArrayCount];
         for (int i = 0; i < Text.Length; i++)
         {
-            CurrentText += Text[i];// ˆê•¶š‚¸‚Â’Ç‰Á‚µ‚Ü‚·
-            TextmeshPro.text = CurrentText; // ƒeƒLƒXƒgƒIƒuƒWƒFƒNƒg‚ğXV‚µ‚Ü‚·
+            CurrentText += Text[i];// ä¸€æ–‡å­—ãšã¤è¿½åŠ ã—ã¾ã™
+            TextmeshPro.text = CurrentText; // ãƒ†ã‚­ã‚¹ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ›´æ–°ã—ã¾ã™
             yield return new WaitForSeconds(TextSpeed);
         }
     }

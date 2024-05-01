@@ -4,24 +4,24 @@ using UnityEngine;
 
 public class FishDataBeseManager : MonoBehaviour
 {
-    //���̃f�[�^�x�[�X-----------------------------------------------------------------------------
+    //魚のデータベース-----------------------------------------------------------------------------
     
     [SerializeField]
     List<FishData> FishDataBase = new List<FishData>();
 
-    public FishData FishRundom()//�S�̂̋��̒����烉���_���Œ��I����
+    public FishData FishRundom()//全体の魚の中からランダムで抽選する
     {
         return FishDataBase[Random.Range(0, FishDataBase.Count)];
     }
 
 
 
-    //�����Ă��鋛�̃f�[�^�x�[�X-------------------------------------------------------------------
+    //持っている魚のデータベース-------------------------------------------------------------------
 
-    [SerializeField,Tooltip("�����Ă��鋛�̃f�[�^�x�[�X������")]
+    [SerializeField,Tooltip("持っている魚のデータベースを入れる")]
     PocketFishDataBase PocketFishDataBase;
 
-    void Start() //�Q�[���J�n���Ƀ��X�g�̒����J���ɂ���
+    void Start() //ゲーム開始時にリストの中をカラにする
     { 
         for (int i = 0; i <  PocketFishDataBase.PocketFishDataBaseList.Count; i++)
         {
@@ -30,16 +30,16 @@ public class FishDataBeseManager : MonoBehaviour
         PocketFishDataBase.PocketFishDataBaseList.Clear();
     }
 
-    public void AddFishData(FishData fishData)//����ǉ�����
+    public void AddFishData(FishData fishData)//魚を追加する
     {
         PocketFishDataBase.PocketFishDataBaseList.Add(fishData);
     }
 
-    //�����Ă��鋛��Debug.Log����----------
+    //持っている魚をDebug.Logする----------
 
     //void Update()
     //{
-    //int count = PocketFishDataBase.PocketFishDataBaseList.Count; // PocketFishDataBaseList�̗v�f��
+    //int count = PocketFishDataBase.PocketFishDataBaseList.Count; // PocketFishDataBaseListの要素数
 
     //for (int i = 0; i < count; i++)
     //{

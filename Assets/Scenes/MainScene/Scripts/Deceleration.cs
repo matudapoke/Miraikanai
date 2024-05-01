@@ -19,7 +19,7 @@ public class Deceleration : MonoBehaviour
         }
         else
         {
-            // •¨‘Ì‚Ì‘¬“x‚ğ™X‚ÉŒ¸­‚³‚¹‚é
+            // ç‰©ä½“ã®é€Ÿåº¦ã‚’å¾ã€…ã«æ¸›å°‘ã•ã›ã‚‹
             Vector3 velocity = Rb.velocity;
             velocity -= velocity.normalized * deceleration * Time.deltaTime;
             Rb.velocity = velocity;

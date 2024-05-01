@@ -6,29 +6,29 @@ using UnityEngine;
 [SerializeField]
 public class FishAbilitie : ScriptableObject
 {
-    [Tooltip("‹›‚Ì”\—Í‚Ì–¼‘O")]
+    [Tooltip("é­šã®èƒ½åŠ›ã®åå‰")]
     public string AbilitieName;
 
-    [Tooltip("‘Ì—ÍUP“")]
+    [Tooltip("ä½“åŠ›UPï¼…")]
     public float HpUpRate;
-    [Tooltip("‘Ì—ÍUP—Ê")]
+    [Tooltip("ä½“åŠ›UPé‡")]
     public int HpUpInt;
-    [Tooltip("UŒ‚—ÍUP“")]
+    [Tooltip("æ”»æ’ƒåŠ›UPï¼…")]
     public float AttckPowerUpRate;
-    [Tooltip("UŒ‚—ÍUP—Ê")]
+    [Tooltip("æ”»æ’ƒåŠ›UPé‡")]
     public int AttckPowerUpInt;
-    [Tooltip("–hŒä—ÍUP“")]
+    [Tooltip("é˜²å¾¡åŠ›UPï¼…")]
     public float DefensPowerUpRate;
-    [Tooltip("–hŒä—ÍUP—Ê")]
+    [Tooltip("é˜²å¾¡åŠ›UPé‡")]
     public int DefensPowerUpInt;
-    [Tooltip("‘f‘‚³UP“")]
+    [Tooltip("ç´ æ—©ã•UPï¼…")]
     public float SpeedPowerUpRate;
-    [Tooltip("‘f‘‚³UP—Ê")]
+    [Tooltip("ç´ æ—©ã•UPé‡")]
     public int SpeedPowerUpInt;
-    [Tooltip("‰ñ”ğ—¦UP“")]
+    [Tooltip("å›é¿ç‡UPï¼…")]
     public float AvoidanceRate;
-    [Tooltip("‰ïS—¦UP“")]
+    [Tooltip("ä¼šå¿ƒç‡UPï¼…")]
     public float CriticalHitRate;
-    [Tooltip("‰ïSUP—¦UP“")]
+    [Tooltip("ä¼šå¿ƒæ™‚UPç‡UPï¼…")]
     public float CritocalPowerUpRate;
 }

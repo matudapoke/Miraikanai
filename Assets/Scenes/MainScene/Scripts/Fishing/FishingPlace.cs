@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FishingPlace : MonoBehaviour
 {
-    [Header("oŒ»‚·‚é‹›‚ÌƒŠƒXƒg")]
+    [Header("å‡ºç¾ã™ã‚‹é­šã®ãƒªã‚¹ãƒˆ")]
     public List<FishData> FishBornList = new List<FishData>();
     public enum Direction
     {
@@ -17,32 +17,32 @@ public class FishingPlace : MonoBehaviour
         DownRight,
         DownLeft,
     }
-    [Header("’Ş‚èê‚Ì•ûŒü")]
+    [Header("é‡£ã‚Šå ´ã®æ–¹å‘")]
     public Direction direction;
 
 
-    //‹›‰e¶¬ 
+    //é­šå½±ç”Ÿæˆ 
 
-    //[Tooltip("¶¬‚·‚é”ÍˆÍA"),SerializeField]
+    //[Tooltip("ç”Ÿæˆã™ã‚‹ç¯„å›²A"),SerializeField]
     //Transform RangeA;
-    //[Tooltip("¶¬‚·‚é”ÍˆÍB"),SerializeField]
+    //[Tooltip("ç”Ÿæˆã™ã‚‹ç¯„å›²B"),SerializeField]
     //Transform RangeB;
-    //[Tooltip("¶¬‚·‚é‹›‚Ì”"),SerializeField]
+    //[Tooltip("ç”Ÿæˆã™ã‚‹é­šã®æ•°"),SerializeField]
     //int FishBornInt;
 
 
     //void Start()
     //{
-    //‹›¶¬
+    //é­šç”Ÿæˆ
     //  for (int i = 0; i <= FishBornInt; i++)
     //{
-    //  FishData BornFishData = ChooseFishBasedOnRarity();//FishBornList‚©‚ç‹›‚ğ’Š‘I
+    //  FishData BornFishData = ChooseFishBasedOnRarity();//FishBornListã‹ã‚‰é­šã‚’æŠ½é¸
     //GameObject BornFIshShadow = BornFishData.FishShadow;
 
-    //float x = Random.Range(RangeA.position.x, RangeB.position.x);//rangeA‚ÆrangeB‚ÌxÀ•W‚Ì”ÍˆÍ“à‚Åƒ‰ƒ“ƒ_ƒ€‚È”’l‚ğì¬
-    //float y = Random.Range(RangeA.position.y, RangeB.position.y);//rangeA‚ÆrangeB‚ÌyÀ•W‚Ì”ÍˆÍ“à‚Åƒ‰ƒ“ƒ_ƒ€‚È”’l‚ğì¬
+    //float x = Random.Range(RangeA.position.x, RangeB.position.x);//rangeAã¨rangeBã®xåº§æ¨™ã®ç¯„å›²å†…ã§ãƒ©ãƒ³ãƒ€ãƒ ãªæ•°å€¤ã‚’ä½œæˆ
+    //float y = Random.Range(RangeA.position.y, RangeB.position.y);//rangeAã¨rangeBã®yåº§æ¨™ã®ç¯„å›²å†…ã§ãƒ©ãƒ³ãƒ€ãƒ ãªæ•°å€¤ã‚’ä½œæˆ
     //Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-    //Instantiate(BornFIshShadow, new Vector2(x, y), rotation);//‹›¶¬
+    //Instantiate(BornFIshShadow, new Vector2(x, y), rotation);//é­šç”Ÿæˆ
 
     //FishShadow BornFIshShadowScript = BornFIshShadow.GetComponent<FishShadow>();
     //BornFIshShadowScript.FishData = BornFishData;
