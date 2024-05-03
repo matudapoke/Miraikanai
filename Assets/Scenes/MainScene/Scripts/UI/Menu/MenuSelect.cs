@@ -24,25 +24,28 @@ public class MenuSelect : MonoBehaviour
     {
         if (Selected)
         {
-            if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && UpMenu != null)
+            if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && UpMenu != null)
             {
                 UpMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if ((Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)) && DownMenu != null)
+            if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && DownMenu != null)
             {
                 DownMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
-                Debug.Log(gameObject.name);
             }
-            if ((Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)) && RightMenu != null)
+            if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && RightMenu != null)
             {
                 RightMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if ((Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)) && LeftMenu != null)
+            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && LeftMenu != null)
             {
                 LeftMenu.GetComponent<MenuSelect>().Select();
+                DeSelection();
+            }
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
                 DeSelection();
             }
         }
@@ -50,10 +53,15 @@ public class MenuSelect : MonoBehaviour
 
     public void Select()
     {
-        Selected = true;
         OriginalSprite = image.sprite;
         image.sprite = SelectedSprite;
+        StartCoroutine(SelectedSetBool(true));
     }
+    IEnumerator SelectedSetBool(bool Value)
+    {
+        yield return new WaitForSeconds(0.15f);
+        Selected = Value;
+    } 
     public void DeSelection()
     {
         Selected = false;
