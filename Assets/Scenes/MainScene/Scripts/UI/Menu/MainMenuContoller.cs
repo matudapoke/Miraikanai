@@ -21,6 +21,7 @@ public class MainMenuContoller : MonoBehaviour
     Cam CamScript;
     CharaOperation charaOperation;
     FishingManager fishingManager;
+    AudioSource audioSource;
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class MainMenuContoller : MonoBehaviour
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         charaOperation = GameObject.Find("Reizi").GetComponent<CharaOperation>();
         fishingManager = GameObject.Find("Reizi").GetComponent<FishingManager>();
+        audioSource = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -69,6 +71,7 @@ public class MainMenuContoller : MonoBehaviour
         // フラグ
         MenuNow = true;
         transform.Find("MainMenuWindow").transform.Find("1").GetComponent<MenuSelect>().Select();
+        audioSource.Play();
     }
     public void MainMenuEnd()
     {

@@ -14,10 +14,12 @@ public class MenuSelect : MonoBehaviour
     [SerializeField] GameObject DownMenu;
     [SerializeField] GameObject RightMenu;
     [SerializeField] GameObject LeftMenu;
+    Coroutine coroutine;
 
     void Start()
     {
         image = GetComponent<Image>();
+        OriginalSprite = image.sprite;
     }
 
     void Update()
@@ -44,9 +46,13 @@ public class MenuSelect : MonoBehaviour
                 LeftMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if (Input.GetKeyDown(KeyCode.Tab))
+        }
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            DeSelection();
+            if (coroutine != null)
             {
-                DeSelection();
+                StopCoroutine(coroutine);
             }
         }
     }
@@ -55,7 +61,11 @@ public class MenuSelect : MonoBehaviour
     {
         OriginalSprite = image.sprite;
         image.sprite = SelectedSprite;
-        StartCoroutine(SelectedSetBool(true));
+        coroutine = StartCoroutine(SelectedSetBool(true));
+        if (!Input.GetKeyDown(KeyCode.Tab))
+        {
+            GetComponent<AudioSource>().Play();
+        }
     }
     IEnumerator SelectedSetBool(bool Value)
     {
