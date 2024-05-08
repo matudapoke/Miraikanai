@@ -5,26 +5,25 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     // フラグ
-    [HideInInspector]
-    public bool MainMenuWindowMove;
+    [HideInInspector]public bool MenuWindowMove;
     // コンポーネント
-    MainMenuContoller MainMenuContoller;
+    MainMenuContoller MenuContoller;
     void Start()
     {
-        MainMenuContoller = transform.parent.gameObject.GetComponent<MainMenuContoller>();
+        MenuContoller = transform.parent.gameObject.GetComponent<MainMenuContoller>();
     }
 
     void Update()
     {
         // MainMenuWindowを出す
-        if (MainMenuWindowMove)
+        if (MenuWindowMove)
         {
-            transform.position = Vector3.Lerp(transform.position, MainMenuContoller.MenuWindowMovePosition, MainMenuContoller.MenuMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
         // MainMenuWindowをしまう。
         else
         {
-            transform.position = Vector3.Lerp(transform.position, MainMenuContoller.MenuWindowRetrunPosition, MainMenuContoller.MenuMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowRetrunPosition, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
     }
 }

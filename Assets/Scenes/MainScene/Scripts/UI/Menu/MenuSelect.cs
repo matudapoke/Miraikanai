@@ -31,17 +31,17 @@ public class MenuSelect : MonoBehaviour
                 UpMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && DownMenu != null)
+            else if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && DownMenu != null)
             {
                 DownMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && RightMenu != null)
+            else if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && RightMenu != null)
             {
                 RightMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
             }
-            if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && LeftMenu != null)
+            else if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && LeftMenu != null)
             {
                 LeftMenu.GetComponent<MenuSelect>().Select();
                 DeSelection();
