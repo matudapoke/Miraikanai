@@ -8,7 +8,7 @@ public class MenuSelect : MonoBehaviour
     Image image;
     [SerializeField] Sprite SelectedSprite;
     Sprite OriginalSprite;
-    bool Selected;
+    [HideInInspector] public bool Selected;
     [SerializeField] Vector3 SelectedObj_Position;
     [SerializeField] GameObject UpMenu;
     [SerializeField] GameObject DownMenu;
@@ -24,6 +24,7 @@ public class MenuSelect : MonoBehaviour
 
     void Update()
     {
+        // キーで選択
         if (Selected)
         {
             if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && UpMenu != null)
@@ -47,7 +48,8 @@ public class MenuSelect : MonoBehaviour
                 DeSelection();
             }
         }
-        if (Input.GetKeyDown(KeyCode.Tab))
+        // メニューを戻すと選択解除
+        if (Input.GetKeyDown(KeyCode.Tab) && Selected)
         {
             DeSelection();
             if (coroutine != null)

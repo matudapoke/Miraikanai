@@ -11,7 +11,11 @@ public class MainMenuContoller : MonoBehaviour
     public bool MenuNow;
     // 値
     [Tooltip("メニューがどの位置に移動してくるか")]
-    public Vector3 MenuWindowMovePosition;
+    public Vector3 MenuWindowMovePosition1;
+    [Tooltip("メニューが1つ重なっているときメニューがどの位置に移動してくるか")]
+    public Vector3 MenuWindowMovePosition2;
+    [Tooltip("メニューが2つ重なっているときメニューがどの位置に移動してくるか")]
+    public Vector3 MenuWindowMovePosition3;
     [Tooltip("メニューがどの位置に戻るか")]
     public Vector3 MenuWindowRetrunPosition;
     [Tooltip("メニューが移動する速さ)")]
