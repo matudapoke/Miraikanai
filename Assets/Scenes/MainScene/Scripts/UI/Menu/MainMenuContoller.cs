@@ -39,28 +39,28 @@ public class MainMenuContoller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && CanMainMenuOpen)
         {
-            if (!mainMenu.MenuWindowMove)
+            if (!mainMenu.MenuWindowMove1)
             {
-                mainMenu.MenuWindowMove = true;
+                mainMenu.MenuWindowMove1 = true;
                 MainMenuStart();
             }
             else
             {
-                mainMenu.MenuWindowMove = false;
+                mainMenu.MenuWindowMove1 = false;
                 MainMenuEnd();
             }
         }
         if (Input.GetKeyDown(KeyCode.Tab) && fishingManager.phase == FishingManager.Phase.StartFishing)
         {
             // ↓魚メニューにする
-            if (!mainMenu.MenuWindowMove)
+            if (!mainMenu.MenuWindowMove1)
             {
-                mainMenu.MenuWindowMove = true;
+                mainMenu.MenuWindowMove1 = true;
                 fishingManager.FishingMenu = true;
             }
             else
             {
-                mainMenu.MenuWindowMove = false;
+                mainMenu.MenuWindowMove1 = false;
                 fishingManager.FishingMenu = false;
             }
         }

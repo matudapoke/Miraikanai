@@ -418,6 +418,8 @@ public class FishingManager : MonoBehaviour
                     CamScript.CamZoom(3, 1.1f);
                     // マーク
                     GameObject.Find("EventManager").GetComponent<Reaction>().Suprise(transform.position + new Vector3(1, 1.5f, 0), 0.75f);
+                    // レイジアニメーション
+                    PlayerAnime.SetBool("Hit", true);
                     // 0.75秒待つ
                     yield return new WaitForSeconds(0.75f);
                     // カメラ
@@ -591,6 +593,7 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
+        PlayerAnime.SetBool("Hit", false);
         if (FishingMeter_Obj != null)
         {
             Destroy(FishingMeter_Obj);
