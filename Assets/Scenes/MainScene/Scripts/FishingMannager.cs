@@ -5,6 +5,8 @@ using UnityEngine;
 using static UnityEngine.Rendering.DebugManager;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.UI;
+
 public class FishingManager : MonoBehaviour
 {
     // 値
@@ -17,8 +19,6 @@ public class FishingManager : MonoBehaviour
     float FishingTime_Throw;
     float FishingTime_ToHitEnd;
     float FishingTime_SinceHit;
-    [SerializeField, Header("釣り時のバーの滑らかさ")]
-    float FishingMeterBar_MoveSpeed;
     // フラグ
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
@@ -34,16 +34,6 @@ public class FishingManager : MonoBehaviour
     // ゲームオブジェクト
     GameObject Corsor_Obj;
     GameObject FishingFloat_Obj;
-    [SerializeField, Header("釣り時のメーター")]
-    GameObject FishingMeter_Prefab;
-    GameObject FishingMeter_Obj;
-    Transform FishingMeter_MaskTrs;
-    Transform FishingMeterBar_Trs;
-    Transform FishingMeterBarClone_Trs;
-    [SerializeField, Header("釣り時の釣り糸のメーター")]
-    GameObject FishingLineMeter_Prefab;
-    GameObject FishingLineMeter_Obj;
-    Transform FishingLineMeterMask_Trs;
     GameObject FishImage_Obj;
     [SerializeField, Header("釣れた時に表示する魚の画像。空のprefabを入れる")]
     GameObject FishImage_Prefab;
@@ -53,6 +43,7 @@ public class FishingManager : MonoBehaviour
     Cam CamScript;
     FishingPlace FishingPlaceScript;
     Animator FloatAnime;
+    [SerializeField] GameObject FishingMeter_Prefab;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -187,63 +178,7 @@ public class FishingManager : MonoBehaviour
         // HIT時メーター操作
         if (MeterOperation)
         {
-            // メーター操作
-            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Return))
-            {
-                CamScript.CamOneShake(0.05f, 0.1f, 0.2f);
-                FishingMeter_MaskTrs.localScale += new Vector3(0.3f, 0, 0);
-                FishingMeterBarClone_Trs.position += new Vector3(0.15f, 0, 0);
-                // SE(FishingMeterOpration)
-                GetComponents<AudioSource>()[1].Play();
-            }
-            // 魚の抵抗 & 釣り糸操作
-            if (FishingMeter_MaskTrs.localScale.x >= 0)
-            { 
-                FishingMeter_MaskTrs.localScale -= new Vector3(1, 0, 0) * Time.deltaTime;
-                FishingMeterBarClone_Trs.position -= new Vector3(0.5f, 0, 0) * Time.deltaTime;
-                // 釣り糸
-                if (FishingMeter_MaskTrs.localScale.x <= FishData.FishingMeterOKLevelMin || FishingMeter_MaskTrs.localScale.x >= FishData.FishingMeterOKLevelMax)
-                {
-                    FishingLineMeterMask_Trs.localScale -= new Vector3(0.3f, 0, 0) * Time.deltaTime;
-                    if (FishingLineMeterMask_Trs.localScale.x <= 0)
-                    {
-                        MeterOperation = false;
-                        HitFailure = true;
-                    }
-                }
-            }
-            // バーを移動
-            FishingMeterBar_Trs.position = Vector2.Lerp(FishingMeterBar_Trs.position, FishingMeterBarClone_Trs.position, FishingMeterBar_MoveSpeed * Time.deltaTime);
-            //HIT終了(時間)
-            FishingTime_SinceHit += Time.deltaTime;
-            if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
-            {
-                //FishDataのOKLevel範囲内だったら成功
-                if (FishingMeter_MaskTrs.localScale.x >= FishData.FishingMeterOKLevelMin && FishingMeter_MaskTrs.localScale.x <= FishData.FishingMeterOKLevelMax)
-                {
-                    MeterOperation = false;
-                    HitSuccess = true;
-                }
-                //範囲外だったら失敗
-                else
-                {
-                    MeterOperation = false;
-                    HitFailure = true;
-                }
-            }
-            // HIT終了(メーター端)
-            // 右端だったら成功
-            else if (FishingMeter_MaskTrs.localScale.x >= 5.5f)
-            {
-                MeterOperation = false;
-                HitSuccess = true;
-            }
-            // 左端だったら失敗
-            else if (FishingMeter_MaskTrs.localScale.x <= 0.2f)
-            {
-                MeterOperation = false;
-                HitFailure = true;
-            }
+            
         }
         else
         {
@@ -430,18 +365,12 @@ public class FishingManager : MonoBehaviour
                     // 釣りの長さ
                     FishingTime_ToHitEnd = Random.Range(3.0f, 5.0f);
                     Debug.Log("HIT：" + FishingTime_ToHitEnd + "秒後にHIT終了");
-                    // メーターを生成
-                    FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.gameObject.transform.position, Quaternion.identity);// HIT時のメーターを生成する
-                    FishingMeter_MaskTrs = FishingMeter_Obj.transform.Find("FishingMeterMask").transform;// FishingMeterMaskTrsにトランスフォームを入れる
-                    FishingMeter_MaskTrs.localScale = new Vector3(2, 1, 1);
-                    FishingMeter_Obj.transform.Find("FishingMeterOKLineLower").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMin, 1, 1);
-                    FishingMeter_Obj.transform.Find("FishingMeterOKLineUpper").gameObject.transform.localScale = new Vector3(FishData.FishingMeterOKLevelMax, 1, 1);
-                    FishingMeterBar_Trs = FishingMeter_Obj.transform.Find("FishingMeterBar").transform;
-                    FishingMeterBarClone_Trs = FishingMeter_Obj.transform.Find("FishingMeterBarClone").transform;
-                    FishingMeterBar_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
-                    FishingMeterBarClone_Trs.position = new Vector3(FishingMeter_MaskTrs.position.x + (FishingMeter_MaskTrs.localScale.x / 2), FishingMeter_MaskTrs.position.y, FishingMeter_MaskTrs.position.z);
-                    FishingLineMeter_Obj = Instantiate(FishingLineMeter_Prefab, FishingFloat_Obj.gameObject.transform.position + new Vector3(0, 1, 0), Quaternion.identity);// 釣り糸のメーター
-                    FishingLineMeterMask_Trs = FishingLineMeter_Obj.transform.Find("FishingLineMeterMask");
+                    // メーターを生成(Rotation(min)0～255)
+                    GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
+                    Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
+                    OKLineTrs.eulerAngles = new Vector3(0, 0, 255*FishData.FishingMeterOKLevelMin); // <--魚の値を代入FishingMeterOKLineMin
+                    Debug.Log(FishData.FishingMeterOKLevelMin);
+                    OKLineTrs.GetComponent<Image>().fillAmount = FishData.FishingMeterOKLevelMax; // <--魚の値を代入FishingMeterOKLineMax
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;
@@ -468,8 +397,7 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("ThrowFloatFlont", false);
                     PlayerAnime.SetBool("ThrowFloatSide", false);
                     // メーターを消す
-                    Destroy(FishingMeter_Obj);
-                    Destroy(FishingLineMeter_Obj);
+                    
                     //カメラを動かす&カーソルを元の位置に戻す
                     CamScript.CamReset();
                     {
@@ -594,11 +522,8 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
         PlayerAnime.SetBool("Hit", false);
-        if (FishingMeter_Obj != null)
-        {
-            Destroy(FishingMeter_Obj);
-            Destroy(FishingLineMeter_Obj);
-        }
+        // メーターを消す
+
         Debug.Log("終了");
     }
     void FishingFloatEnd()
@@ -629,7 +554,9 @@ public class FishingManager : MonoBehaviour
         for (int i = 0; i < FishList.Count; i++)
         {
             if (randomPoint < 6.0f - FishList[i].Rarity)
+            {
                 return FishList[i];
+            }
             else
                 randomPoint -= 6.0f - FishList[i].Rarity;
         }

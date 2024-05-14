@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,9 +27,9 @@ public class FishData : ScriptableObject
     public float FishBiteTime;
     [Tooltip("魚がHITしてから終わるまでの時間")]
     public float FishingHitWitTime;
-    [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最小値(メーターの大きさ：0～5.7)"), Range(0, 5.7f)]
+    [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最小値(メーターの大きさ：0～1)"), Range(0, 1)]
     public float FishingMeterOKLevelMin;
-    [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最大値(メーターの大きさ：0～5.7)"), Range(0, 5.7f)]
+    [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最大値(メーターの大きさ：0～1)"), Range(0, 1)]
     public float FishingMeterOKLevelMax;
     [Tooltip("魚のレアリティ(1～5)"), Range(1, 5)]
     public int Rarity;
