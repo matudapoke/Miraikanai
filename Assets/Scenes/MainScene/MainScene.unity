@@ -9885,21 +9885,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4918314573643413124, guid: 076da962456250048a7145018da6c028, type: 3}
+      propertyPath: m_FillAmount
+      value: 0.367
+      objectReference: {fileID: 0}
     - target: {fileID: 5515759459672983014, guid: 076da962456250048a7145018da6c028, type: 3}
       propertyPath: m_Name
       value: FishingMeter
       objectReference: {fileID: 0}
     - target: {fileID: 9161064397422089352, guid: 076da962456250048a7145018da6c028, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.8660254
+      value: 0.9053466
       objectReference: {fileID: 0}
     - target: {fileID: 9161064397422089352, guid: 076da962456250048a7145018da6c028, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.5
+      value: 0.4246735
       objectReference: {fileID: 0}
     - target: {fileID: 9161064397422089352, guid: 076da962456250048a7145018da6c028, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 60
+      value: 50.26
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

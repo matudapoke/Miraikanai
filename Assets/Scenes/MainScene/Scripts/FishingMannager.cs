@@ -368,9 +368,10 @@ public class FishingManager : MonoBehaviour
                     // メーターを生成(Rotation(min)0～255)
                     GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
                     Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
-                    OKLineTrs.eulerAngles = new Vector3(0, 0, 255*FishData.FishingMeterOKLevelMin); // <--魚の値を代入FishingMeterOKLineMin
-                    Debug.Log(FishData.FishingMeterOKLevelMin);
-                    OKLineTrs.GetComponent<Image>().fillAmount = FishData.FishingMeterOKLevelMax; // <--魚の値を代入FishingMeterOKLineMax
+                    float OKLineMin = 255f * FishData.FishingMeterOKLevelMin;
+                    OKLineTrs.eulerAngles = new Vector3(0, 0, OKLineMin); // <--魚の値を代入FishingMeterOKLineMin
+                    float OKLineMax = 255f * FishData.FishingMeterOKLevelMax;
+                    OKLineTrs.GetComponent<Image>().fillAmount = (255f / 360f) * FishData.FishingMeterOKLevelMax; // <--魚の値を代入FishingMeterOKLineMax
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;
