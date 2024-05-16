@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Reaction : MonoBehaviour
 {
     // -------------Suprise(ビックリマーク)----------------
     [SerializeField] GameObject Suprise_Prefab;
+    [SerializeField] float FadeOutTime;
     GameObject Suprise_Obj;
     public void Suprise(Vector3 Position, float Time)
     {
@@ -22,47 +24,60 @@ public class Reaction : MonoBehaviour
 
     // -------------Action(アクションマーク)----------------
     [SerializeField] GameObject Action_Prefab;
-    GameObject Action_Obj;
+    List<GameObject> Action_Objs = new List<GameObject>();
     SpriteRenderer ActionSpriteRenderer;
     Coroutine ActionCoroutine;
-    public void Action_Create(Vector3 Position, float Time)
+    int ActionID = 0;
+    public int Action_Create(Vector3 Position, float Time)
+    {
+        StartCoroutine(Action_Create_Run(Position, Time));
+        return ActionID-1;
+    }
+    IEnumerator Action_Create_Run(Vector3 Position, float Time)
     {
         if (ActionCoroutine != null)
         {
             StopCoroutine(ActionCoroutine);
         }
         Action_Destroy();
-        Action_Obj = Instantiate(Action_Prefab, Position, Quaternion.identity, transform);
-        Action_FadeOut_Run(Time);
+        Action_Objs.Add(Instantiate(Action_Prefab, Position, Quaternion.identity, transform));
+        ActionID++;
+        yield return new WaitForSeconds(Time);
+        Action_FadeOut(ActionID-1);
     }
     public void Action_Destroy()
     {
-        if (Action_Obj != null)
+        foreach (GameObject Action_Obj in Action_Objs)
         {
             Destroy(Action_Obj);
         }
     }
-    public void Action_FadeOut_Run(float time)
+    public void Action_FadeOut(int ID)
     {
-        if (ActionCoroutine != null)
+        if (Action_Objs[ID] != null)
         {
-            StopCoroutine(ActionCoroutine);
+            if (ActionCoroutine != null)
+            {
+                StopCoroutine(ActionCoroutine);
+            }
+            ActionCoroutine = StartCoroutine(ActionFadeOut_Run(ID));
         }
-        ActionCoroutine = StartCoroutine(ActionFadeOut(time));
     }
-    IEnumerator ActionFadeOut(float Time)
+    IEnumerator ActionFadeOut_Run(int ID)
     {
-        yield return new WaitForSeconds(Time);
-        if (Action_Obj != null)
+        if (Action_Objs[ID] != null)
         {
-            ActionSpriteRenderer = Action_Obj.GetComponent<SpriteRenderer>();
+            ActionSpriteRenderer = Action_Objs[ID].GetComponent<SpriteRenderer>();
             ActionSpriteRenderer.color = new Color(1,1,1,1);
             for (float i = 1; i > 0; i -= 0.05f)
             {
-                ActionSpriteRenderer.color = new Color(1,1,1,i);
-                yield return null;
+                if (Action_Objs[ID] != null)
+                {
+                    ActionSpriteRenderer.color = new Color(1, 1, 1, i);
+                    yield return new WaitForSeconds(FadeOutTime / 255);
+                }
             }
-            Action_Destroy();
+            Destroy(Action_Objs[ID]);
         }
     }
 }

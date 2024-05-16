@@ -233,6 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Suprise_Prefab: {fileID: 2569795078092032348, guid: 103672a8c2282db4bb180aec375425e7, type: 3}
+  FadeOutTime: 5
   Action_Prefab: {fileID: 2569795078092032348, guid: a20e182d5d8f90643ab9c28f84331ff2, type: 3}
 --- !u!4 &117909770
 Transform:
@@ -1088,7 +1089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8539074630152120755, guid: 9811ad051cd571e41b01b81e0ec9df3f, type: 3}
       propertyPath: m_Color.a
-      value: 0
+      value: 0.68235296
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9999,6 +10000,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029636914}
     m_Modifications:
+    - target: {fileID: -5901647550675624361, guid: 9811ad051cd571e41b01b81e0ec9df3f, type: 3}
+      propertyPath: Time
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5329169953647724095, guid: 9811ad051cd571e41b01b81e0ec9df3f, type: 3}
       propertyPath: m_Name
       value: FishingPlace

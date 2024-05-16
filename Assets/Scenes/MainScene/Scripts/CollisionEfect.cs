@@ -11,8 +11,11 @@ public class CollisionEfect : MonoBehaviour
         Suprise,
         Action,
     }
+    GameObject CollisionObj;
+    bool flag;
     [SerializeField] EfectType efectType;
     [SerializeField] float Time;
+    int ID;
 
 
     void Start()
@@ -20,29 +23,42 @@ public class CollisionEfect : MonoBehaviour
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
     }
 
+    void DisplayEfect()
+    {
+        if (!flag)
+        {
+            flag = true;
+            if (efectType == EfectType.Suprise)
+            {
+                reaction.Suprise(GameObject.FindWithTag("Player").transform.position, Time);
+            }
+            else if (efectType == EfectType.Action)
+            {
+                ID = reaction.Action_Create(GameObject.FindWithTag("Player").transform.position, Time);
+            }
+        }
+    }
+    void DestoryEfect()
+    {
+        flag = false;
+        if (efectType == EfectType.Action)
+        {
+            reaction.Action_FadeOut(ID);
+        }
+    }
+
     void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ObjCollited = true;
-            if (efectType == EfectType.Suprise)
-            {
-                reaction.Suprise(collision.transform.position, Time);
-            }
-            else if (efectType == EfectType.Action)
-            {
-                reaction.Action_Create(collision.transform.position, Time);
-            }
+            DisplayEfect();
         }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (efectType == EfectType.Action)
-            {
-                reaction.Action_FadeOut_Run(0);
-            }
+            DestoryEfect();
         }
     }
 }

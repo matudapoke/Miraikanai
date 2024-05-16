@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   efectType: 1
-  Time: 50
+  Time: 5
 --- !u!50 &7854177160239366494
 Rigidbody2D:
   serializedVersion: 4

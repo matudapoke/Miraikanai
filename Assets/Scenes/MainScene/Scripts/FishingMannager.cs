@@ -44,6 +44,7 @@ public class FishingManager : MonoBehaviour
     FishingPlace FishingPlaceScript;
     Animator FloatAnime;
     [SerializeField] GameObject FishingMeter_Prefab;
+    Reaction reaction;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -71,6 +72,7 @@ public class FishingManager : MonoBehaviour
         PlayerAnime = GetComponent<Animator>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
+        reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
     }
     void Update()
     {
@@ -260,6 +262,8 @@ public class FishingManager : MonoBehaviour
                     //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
                     gameObject.GetComponent<Strech>().StrechCan = false;
                     charaOperation.CanRun = false;
+                    // Actionを消す
+                    reaction.Action_Destroy();
                     yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
                     // リターンorZでウキを浮かべる
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
