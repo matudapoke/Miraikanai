@@ -611,6 +611,7 @@ GameObject:
   - component: {fileID: 172442025}
   - component: {fileID: 172442027}
   - component: {fileID: 172442026}
+  - component: {fileID: 172442028}
   m_Layer: 0
   m_Name: WaveSound
   m_TagString: Untagged
@@ -742,6 +743,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ListenerTrs: {fileID: 1043155214}
+--- !u!114 &172442028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 172442024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566649d37eab6fe4e9bf3847b62af7c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Sounds:
+  - {fileID: 8300000, guid: 594452f3d717f467395cc43d9c92df7f, type: 3}
+  - {fileID: 8300000, guid: 42c0247159fe74536b60207d3514d4d4, type: 3}
+  - {fileID: 8300000, guid: ec9968c67992643baacd60afc1a2b3c5, type: 3}
+  - {fileID: 8300000, guid: a6eb4ee236e9a4df8808021c34ad1942, type: 3}
+  - {fileID: 8300000, guid: 8295e6848494c437e8116cee819e3151, type: 3}
+  SoundIntervalMin: 1
+  SoundIntervalMax: 30
+  SoundVolumeMin: 0.1
+  SoundVolumeMax: 1
+  SpawnPrefab: {fileID: 1845225707604478067, guid: 52e8d18bf710b4e4eac4c5ae2262d778, type: 3}
+  SpawnSoundVolumeMin: 0.99
 --- !u!1001 &196933674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5843,7 +5868,7 @@ Transform:
   m_GameObject: {fileID: 1043155212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -219.636, y: -47, z: 0}
+  m_LocalPosition: {x: -229.71, y: -47, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -7233,7 +7258,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 4b952058fd40c6be000000008dee1938
+  m_ApplyToSortingLayers: 4b952058fd40c6be000000008dee1938114b19ea
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0

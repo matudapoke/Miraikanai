@@ -264,6 +264,7 @@ public class FishingManager : MonoBehaviour
                     charaOperation.CanRun = false;
                     // Actionを消す
                     reaction.Action_Destroy();
+
                     yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
                     // リターンorZでウキを浮かべる
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
