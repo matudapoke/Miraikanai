@@ -22,7 +22,7 @@ MonoBehaviour:
   FishTurnAngle: 45
   FishBiteTime: 2
   FishingHitWitTime: 5
-  FishingMeterOKLevelMin: 0.036
+  FishingMeterOKLevelMin: 0.289
   FishingMeterOKLevelMax: 0.715
   Rarity: 1
   FishPower: 0

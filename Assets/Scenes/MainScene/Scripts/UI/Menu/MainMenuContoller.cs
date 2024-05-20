@@ -50,6 +50,7 @@ public class MainMenuContoller : MonoBehaviour
                 MainMenuEnd();
             }
         }
+        /*
         if (Input.GetKeyDown(KeyCode.Tab) && fishingManager.phase == FishingManager.Phase.StartFishing)
         {
             // ↓魚メニューにする
@@ -64,6 +65,7 @@ public class MainMenuContoller : MonoBehaviour
                 fishingManager.FishingMenu = false;
             }
         }
+        */
     }
     public void MainMenuStart()
     {

@@ -37,6 +37,7 @@ public class FishingManager : MonoBehaviour
     GameObject FishImage_Obj;
     [SerializeField, Header("釣れた時に表示する魚の画像。空のprefabを入れる")]
     GameObject FishImage_Prefab;
+    GameObject FishingMeterBarObj;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -180,7 +181,17 @@ public class FishingManager : MonoBehaviour
         // HIT時メーター操作
         if (MeterOperation)
         {
-            
+            // 結果
+            FishingTime_SinceHit += Time.deltaTime;
+            if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
+            {
+                Debug.Log("成功判定");
+            }
+            // バーの操作
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
+            {
+                FishingMeterBarObj.GetComponent<RectTransform>().rotation = new Quaternion(0,0,0.1f,0);
+            }
         }
         else
         {
@@ -373,10 +384,11 @@ public class FishingManager : MonoBehaviour
                     // メーターを生成(Rotation(min)0～255)
                     GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
                     Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
-                    float OKLineMin = 255f * FishData.FishingMeterOKLevelMin;
+                    float OKLineMin = 240f * FishData.FishingMeterOKLevelMin + 60; // Minを計算
                     OKLineTrs.eulerAngles = new Vector3(0, 0, OKLineMin); // <--魚の値を代入FishingMeterOKLineMin
-                    float OKLineMax = 255f * FishData.FishingMeterOKLevelMax;
-                    OKLineTrs.GetComponent<Image>().fillAmount = (255f / 360f) * FishData.FishingMeterOKLevelMax; // <--魚の値を代入FishingMeterOKLineMax
+                    float OKLineMax = (FishData.FishingMeterOKLevelMax - ((OKLineMin - 60) / 240)) * 0.668f;// Maxを計算
+                    OKLineTrs.GetComponent<Image>().fillAmount = OKLineMax; // <--魚の値を代入FishingMeterOKLineMax
+                    FishingMeterBarObj = FishingMeter_Obj.transform.Find("FishingMeterBar").gameObject;
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;

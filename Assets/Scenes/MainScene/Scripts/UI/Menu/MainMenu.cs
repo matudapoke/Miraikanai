@@ -18,20 +18,20 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         // MainMenuWindowを出す
-        if (MenuWindowMove1)
+        if (MenuWindowMove3)
         {
-            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition1, MenuContoller.MenuMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition3, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
         if (MenuWindowMove2)
         {
             transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition2, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
-        if (MenuWindowMove3)
+        if (MenuWindowMove1)
         {
-            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition3, MenuContoller.MenuMoveSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowMovePosition1, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
         // MainMenuWindowをしまう。
-        else
+        if (!MenuWindowMove1 && !MenuWindowMove2 && !MenuWindowMove3)
         {
             transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowRetrunPosition, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
