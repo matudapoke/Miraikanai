@@ -19,6 +19,8 @@ public class FishingManager : MonoBehaviour
     float FishingTime_Throw;
     float FishingTime_ToHitEnd;
     float FishingTime_SinceHit;
+    float OKLineMin;
+    float OKLineMax;
     // フラグ
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
@@ -37,7 +39,7 @@ public class FishingManager : MonoBehaviour
     GameObject FishImage_Obj;
     [SerializeField, Header("釣れた時に表示する魚の画像。空のprefabを入れる")]
     GameObject FishImage_Prefab;
-    GameObject FishingMeterBarObj;
+    GameObject FishingMeterBar_Obj;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -46,6 +48,7 @@ public class FishingManager : MonoBehaviour
     Animator FloatAnime;
     [SerializeField] GameObject FishingMeter_Prefab;
     Reaction reaction;
+    Transform FishingMeterBar_Transform;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -181,17 +184,38 @@ public class FishingManager : MonoBehaviour
         // HIT時メーター操作
         if (MeterOperation)
         {
-            // 結果
+            // 結果判定-----------------------
             FishingTime_SinceHit += Time.deltaTime;
+            //　時間経過
             if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
             {
-                Debug.Log("成功判定");
+                if ()
+                {
+
+                }
+                HitSuccess = true;
+                phase = Phase.Hit;
             }
-            // バーの操作
+            // 右端に行ったら成功
+            else if (FishingMeterBar_Transform.rotation.z >= 125)
+            {
+                HitSuccess = true;
+                phase = Phase.Hit;
+            }
+            // 左端に行ったら失敗
+            else if (FishingMeterBar_Transform.rotation.z >= -125)
+            {
+                HitFailure = false;
+                phase = Phase.Hit;   
+            }
+            // バーの操作---------------------
+            // プレイヤーによる操作
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
-                FishingMeterBarObj.GetComponent<RectTransform>().rotation = new Quaternion(0,0,0.1f,0);
+                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, 5);
             }
+            // 魚の抵抗力による操作
+            FishingMeterBar_Transform.eulerAngles -= new Vector3(0, 0, FishData.FishPower * Time.deltaTime);
         }
         else
         {
@@ -384,11 +408,13 @@ public class FishingManager : MonoBehaviour
                     // メーターを生成(Rotation(min)0～255)
                     GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
                     Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
-                    float OKLineMin = 240f * FishData.FishingMeterOKLevelMin + 60; // Minを計算
+                    OKLineMin = 240f * FishData.FishingMeterOKLevelMin + 60; // Minを計算
                     OKLineTrs.eulerAngles = new Vector3(0, 0, OKLineMin); // <--魚の値を代入FishingMeterOKLineMin
-                    float OKLineMax = (FishData.FishingMeterOKLevelMax - ((OKLineMin - 60) / 240)) * 0.668f;// Maxを計算
+                    OKLineMax = FishData.FishingMeterOKLevelMax - ((OKLineMin - 60) / 240);
+                    float OKLineMax_fillAmount = OKLineMax * 0.668f;// Maxを計算
                     OKLineTrs.GetComponent<Image>().fillAmount = OKLineMax; // <--魚の値を代入FishingMeterOKLineMax
-                    FishingMeterBarObj = FishingMeter_Obj.transform.Find("FishingMeterBar").gameObject;
+                    FishingMeterBar_Obj = FishingMeter_Obj.transform.Find("FishingMeterBar").gameObject;
+                    FishingMeterBar_Transform = FishingMeterBar_Obj.transform;
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
                     MeterOperation = false;
@@ -415,7 +441,7 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("ThrowFloatFlont", false);
                     PlayerAnime.SetBool("ThrowFloatSide", false);
                     // メーターを消す
-                    
+
                     //カメラを動かす&カーソルを元の位置に戻す
                     CamScript.CamReset();
                     {

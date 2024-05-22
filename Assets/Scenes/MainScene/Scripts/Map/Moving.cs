@@ -10,7 +10,6 @@ public class Moving : MonoBehaviour
     void Start()
     {
         int RandomInt = Random.Range(0, 2);
-        Debug.Log(RandomInt);
         if (RandomInt == 0)
         {
             RightMove = true;
