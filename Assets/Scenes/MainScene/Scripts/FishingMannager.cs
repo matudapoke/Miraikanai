@@ -49,6 +49,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject FishingMeter_Prefab;
     Reaction reaction;
     Transform FishingMeterBar_Transform;
+    MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -77,6 +78,7 @@ public class FishingManager : MonoBehaviour
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
+        mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
     void Update()
     {
@@ -189,24 +191,32 @@ public class FishingManager : MonoBehaviour
             //　時間経過
             if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
             {
-                if ()
+                if (FishingMeterBar_Transform.rotation.z-180 > OKLineMin && FishingMeterBar_Transform.rotation.z-180 < OKLineMax)
                 {
-
+                    HitSuccess = true;
+                    phase = Phase.Hit;
+                    Debug.Log("OKライン内");
                 }
-                HitSuccess = true;
-                phase = Phase.Hit;
+                else
+                {
+                    HitFailure = true;
+                    phase = Phase.Hit;  
+                    Debug.Log("OKライン外");
+                }
             }
             // 右端に行ったら成功
             else if (FishingMeterBar_Transform.rotation.z >= 125)
             {
                 HitSuccess = true;
                 phase = Phase.Hit;
+                Debug.Log("右端");
             }
             // 左端に行ったら失敗
-            else if (FishingMeterBar_Transform.rotation.z >= -125)
+            else if (FishingMeterBar_Transform.rotation.z <= -125)
             {
-                HitFailure = false;
-                phase = Phase.Hit;   
+                HitFailure = true;
+                phase = Phase.Hit;
+                Debug.Log("左端");   
             }
             // バーの操作---------------------
             // プレイヤーによる操作
@@ -297,6 +307,8 @@ public class FishingManager : MonoBehaviour
                     //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
                     gameObject.GetComponent<Strech>().StrechCan = false;
                     charaOperation.CanRun = false;
+                    //　メインメニューを開けなくする
+                    mainMenuContoller.CanMainMenuOpen = false;
                     // Actionを消す
                     reaction.Action_Destroy();
 
@@ -397,6 +409,7 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("Hit", true);
                     // 0.75秒待つ
                     yield return new WaitForSeconds(0.75f);
+                    PlayerAnime.SetBool("HitNow", true);
                     // カメラ
                     CamScript.CamZoom(5, 1.2f);// カメラズーム(ズーム倍率, ズームスピード)
                     CamScript.CamShake(0.005f, 0.1f);// カメラ振動(振動の大きさ)
@@ -408,11 +421,10 @@ public class FishingManager : MonoBehaviour
                     // メーターを生成(Rotation(min)0～255)
                     GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
                     Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
-                    OKLineMin = 240f * FishData.FishingMeterOKLevelMin + 60; // Minを計算
+                    OKLineMin = 240 * FishData.FishingMeterOKLevelMin + 60; // Minを計算
                     OKLineTrs.eulerAngles = new Vector3(0, 0, OKLineMin); // <--魚の値を代入FishingMeterOKLineMin
-                    OKLineMax = FishData.FishingMeterOKLevelMax - ((OKLineMin - 60) / 240);
-                    float OKLineMax_fillAmount = OKLineMax * 0.668f;// Maxを計算
-                    OKLineTrs.GetComponent<Image>().fillAmount = OKLineMax; // <--魚の値を代入FishingMeterOKLineMax
+                    OKLineMax = 240 * FishData.FishingMeterOKLevelMax + 60;// Maxを計算
+                    OKLineTrs.GetComponent<Image>().fillAmount = (FishData.FishingMeterOKLevelMax - FishData.FishingMeterOKLevelMin) * 0.668f; // <--魚の値を代入FishingMeterOKLineMax
                     FishingMeterBar_Obj = FishingMeter_Obj.transform.Find("FishingMeterBar").gameObject;
                     FishingMeterBar_Transform = FishingMeterBar_Obj.transform;
                     MeterOperation = true;
@@ -558,7 +570,7 @@ public class FishingManager : MonoBehaviour
         // 他フラグを戻す
         StartFishingReturn = false;
         FloatLandingWater_Run = false;
-        //mainMenuContoller.CanMainMenu = true;
+        mainMenuContoller.CanMainMenuOpen = true;
         // アニメーション
         PlayerAnime.SetBool("Fishing", false);
         PlayerAnime.SetBool("FishingFloatEnd", false);
@@ -566,6 +578,7 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
         PlayerAnime.SetBool("Hit", false);
+        PlayerAnime.SetBool("HitNow", false);
         // メーターを消す
 
         Debug.Log("終了");
@@ -584,6 +597,8 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
+        PlayerAnime.SetBool("Hit", false);
+        PlayerAnime.SetBool("HitNow", false);
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {
