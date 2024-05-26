@@ -188,31 +188,40 @@ public class FishingManager : MonoBehaviour
         {
             // 結果判定-----------------------
             FishingTime_SinceHit += Time.deltaTime;
+            float fishingMeterRotate;
+            if (FishingMeterBar_Transform.eulerAngles.z <= 360 && FishingMeterBar_Transform.eulerAngles.z >= 180)
+            {
+                fishingMeterRotate = FishingMeterBar_Transform.eulerAngles.z - 180;
+            }
+            else
+            {
+                fishingMeterRotate = FishingMeterBar_Transform.eulerAngles.z + 180;
+            }
             //　時間経過
             if (FishingTime_SinceHit >= FishingTime_ToHitEnd)
             {
-                if (FishingMeterBar_Transform.rotation.z-180 > OKLineMin && FishingMeterBar_Transform.rotation.z-180 < OKLineMax)
+                if (fishingMeterRotate > OKLineMin && fishingMeterRotate < OKLineMax)
                 {
                     HitSuccess = true;
                     phase = Phase.Hit;
-                    Debug.Log("OKライン内");
+                    Debug.Log("OKライン内。OKLineMin:" + OKLineMin + "OKLineMax:" + OKLineMax + "Bar" + fishingMeterRotate);
                 }
                 else
                 {
                     HitFailure = true;
-                    phase = Phase.Hit;  
-                    Debug.Log("OKライン外");
+                    phase = Phase.Hit;
+                    Debug.Log("OKライン外。OKLineMin:"+OKLineMin+"OKLineMax:"+OKLineMax+"Bar"+fishingMeterRotate);
                 }
             }
             // 右端に行ったら成功
-            else if (FishingMeterBar_Transform.rotation.z >= 125)
+            else if (fishingMeterRotate >= 301)
             {
                 HitSuccess = true;
                 phase = Phase.Hit;
-                Debug.Log("右端");
+                Debug.Log("右端"+ fishingMeterRotate);
             }
             // 左端に行ったら失敗
-            else if (FishingMeterBar_Transform.rotation.z <= -125)
+            else if (fishingMeterRotate <= 58)
             {
                 HitFailure = true;
                 phase = Phase.Hit;

@@ -25,9 +25,9 @@ MonoBehaviour:
   FishingMeterOKLevelMin: 0.289
   FishingMeterOKLevelMax: 0.715
   Rarity: 1
-  FishPower: 3
+  FishPower: 30
   FishLevel: 0
   FishType: 
   FishAbilitie: 
   FishAblitiesVar: 0
-  NewFish: 0
+  NewFish: 1
