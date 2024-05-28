@@ -21,7 +21,7 @@ public class MainMenuContoller : MonoBehaviour
     [Tooltip("メニューが移動する速さ)")]
     public float MenuMoveSpeed;
     // コンポーネント
-    MainMenu mainMenu;
+    MainMenu FirstMenu;
     Cam CamScript;
     CharaOperation charaOperation;
     FishingManager fishingManager;
@@ -29,7 +29,7 @@ public class MainMenuContoller : MonoBehaviour
 
     void Start()
     {
-        mainMenu = transform.Find("MainMenuWindow").GetComponent<MainMenu>();
+        FirstMenu = transform.Find("MainMenuWindow").GetComponent<MainMenu>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         charaOperation = GameObject.Find("Reizi").GetComponent<CharaOperation>();
         fishingManager = GameObject.Find("Reizi").GetComponent<FishingManager>();
@@ -39,14 +39,14 @@ public class MainMenuContoller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && CanMainMenuOpen)
         {
-            if (!mainMenu.MenuWindowMove1)
+            if (!FirstMenu.MenuWindowMove1)
             {
-                mainMenu.MenuWindowMove1 = true;
+                FirstMenu.MenuWindowMove1 = true;
                 MainMenuStart();
             }
             else
             {
-                mainMenu.MenuWindowMove1 = false;
+                FirstMenu.MenuWindowMove1 = false;
                 MainMenuEnd();
             }
         }
@@ -54,14 +54,14 @@ public class MainMenuContoller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) && fishingManager.phase == FishingManager.Phase.StartFishing)
         {
             // ↓魚メニューにする
-            if (!mainMenu.MenuWindowMove1)
+            if (!FirstMenu.MenuWindowMove1)
             {
-                mainMenu.MenuWindowMove1 = true;
+                FirstMenu.MenuWindowMove1 = true;
                 fishingManager.FishingMenu = true;
             }
             else
             {
-                mainMenu.MenuWindowMove1 = false;
+                FirstMenu.MenuWindowMove1 = false;
                 fishingManager.FishingMenu = false;
             }
         }
