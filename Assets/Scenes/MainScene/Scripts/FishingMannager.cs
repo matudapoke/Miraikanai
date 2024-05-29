@@ -39,6 +39,7 @@ public class FishingManager : MonoBehaviour
     GameObject FishImage_Obj;
     [SerializeField, Header("釣れた時に表示する魚の画像。空のprefabを入れる")]
     GameObject FishImage_Prefab;
+    GameObject FishingMeter_Obj;
     GameObject FishingMeterBar_Obj;
     // コンポーネント
     Animator PlayerAnime;
@@ -428,7 +429,7 @@ public class FishingManager : MonoBehaviour
                     FishingTime_ToHitEnd = Random.Range(3.0f, 5.0f);
                     Debug.Log("HIT：" + FishingTime_ToHitEnd + "秒後にHIT終了");
                     // メーターを生成(Rotation(min)0～255)
-                    GameObject FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
+                    FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);
                     Transform OKLineTrs = FishingMeter_Obj.transform.Find("OKLine");
                     OKLineMin = 240 * FishData.FishingMeterOKLevelMin + 60; // Minを計算
                     OKLineTrs.eulerAngles = new Vector3(0, 0, OKLineMin); // <--魚の値を代入FishingMeterOKLineMin
@@ -462,7 +463,7 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("ThrowFloatFlont", false);
                     PlayerAnime.SetBool("ThrowFloatSide", false);
                     // メーターを消す
-
+                    Destroy(FishingMeter_Obj);
                     //カメラを動かす&カーソルを元の位置に戻す
                     CamScript.CamReset();
                     {
@@ -589,7 +590,10 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("Hit", false);
         PlayerAnime.SetBool("HitNow", false);
         // メーターを消す
-
+        if (FishingMeter_Obj != null)
+        {
+            Destroy(FishingMeter_Obj);
+        }
         Debug.Log("終了");
     }
     void FishingFloatEnd()
