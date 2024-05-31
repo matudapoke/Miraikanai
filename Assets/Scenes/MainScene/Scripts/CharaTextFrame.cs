@@ -1,37 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
-public class CharaAround : MonoBehaviour
+public class CharaTextFrame : MonoBehaviour
 {
-    [SerializeField, Tooltip("キャラのセリフを入れる配列")]
-    string[] Texts;
-    [Tooltip("配列の数")]
-    int ArrayInt;
-    [Tooltip("配列を数える")]
-    int ArrayCount;
-    [Tooltip("現在表示しているテキスト")]
-    string CurrentText = "";
-    [SerializeField, Tooltip("Textが表示されるスピード(秒)")]
-    float TextSpeed;
-    [SerializeField, Tooltip("吹き出しを入れる")]
-    GameObject TextFrameObj;
-    [SerializeField, Tooltip("TextMeshProを入れる")]
-    TextMeshProUGUI TextmeshPro;
-    [Tooltip("PulyerがCharaAroundniに侵入しているかどうか")]
-    bool PlayerCollision;
-
-    [Tooltip("プレイヤーのオブジェクト")]
-    public GameObject PlayerObj;
-    [Tooltip("プレイヤーのスクリプト")]
+    [SerializeField] GameObject TextFramePrefab;
+    Text Text_Component;
+    GameObject TextFrame_Obj;
+    [SerializeField, Tooltip("キャラのセリフの配列")]string[] Texts;
+    [Tooltip("配列の数")]int ArrayInt;
+    [Tooltip("配列を数える")]int ArrayCount;
+    [Tooltip("現在表示しているテキスト")]string CurrentText = "";
+    [SerializeField, Tooltip("Textが表示されるスピード(秒)")]float TextSpeed;
+    
+    GameObject PlayerObj;
     CharaOperation PlayerSclipt;
+
+    bool PlayerCollision;
 
     void Start()
     {
-        TextFrameObj.SetActive(false);//吹き出しを非表示にする
-        TextmeshPro.gameObject.SetActive(false);//テキストを非表示にする
         ArrayInt = Texts.Length;//配列の数を入れる
+        PlayerObj = GameObject.FindWithTag("Player");
         PlayerSclipt = PlayerObj.GetComponent<CharaOperation>();
     }
 
@@ -48,10 +39,10 @@ public class CharaAround : MonoBehaviour
     void TextFrameStart()
     {
         PlayerSclipt.CanRun = false;//歩けなくする
-        TextmeshPro.gameObject.SetActive(true);//TextmeshProを表示する
-        TextFrameObj.SetActive(true);//TextFrameを表示する
+        Transform Canvas_Trs = GameObject.FindWithTag("CanvasWorld").transform;
+        TextFrame_Obj = Instantiate(TextFramePrefab, transform.position, Quaternion.identity, Canvas_Trs);
+        Text_Component = TextFrame_Obj.transform.Find("Text").GetComponent<Text>();
         TextFrameSet();
-
         PlayerObj.GetComponent<Animator>().SetBool("BackLook",false);
         PlayerObj.GetComponent<Animator>().SetBool("RunBack", false);
         Transform PlayerTrs = PlayerObj.GetComponent<Transform>();
@@ -61,8 +52,7 @@ public class CharaAround : MonoBehaviour
     void TextFrameEnd()
     {
         PlayerSclipt.CanRun = true;//歩けるようにする
-        TextFrameObj.SetActive(false);//TextFrameを非表示にする
-        TextmeshPro.gameObject.SetActive(false);//TextmeshProを非表示にする
+        Destroy(TextFrame_Obj);
         ArrayCount = 0;
         GameObject.Find("Main Camera").GetComponent<Cam>().CamReset();
     }
@@ -80,22 +70,23 @@ public class CharaAround : MonoBehaviour
         for (int i = 0; i < Text.Length; i++)
         {
             CurrentText += Text[i];// 一文字ずつ追加します
-            TextmeshPro.text = CurrentText; // テキストオブジェクトを更新します
+            Text_Component.text = CurrentText; // テキストオブジェクトを更新します
             yield return new WaitForSeconds(TextSpeed);
         }
     }
 
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag=="Player")
         {
             PlayerCollision = true;
+            Debug.Log("Aaa");
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.tag == "Player")
         {
             PlayerCollision = false;
         }

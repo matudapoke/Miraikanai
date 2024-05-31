@@ -7,6 +7,8 @@ TagManager:
   - Fish
   - FishingPlace
   - Item
+  - Wall
+  - CanvasWorld
   layers:
   - Default
   - TransparentFX

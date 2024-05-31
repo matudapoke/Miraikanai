@@ -464,6 +464,8 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("ThrowFloatSide", false);
                     // メーターを消す
                     Destroy(FishingMeter_Obj);
+					// ウキを消す
+					FishingFloat_Obj.SetActive(false);
                     //カメラを動かす&カーソルを元の位置に戻す
                     CamScript.CamReset();
                     {
