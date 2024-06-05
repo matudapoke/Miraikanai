@@ -34,7 +34,7 @@ public class CollisionEfect : MonoBehaviour
             }
             else if (efectType == EfectType.Action)
             {
-                ID = reaction.Action_Create(GameObject.FindWithTag("Player").transform.position, Time);
+                reaction.Action_Create(GameObject.FindWithTag("Player").transform.position);
             }
         }
     }
@@ -43,7 +43,7 @@ public class CollisionEfect : MonoBehaviour
         flag = false;
         if (efectType == EfectType.Action)
         {
-            reaction.Action_FadeOut(ID);
+            reaction.Action_FadeOut(0.5f);
         }
     }
 

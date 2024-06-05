@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharaTextFrame : MonoBehaviour
+public class CharaTalk : MonoBehaviour
 {
     [SerializeField] GameObject TextFramePrefab;
+    [SerializeField] Vector3 ShiftPosition;
     Text Text_Component;
     GameObject TextFrame_Obj;
     [SerializeField, Tooltip("キャラのセリフの配列")]string[] Texts;
@@ -13,26 +14,44 @@ public class CharaTextFrame : MonoBehaviour
     [Tooltip("配列を数える")]int ArrayCount;
     [Tooltip("現在表示しているテキスト")]string CurrentText = "";
     [SerializeField, Tooltip("Textが表示されるスピード(秒)")]float TextSpeed;
+
+    float Distance;
+    [SerializeField, Tooltip("話すことができる距離")] float CanTalkDistance;
     
     GameObject PlayerObj;
+    Transform PlayerTrs;
     CharaOperation PlayerSclipt;
+    Reaction reaction;
 
-    bool PlayerCollision;
+    bool CanTalk;
 
     void Start()
     {
         ArrayInt = Texts.Length;//配列の数を入れる
         PlayerObj = GameObject.FindWithTag("Player");
+        PlayerTrs = PlayerObj.GetComponent<Transform>();
         PlayerSclipt = PlayerObj.GetComponent<CharaOperation>();
+        reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
     }
 
     void Update()
     {
-        if(PlayerCollision && Input.GetKeyDown(KeyCode.Return))
+        if(CanTalk && Input.GetKeyDown(KeyCode.Return))
         {
             if (ArrayCount == 0) TextFrameStart();
             else if (ArrayCount == ArrayInt) TextFrameEnd();
             else TextFrameSet();
+        }
+        Distance = Vector3.Distance(PlayerTrs.position, transform.position);
+        if (Distance <= CanTalkDistance)
+        {
+            CanTalk = true;
+            reaction.Action_Create(PlayerTrs.position);
+        }
+        else
+        {
+            CanTalk = false;
+            reaction.Action_FadeOut(0.5f);
         }
     }
 
@@ -40,18 +59,18 @@ public class CharaTextFrame : MonoBehaviour
     {
         PlayerSclipt.CanRun = false;//歩けなくする
         Transform Canvas_Trs = GameObject.FindWithTag("CanvasWorld").transform;
-        TextFrame_Obj = Instantiate(TextFramePrefab, transform.position, Quaternion.identity, Canvas_Trs);
+        TextFrame_Obj = Instantiate(TextFramePrefab, transform.position + ShiftPosition, Quaternion.identity, Canvas_Trs);
         Text_Component = TextFrame_Obj.transform.Find("Text").GetComponent<Text>();
         TextFrameSet();
         PlayerObj.GetComponent<Animator>().SetBool("BackLook",false);
         PlayerObj.GetComponent<Animator>().SetBool("RunBack", false);
-        Transform PlayerTrs = PlayerObj.GetComponent<Transform>();
         GameObject.Find("Main Camera").GetComponent<Cam>().CamMove(6, (transform.position - PlayerTrs.position)/2);//プレイヤーと吹き出しの中間にカメラを移動させる
     }
 
     void TextFrameEnd()
     {
         PlayerSclipt.CanRun = true;//歩けるようにする
+        StopAllCoroutines();
         Destroy(TextFrame_Obj);
         ArrayCount = 0;
         GameObject.Find("Main Camera").GetComponent<Cam>().CamReset();
@@ -72,23 +91,6 @@ public class CharaTextFrame : MonoBehaviour
             CurrentText += Text[i];// 一文字ずつ追加します
             Text_Component.text = CurrentText; // テキストオブジェクトを更新します
             yield return new WaitForSeconds(TextSpeed);
-        }
-    }
-
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag=="Player")
-        {
-            PlayerCollision = true;
-            Debug.Log("Aaa");
-        }
-    }
-
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            PlayerCollision = false;
         }
     }
 }

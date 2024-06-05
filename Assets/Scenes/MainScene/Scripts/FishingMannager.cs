@@ -320,7 +320,7 @@ public class FishingManager : MonoBehaviour
                     //　メインメニューを開けなくする
                     mainMenuContoller.CanMainMenuOpen = false;
                     // Actionを消す
-                    reaction.Action_Destroy();
+                    reaction.Action_FadeOut(0.5f);
 
                     yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
                     // リターンorZでウキを浮かべる
