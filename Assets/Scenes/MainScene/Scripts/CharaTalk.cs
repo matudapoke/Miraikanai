@@ -23,6 +23,9 @@ public class CharaTalk : MonoBehaviour
     CharaOperation PlayerSclipt;
     Reaction reaction;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip Voice;
+
     bool CanTalk;
 
     void Start()
@@ -32,6 +35,7 @@ public class CharaTalk : MonoBehaviour
         PlayerTrs = PlayerObj.GetComponent<Transform>();
         PlayerSclipt = PlayerObj.GetComponent<CharaOperation>();
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -90,6 +94,7 @@ public class CharaTalk : MonoBehaviour
         {
             CurrentText += Text[i];// 一文字ずつ追加します
             Text_Component.text = CurrentText; // テキストオブジェクトを更新します
+            audioSource.PlayOneShot(Voice);
             yield return new WaitForSeconds(TextSpeed);
         }
     }
