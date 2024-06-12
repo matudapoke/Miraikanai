@@ -11,7 +11,6 @@ public class CollisionEfect : MonoBehaviour
         Suprise,
         Action,
     }
-    GameObject CollisionObj;
     bool flag;
     [SerializeField] EfectType efectType;
     [SerializeField] float Time;
@@ -47,7 +46,7 @@ public class CollisionEfect : MonoBehaviour
         }
     }
 
-    void OnTriggerStay2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {

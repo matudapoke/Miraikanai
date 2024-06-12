@@ -49,19 +49,26 @@ public class CharaTalk : MonoBehaviour
         Distance = Vector3.Distance(PlayerTrs.position, transform.position);
         if (Distance <= CanTalkDistance)
         {
+            if (!CanTalk)
+            {
+                reaction.Action_Create(PlayerTrs.position);
+            }
             CanTalk = true;
-            reaction.Action_Create(PlayerTrs.position);
         }
         else
         {
+            if (CanTalk)
+            {
+                reaction.Action_FadeOut(0.5f);
+            }
             CanTalk = false;
-            reaction.Action_FadeOut(0.5f);
         }
     }
 
     void TextFrameStart()
     {
         PlayerSclipt.CanRun = false;//歩けなくする
+        reaction.Action_FadeOut(0.1f);//アクションマークを消す
         Transform Canvas_Trs = GameObject.FindWithTag("CanvasWorld").transform;
         TextFrame_Obj = Instantiate(TextFramePrefab, transform.position + ShiftPosition, Quaternion.identity, Canvas_Trs);
         Text_Component = TextFrame_Obj.transform.Find("Text").GetComponent<Text>();

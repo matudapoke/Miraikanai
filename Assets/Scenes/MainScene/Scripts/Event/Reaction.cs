@@ -19,7 +19,7 @@ public class Reaction : MonoBehaviour
     GameObject Suprise_Obj;
     public void Suprise(Vector3 Position, float Time)
     {
-        Suprise_Obj = Instantiate(Suprise_Prefab, Position, Quaternion.identity, transform);
+        Suprise_Obj = Instantiate(Suprise_Prefab, Position, Quaternion.identity);
         Invoke("Suprise_Destroy", Time);
     }
     public void Suprise_Destroy()
@@ -36,16 +36,22 @@ public class Reaction : MonoBehaviour
     GameObject Action_Obj;
     float Action_DestroyTime;
     SpriteRenderer ActionSpriteRenderer;
+    Coroutine action_FadeOut_Run;
     public void Action_Create(Vector3 Position)
     {
-        Action_Obj = Instantiate(Action_Prefab, Position, Quaternion.identity, transform);
+        if (Action_Obj != null)
+        {
+            Destroy(Action_Obj);
+            StopCoroutine(action_FadeOut_Run);
+        }
+        Action_Obj = Instantiate(Action_Prefab, Position, Quaternion.identity);
         Action_DestroyTime = Time.realtimeSinceStartup + 5;
         Action_Display = true;
     }
     
     public void Action_FadeOut(float fadeOutTime)
     {
-        StartCoroutine(ActionFadeOut_Run(fadeOutTime));
+        action_FadeOut_Run=StartCoroutine(ActionFadeOut_Run(fadeOutTime));
     }
 
     IEnumerator ActionFadeOut_Run(float fadeOutTime)
@@ -63,6 +69,8 @@ public class Reaction : MonoBehaviour
                 }
                 else
                 {
+
+                    Action_Display = false;
                     break;
                 }
             }
