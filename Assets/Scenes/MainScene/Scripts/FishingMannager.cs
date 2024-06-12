@@ -585,7 +585,7 @@ public class FishingManager : MonoBehaviour
         mainMenuContoller.CanMainMenuOpen = true;
         // アニメーション
         PlayerAnime.SetBool("Fishing", false);
-        PlayerAnime.SetBool("FishingFloatEnd", false);
+        PlayerAnime.SetBool("FishingFloatEnd", true);
         PlayerAnime.SetBool("ThrowFloatBack", false);
         PlayerAnime.SetBool("ThrowFloatFlont", false);
         PlayerAnime.SetBool("ThrowFloatSide", false);
