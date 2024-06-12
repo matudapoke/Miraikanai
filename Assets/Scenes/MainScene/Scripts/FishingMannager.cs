@@ -447,6 +447,7 @@ public class FishingManager : MonoBehaviour
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
                         PlayerAnime.SetBool("FishingEnd", true);
+                        PlayerAnime.SetBool("FishingFloatEnd", true);
                         FishingEnd();
                         phase = Phase.End;
                     }

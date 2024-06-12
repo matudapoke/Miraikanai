@@ -23,9 +23,13 @@ public class CharaOperation : MonoBehaviour
     [Tooltip("アニメーター")]
     Animator Anim;
 
+    AudioSource audioSource;
+    [SerializeField]AudioClip StepSound;
+
     void Start()
     {
         Anim = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -195,5 +199,10 @@ public class CharaOperation : MonoBehaviour
                 Reversal = false;
             }
         }
+    }
+
+    public void StepSoundPlay()
+    {
+        audioSource.PlayOneShot(StepSound);
     }
 }
