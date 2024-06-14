@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 
 public class MainMenuContoller : MonoBehaviour
 {
+    [SerializeField] GameObject FirstMenuObj;
     // フラグ
     public bool CanMainMenuOpen;
     [HideInInspector]
@@ -29,7 +30,7 @@ public class MainMenuContoller : MonoBehaviour
 
     void Start()
     {
-        FirstMenu = transform.Find("MainMenuWindow").GetComponent<MainMenu>();
+        FirstMenu = FirstMenuObj.GetComponent<MainMenu>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         charaOperation = GameObject.Find("Reizi").GetComponent<CharaOperation>();
         fishingManager = GameObject.Find("Reizi").GetComponent<FishingManager>();
@@ -39,14 +40,13 @@ public class MainMenuContoller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && CanMainMenuOpen)
         {
-            if (!FirstMenu.MenuWindowMove1)
+            if (!FirstMenu.MenuWindowMove1 || !FirstMenu.MenuWindowMove2 || !FirstMenu.MenuWindowMove3)
             {
-                FirstMenu.MenuWindowMove1 = true;
+                FirstMenu.MenuWindowMoveNextPosition();
                 MainMenuStart();
             }
             else
             {
-                FirstMenu.MenuWindowMove1 = false;
                 MainMenuEnd();
             }
         }
