@@ -35,6 +35,10 @@ public class MainMenu : MonoBehaviour
         {
             transform.position = Vector3.Lerp(transform.position, MenuContoller.MenuWindowRetrunPosition, MenuContoller.MenuMoveSpeed * Time.deltaTime);
         }
+        if (Input.GetKeyDown(KeyCode.Tab) && (MenuWindowMove1 || MenuWindowMove2 || MenuWindowMove3))
+        {
+            MenuWindowColse();
+        }
     }
 
     public void MenuWindowMoveNextPosition()
@@ -51,5 +55,12 @@ public class MainMenu : MonoBehaviour
         {
             MenuWindowMove1 = true;
         }
+    }
+
+    public void MenuWindowColse()
+    {
+        MenuWindowMove1 = false;
+        MenuWindowMove2 = false;
+        MenuWindowMove3 = false;
     }
 }

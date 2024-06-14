@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,7 @@ public class MenuSelect : MonoBehaviour
     [SerializeField] GameObject DownMenu;
     [SerializeField] GameObject RightMenu;
     [SerializeField] GameObject LeftMenu;
+    [SerializeField] GameObject SubmitToMenu_Obj;
     Coroutine coroutine;
 
     void Start()
@@ -56,6 +58,14 @@ public class MenuSelect : MonoBehaviour
             {
                 StopCoroutine(coroutine);
             }
+        }
+        // 決定
+        if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return) && Selected)
+        {
+            DeSelection();
+            transform.parent.gameObject.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
+            SubmitToMenu_Obj.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
+            SubmitToMenu_Obj.transform.Find("1").GetComponent<MenuSelect>().Select();
         }
     }
 
