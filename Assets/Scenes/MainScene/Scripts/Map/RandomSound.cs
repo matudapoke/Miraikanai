@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 
 public class RandomSound : MonoBehaviour
 {
+    public bool CanPlay;
     AudioSource audioSource;
     AudioSource audioSource1;
     [SerializeField] List<AudioClip> Sounds = new List<AudioClip>();
@@ -24,17 +25,20 @@ public class RandomSound : MonoBehaviour
 
     IEnumerator RandomInterval()
     {
-        yield return new WaitForSeconds(Random.Range(SoundIntervalMin, SoundIntervalMax));
-        float SoundVolume = Random.Range(SoundVolumeMin, SoundIntervalMax);
-        audioSource1.PlayOneShot(Sounds[Random.Range(0, Sounds.Count - 1)], SoundVolume);
-        StartCoroutine(RandomInterval());
-        if (SpawnPrefab != null)
+        if (CanPlay)
         {
-            if (SoundVolume >= SpawnSoundVolumeMin)
+            float SoundVolume = Random.Range(SoundVolumeMin, SoundIntervalMax);
+            audioSource1.PlayOneShot(Sounds[Random.Range(0, Sounds.Count - 1)], SoundVolume);
+            if (SpawnPrefab != null)
             {
-                Instantiate(SpawnPrefab);
+                if (SoundVolume >= SpawnSoundVolumeMin)
+                {
+                    Instantiate(SpawnPrefab);
+                }
             }
         }
+        yield return new WaitForSeconds(Random.Range(SoundIntervalMin, SoundIntervalMax));
+        StartCoroutine(RandomInterval());
     }
 
 }

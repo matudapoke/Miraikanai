@@ -33,6 +33,7 @@ public class FishingManager : MonoBehaviour
     bool HitSuccess;
     bool HitFailure;
     bool FishImage_Move;
+    bool FishImage_Move_Coming;
     // ゲームオブジェクト
     GameObject Corsor_Obj;
     GameObject FishingFloat_Obj;
@@ -205,13 +206,11 @@ public class FishingManager : MonoBehaviour
                 {
                     HitSuccess = true;
                     phase = Phase.Hit;
-                    Debug.Log("OKライン内。OKLineMin:" + OKLineMin + "OKLineMax:" + OKLineMax + "Bar" + fishingMeterRotate);
                 }
                 else
                 {
                     HitFailure = true;
                     phase = Phase.Hit;
-                    Debug.Log("OKライン外。OKLineMin:"+OKLineMin+"OKLineMax:"+OKLineMax+"Bar"+fishingMeterRotate);
                 }
             }
             // 右端に行ったら成功
@@ -219,14 +218,12 @@ public class FishingManager : MonoBehaviour
             {
                 HitSuccess = true;
                 phase = Phase.Hit;
-                Debug.Log("右端"+ fishingMeterRotate);
             }
             // 左端に行ったら失敗
             else if (fishingMeterRotate <= 58)
             {
                 HitFailure = true;
                 phase = Phase.Hit;
-                Debug.Log("左端");   
             }
             // バーの操作---------------------
             // プレイヤーによる操作
@@ -242,11 +239,35 @@ public class FishingManager : MonoBehaviour
             FishingTime_SinceHit = 0;
             FishingTime_ToHitEnd = 0;
         }
-        // 釣り上げた魚を動かす
+        // 釣り上げた魚の影を動かす
         if (FishImage_Move)
         {
-            FishImage_Obj.transform.position = Vector2.Lerp(FishImage_Obj.transform.position, Corsor_Obj.transform.position + new Vector3(0, 15, 0), 3 * Time.deltaTime);
+            if (FishImage_Obj.transform.position.y >= transform.position.y + 30)
+            {
+                if (!FishImage_Move_Coming)
+                {
+                    FishImage_Obj.transform.position = new Vector3(transform.position.x, FishImage_Obj.transform.position.y, FishImage_Obj.transform.position.z);
+                    FishImage_Move_Coming = true;
+                }
+            }
+            if (FishImage_Move_Coming && FishImage_Obj.transform.position.y <= transform.position.y + 1)
+            {
+                Destroy(FishImage_Obj);
+                FishImage_Move = false;
+                FishImage_Move_Coming = false;
+            }
+            // 魚の影がレイジに近づく
+            if (FishImage_Move_Coming)
+            {
+                FishImage_Obj.transform.position -= new Vector3(0, 40 * Time.deltaTime, 0);
+            }
+            // 魚の影が釣りあげられる
+            else if (!FishImage_Move_Coming)
+            {
+                FishImage_Obj.transform.position += new Vector3(0, 50 * Time.deltaTime, 0);
+            }
         }
+
     }
 
 
@@ -267,51 +288,7 @@ public class FishingManager : MonoBehaviour
                     //カメラ移動＆方向を向く(一回目のみ動かす)
                     if (!StartFishingReturn)
                     {
-                        if (FishingPlaceScript.direction == FishingPlace.Direction.Up)
-                        {
-                            CamScript.CamMove(6, new Vector3(0, 3, 0));
-                            charaOperation.CharaAnime(CharaOperation.Direction.Up);
-                            Corsor_Obj.transform.position = new Vector3(0, 2, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.Down)
-                        {
-                            CamScript.CamMove(6, new Vector3(0, -3, 0));
-                            charaOperation.CharaAnime(CharaOperation.Direction.Down);
-                            Corsor_Obj.transform.position = new Vector3(0, -2, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.Right)
-                        {
-                            CamScript.CamMove(6, new Vector3(3, 0, 0));
-                            charaOperation.CharaAnime(CharaOperation.Direction.Right);
-                            Corsor_Obj.transform.position = new Vector3(2, 0, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.Left)
-                        {
-                            CamScript.CamMove(6, new Vector3(-3, 0, 0));
-                            charaOperation.CharaAnime(CharaOperation.Direction.Left);
-                            Corsor_Obj.transform.position = new Vector3(-2, 0, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.UpRight)
-                        {
-                            CamScript.CamMove(6, new Vector3(3, 3, 0));
-                            Corsor_Obj.transform.position = new Vector3(2, 2, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.UpLeft)
-                        {
-                            CamScript.CamMove(6, new Vector3(-3, 3, 0));
-                            Corsor_Obj.transform.position = new Vector3(-2, 2, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.DownRight)
-                        {
-                            CamScript.CamMove(6, new Vector3(3, -3, 0));
-                            Corsor_Obj.transform.position = new Vector3(2, -2, 0) + transform.position;
-                        }
-                        else if (FishingPlaceScript.direction == FishingPlace.Direction.DownLeft)
-                        {
-                            CamScript.CamMove(6, new Vector3(-3, -3, 0));
-                            Corsor_Obj.transform.position = new Vector3(-2, -2, 0) + transform.position;
-                        }
-                        else { Debug.Log("エラー：FishingPlaceの方向を入力して"); }
+                        FishingCamMove();
                     }
                     StartFishingReturn = true;
                     //プレイヤーキャラの伸び縮みをやめ操作を受け付けなくする
@@ -529,6 +506,10 @@ public class FishingManager : MonoBehaviour
                             // 魚の画像を黒くする
                             FishImage_Obj.GetComponent<SpriteRenderer>().color = Color.black;
                             yield return new WaitForSeconds(0.75f);
+                            CamScript.CamReset();
+                            CamScript.CamMove(2, new Vector3(0, 1.5f, 0));
+                            CamScript.CamZoom(3, 1.5f);
+                            yield return new WaitForSeconds(1);
                             // ウィンドウを生成する
                             WindowController window = GameObject.Find("WindowContoller").GetComponent<WindowController>();
                             window.NewFishWindow_Creat(FishData);
@@ -543,7 +524,9 @@ public class FishingManager : MonoBehaviour
                             // キーが押されるのを待つ
                             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z));
                             window.NewFishWindow_Destroy();
-                            FishImage_Move = false;
+                            CamScript.CamReset();
+                            FishingCamMove();
+                            
                         }
                         // 新種でないならアイテム獲得ポップアップを出す
                         else
@@ -615,6 +598,54 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatSide", false);
         PlayerAnime.SetBool("Hit", false);
         PlayerAnime.SetBool("HitNow", false);
+    }
+    void FishingCamMove()
+    {
+        if (FishingPlaceScript.direction == FishingPlace.Direction.Up)
+        {
+            CamScript.CamMove(6, new Vector3(0, 3, 0));
+            charaOperation.CharaAnime(CharaOperation.Direction.Up);
+            Corsor_Obj.transform.position = new Vector3(0, 2, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.Down)
+        {
+            CamScript.CamMove(6, new Vector3(0, -3, 0));
+            charaOperation.CharaAnime(CharaOperation.Direction.Down);
+            Corsor_Obj.transform.position = new Vector3(0, -2, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.Right)
+        {
+            CamScript.CamMove(6, new Vector3(3, 0, 0));
+            charaOperation.CharaAnime(CharaOperation.Direction.Right);
+            Corsor_Obj.transform.position = new Vector3(2, 0, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.Left)
+        {
+            CamScript.CamMove(6, new Vector3(-3, 0, 0));
+            charaOperation.CharaAnime(CharaOperation.Direction.Left);
+            Corsor_Obj.transform.position = new Vector3(-2, 0, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.UpRight)
+        {
+            CamScript.CamMove(6, new Vector3(3, 3, 0));
+            Corsor_Obj.transform.position = new Vector3(2, 2, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.UpLeft)
+        {
+            CamScript.CamMove(6, new Vector3(-3, 3, 0));
+            Corsor_Obj.transform.position = new Vector3(-2, 2, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.DownRight)
+        {
+            CamScript.CamMove(6, new Vector3(3, -3, 0));
+            Corsor_Obj.transform.position = new Vector3(2, -2, 0) + transform.position;
+        }
+        else if (FishingPlaceScript.direction == FishingPlace.Direction.DownLeft)
+        {
+            CamScript.CamMove(6, new Vector3(-3, -3, 0));
+            Corsor_Obj.transform.position = new Vector3(-2, -2, 0) + transform.position;
+        }
+        else { Debug.Log("エラー：FishingPlaceの方向を入力して"); }
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {

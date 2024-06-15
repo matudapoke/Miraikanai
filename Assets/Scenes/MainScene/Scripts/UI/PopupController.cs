@@ -31,7 +31,6 @@ public class PopupController : MonoBehaviour
             {
                 GameObject Popup = PopupList[i];
                 Popup.gameObject.transform.position += new Vector3(30,0,0);
-                Debug.Log("ｓ");
             }//もしもポップアップが出てきたら今出ているポップアップを上に移動させる
         }
         Popup = Instantiate(PopupPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);//ポップアップのクローンを生成する

@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,7 @@ public class Popup : MonoBehaviour
     [Tooltip("ポップアップのRectTransfrom")]
     RectTransform rectTransform;
     [SerializeField, Tooltip("名前のテキスト")]
-    TextMeshProUGUI NameTMP;
+    Text NameText;
     [SerializeField, Tooltip("表示する画像のゲームオブジェクト")]
     Image Icon; 
 
@@ -54,9 +53,8 @@ public class Popup : MonoBehaviour
 
     public IEnumerator MovePopupRun(string Name, Sprite Image)
     {
-        NameTMP.text = Name;
+        NameText.text = Name;
         Icon.sprite = Image;
-
         MovePopupRunning = 1;
         yield return new WaitForSeconds(SubmitPopupTime);
         MovePopupRunning = 2;

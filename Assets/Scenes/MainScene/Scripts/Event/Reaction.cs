@@ -42,7 +42,10 @@ public class Reaction : MonoBehaviour
         if (Action_Obj != null)
         {
             Destroy(Action_Obj);
-            StopCoroutine(action_FadeOut_Run);
+            if (action_FadeOut_Run != null)
+            {
+                StopCoroutine(action_FadeOut_Run);
+            }
         }
         Action_Obj = Instantiate(Action_Prefab, Position, Quaternion.identity);
         Action_DestroyTime = Time.realtimeSinceStartup + 5;
