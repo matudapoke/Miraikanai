@@ -201,6 +201,19 @@ public class CharaOperation : MonoBehaviour
         }
     }
 
+    public Direction GetDirection()
+    {
+        if (Anim.GetBool("BackLook"))
+        {
+            return Direction.Up;
+        }
+        else if (!Anim.GetBool("BackLook"))
+        {
+            return Direction.Down;
+        }
+        return Direction.Up;
+    }
+
     public void StepSoundPlay()
     {
         audioSource.PlayOneShot(StepSound);

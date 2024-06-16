@@ -506,6 +506,8 @@ public class FishingManager : MonoBehaviour
                             // 魚の画像を黒くする
                             FishImage_Obj.GetComponent<SpriteRenderer>().color = Color.black;
                             yield return new WaitForSeconds(0.75f);
+                            PlayerAnime.SetBool("Fishing", false);
+                            Direction direction = charaOperation.GetDirection();
                             CamScript.CamReset();
                             CamScript.CamMove(2, new Vector3(0, 1.5f, 0));
                             CamScript.CamZoom(3, 1.5f);
