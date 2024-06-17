@@ -24,7 +24,8 @@ public class CharaOperation : MonoBehaviour
     Animator Anim;
 
     AudioSource audioSource;
-    [SerializeField]AudioClip StepSound;
+    [SerializeField] AudioClip StepSound;
+    [SerializeField] float StepSoundVolume;
 
     void Start()
     {
@@ -216,6 +217,6 @@ public class CharaOperation : MonoBehaviour
 
     public void StepSoundPlay()
     {
-        audioSource.PlayOneShot(StepSound);
+        audioSource.PlayOneShot(StepSound,StepSoundVolume);
     }
 }

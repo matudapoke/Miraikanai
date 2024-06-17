@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 566649d37eab6fe4e9bf3847b62af7c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanPlay: 0
+  CanPlay: 1
   Sounds:
   - {fileID: 8300000, guid: 594452f3d717f467395cc43d9c92df7f, type: 3}
   - {fileID: 8300000, guid: 42c0247159fe74536b60207d3514d4d4, type: 3}
@@ -1318,8 +1318,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8295e6848494c437e8116cee819e3151, type: 3}
   SoundIntervalMin: 1
   SoundIntervalMax: 30
-  SoundVolumeMin: 0.1
-  SoundVolumeMax: 1
+  SoundVolumeMin: 0.05
+  SoundVolumeMax: 0.3
   SpawnPrefab: {fileID: 1845225707604478067, guid: 52e8d18bf710b4e4eac4c5ae2262d778, type: 3}
   SpawnSoundVolumeMin: 1
 --- !u!82 &172442029
@@ -8663,6 +8663,7 @@ MonoBehaviour:
   MoveDiagonal: 0.5
   RightLook: 0
   StepSound: {fileID: 8300000, guid: 41a09f44081bf8641b97b0196c5a2cd8, type: 3}
+  StepSoundVolume: 0.2
 --- !u!82 &1043155223
 AudioSource:
   m_ObjectHideFlags: 0
