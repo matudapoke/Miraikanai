@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class ReiziFollow : MonoBehaviour
 {
-    [SerializeField, Tooltip("‚Â‚¢‚Ä‚¢‚­ƒIƒuƒWƒFƒNƒg")] GameObject Follow_Obj;
-    [SerializeField, Tooltip("À•W‚ğ‚¸‚ç‚·")] Vector3 ShiftPosition;
+    [SerializeField, Tooltip("ã¤ã„ã¦ã„ãã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")] GameObject Follow_Obj;
+    [SerializeField, Tooltip("åº§æ¨™ã‚’ãšã‚‰ã™")] Vector3 ShiftPosition;
 
     void Start()
     {
-        Follow_Obj = GameObject.Find("Reizi");
+
     }
     void Update()
     {

@@ -55,6 +55,7 @@ public class FishingManager : MonoBehaviour
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
+    [SerializeField] AudioClip FishCatching;
     public enum Phase
     {
         StartFishing,
@@ -230,6 +231,7 @@ public class FishingManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
                 FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, 5);
+                GetComponents<AudioSource>()[1].Play();
             }
             // 魚の抵抗力による操作
             FishingMeterBar_Transform.eulerAngles -= new Vector3(0, 0, FishData.FishPower * Time.deltaTime);
@@ -414,12 +416,16 @@ public class FishingManager : MonoBehaviour
                     OKLineTrs.GetComponent<Image>().fillAmount = (FishData.FishingMeterOKLevelMax - FishData.FishingMeterOKLevelMin) * 0.668f; // <--魚の値を代入FishingMeterOKLineMax
                     FishingMeterBar_Obj = FishingMeter_Obj.transform.Find("FishingMeterBar").gameObject;
                     FishingMeterBar_Transform = FishingMeterBar_Obj.transform;
+                    // メーター操作開始
                     MeterOperation = true;
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || HitSuccess || HitFailure);
+                    // メーター操作終了
                     MeterOperation = false;
                     // SEを停止
                     GetComponent<AudioSource>().Stop();
                     GetComponents<AudioSource>()[1].Stop();
+                    // SEを再生
+                    GetComponent<AudioSource>().PlayOneShot(FishCatching);
                     // スペースorXなら釣りを終了
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {

@@ -6,6 +6,8 @@ public class PerspecitveVolume : MonoBehaviour
 {
     AudioSource audioSource;
     [SerializeField] Transform ListenerTrs;
+    [SerializeField] float PlusVolume;
+    [SerializeField] float Coeffcient;
 
     void Start()
     {
@@ -14,6 +16,6 @@ public class PerspecitveVolume : MonoBehaviour
     void Update()
     {
         float dis = Vector3.Distance(this.transform.position, ListenerTrs.position);
-        audioSource.volume = 0.005f*dis*dis+0.1f;
+        audioSource.volume = Coeffcient * dis *dis + PlusVolume;
     }
 }

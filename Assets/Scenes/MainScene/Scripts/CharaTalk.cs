@@ -51,7 +51,7 @@ public class CharaTalk : MonoBehaviour
         {
             if (!CanTalk)
             {
-                reaction.Action_Create(PlayerTrs.position);
+                reaction.Action_Create(transform, new Vector3(0,0,0));
             }
             CanTalk = true;
         }

@@ -20,6 +20,7 @@ public class WindowController : MonoBehaviour
     RectTransform FishImage_RectTransform;
     [HideInInspector] public bool ShakeRun;
     [SerializeField] AudioClip NewFishSound;
+    [SerializeField] float NewFishSoundVolume;
     void Update()
     {
         if (NewFishWindow_Born)
@@ -69,7 +70,7 @@ public class WindowController : MonoBehaviour
         FishImage_RectTransform.anchoredPosition = new Vector3(0, 300, 0);
         FishImage.transform.localScale = new Vector3(30, 30, 30);
         // 音を出す
-        GetComponent<AudioSource>().PlayOneShot(NewFishSound);
+        GetComponent<AudioSource>().PlayOneShot(NewFishSound, NewFishSoundVolume);
         // フラグを立てる
         NewFishWindow_Born = true;
         // 新種の魚じゃなくする

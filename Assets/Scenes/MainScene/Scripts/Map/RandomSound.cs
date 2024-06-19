@@ -7,7 +7,6 @@ public class RandomSound : MonoBehaviour
 {
     public bool CanPlay;
     AudioSource audioSource;
-    AudioSource audioSource1;
     [SerializeField] List<AudioClip> Sounds = new List<AudioClip>();
     [SerializeField] float SoundIntervalMin;
     [SerializeField] float SoundIntervalMax;
@@ -18,17 +17,17 @@ public class RandomSound : MonoBehaviour
     
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
-        audioSource1 = GetComponents<AudioSource>()[1];
+        audioSource = GetComponents<AudioSource>()[1];
         StartCoroutine(RandomInterval());
     }
 
     IEnumerator RandomInterval()
     {
+        yield return new WaitForSeconds(Random.Range(SoundIntervalMin, SoundIntervalMax));
         if (CanPlay)
         {
-            float SoundVolume = Random.Range(SoundVolumeMin, SoundIntervalMax);
-            audioSource1.PlayOneShot(Sounds[Random.Range(0, Sounds.Count - 1)], SoundVolume);
+            float SoundVolume = Random.Range(SoundVolumeMin, SoundVolumeMax);
+            audioSource.PlayOneShot(Sounds[Random.Range(0, Sounds.Count - 1)], SoundVolume);
             if (SpawnPrefab != null)
             {
                 if (SoundVolume >= SpawnSoundVolumeMin)
@@ -37,7 +36,6 @@ public class RandomSound : MonoBehaviour
                 }
             }
         }
-        yield return new WaitForSeconds(Random.Range(SoundIntervalMin, SoundIntervalMax));
         StartCoroutine(RandomInterval());
     }
 

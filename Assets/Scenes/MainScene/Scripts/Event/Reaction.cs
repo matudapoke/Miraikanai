@@ -6,11 +6,16 @@ using UnityEngine.UIElements;
 public class Reaction : MonoBehaviour
 {
     [SerializeField] float FadeOutTime;
+    [SerializeField] Vector3 ShiftPosition;
     void Update()
     {
         if (Action_Display && Action_DestroyTime <= Time.realtimeSinceStartup && Action_Obj != null)
         {
             ActionFadeOut_Run(2);
+        }
+        if (Action_Obj != null)
+        {
+            Action_Obj.transform.position = followTransform.position + ShiftPosition + plusShiftPosition;
         }
     }
 
@@ -37,7 +42,9 @@ public class Reaction : MonoBehaviour
     float Action_DestroyTime;
     SpriteRenderer ActionSpriteRenderer;
     Coroutine action_FadeOut_Run;
-    public void Action_Create(Vector3 Position)
+    Transform followTransform;
+    Vector3 plusShiftPosition;
+    public void Action_Create(Transform FollowTrs, Vector3 PlusShiftPosition)
     {
         if (Action_Obj != null)
         {
@@ -47,7 +54,9 @@ public class Reaction : MonoBehaviour
                 StopCoroutine(action_FadeOut_Run);
             }
         }
-        Action_Obj = Instantiate(Action_Prefab, Position, Quaternion.identity);
+        Action_Obj = Instantiate(Action_Prefab, FollowTrs.position + PlusShiftPosition, Quaternion.identity);
+        followTransform = FollowTrs;
+        plusShiftPosition = PlusShiftPosition;
         Action_DestroyTime = Time.realtimeSinceStartup + 5;
         Action_Display = true;
     }
@@ -72,7 +81,6 @@ public class Reaction : MonoBehaviour
                 }
                 else
                 {
-
                     Action_Display = false;
                     break;
                 }

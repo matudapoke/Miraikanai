@@ -33,7 +33,7 @@ public class CollisionEfect : MonoBehaviour
             }
             else if (efectType == EfectType.Action)
             {
-                reaction.Action_Create(GameObject.FindWithTag("Player").transform.position);
+                reaction.Action_Create(GameObject.FindWithTag("Player").transform, new Vector3(0,0,0));
             }
         }
     }
