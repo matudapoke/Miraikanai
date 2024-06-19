@@ -20,6 +20,10 @@ public class CharaOperation : MonoBehaviour
     public bool RightLook;
     [Tooltip("反転してるかどうか")]
     bool Reversal;
+    [HideInInspector] public bool CanUpMove;
+    [HideInInspector] public bool CanDownMove;
+    [HideInInspector] public bool CanRightMove;
+    [HideInInspector] public bool CanLeftMove;
     [Tooltip("アニメーター")]
     Animator Anim;
 
@@ -31,6 +35,10 @@ public class CharaOperation : MonoBehaviour
     {
         Anim = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        CanUpMove = true;
+        CanDownMove = true;
+        CanRightMove = true;
+        CanLeftMove = true;
     }
 
     void Update()
@@ -55,11 +63,14 @@ public class CharaOperation : MonoBehaviour
             }
             if ((Input.GetKey(KeyCode.UpArrow) || (Input.GetKey(KeyCode.W))) && UpMove)
             {
-                if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))))
+                if (CanUpMove)
                 {
-                    transform.position += new Vector3(0, MoveSpeed * MoveDiagonal, 0) * Time.deltaTime;
+                    if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))))
+                    {
+                        transform.position += new Vector3(0, MoveSpeed * MoveDiagonal, 0) * Time.deltaTime;
+                    }
+                    else transform.position += new Vector3(0, MoveSpeed, 0) * Time.deltaTime;
                 }
-                else transform.position += new Vector3(0, MoveSpeed, 0) * Time.deltaTime;
                 if (Anim != null)
                 {
                     Anim.SetBool("BackLook", true);
@@ -75,13 +86,16 @@ public class CharaOperation : MonoBehaviour
             }
             if ((Input.GetKey(KeyCode.DownArrow) || (Input.GetKey(KeyCode.S))) && !UpMove)
             {
-                if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)) || ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))))
+                if (CanDownMove)
                 {
-                    transform.position += new Vector3(0, -MoveSpeed * MoveDiagonal, 0) * Time.deltaTime;
-                }
-                else
-                {
-                    transform.position += new Vector3(0, -MoveSpeed, 0) * Time.deltaTime;
+                    if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow)) || ((Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))))
+                    {
+                        transform.position += new Vector3(0, -MoveSpeed * MoveDiagonal, 0) * Time.deltaTime;
+                    }
+                    else
+                    {
+                        transform.position += new Vector3(0, -MoveSpeed, 0) * Time.deltaTime;
+                    }
                 }
                 if (Anim != null)
                 {
@@ -114,7 +128,10 @@ public class CharaOperation : MonoBehaviour
             }
             if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && RightMove)
             {
-                transform.position += new Vector3(MoveSpeed, 0, 0) * Time.deltaTime;
+                if (CanRightMove)
+                {
+                    transform.position += new Vector3(MoveSpeed, 0, 0) * Time.deltaTime;
+                }
                 if (Anim != null)
                 {
                     if (Anim.GetBool("BackLook"))
@@ -132,7 +149,10 @@ public class CharaOperation : MonoBehaviour
             }
             if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !RightMove)
             {
-                transform.position += new Vector3(-MoveSpeed, 0, 0) * Time.deltaTime;
+                if (CanLeftMove)
+                {
+                    transform.position += new Vector3(-MoveSpeed, 0, 0) * Time.deltaTime;
+                }
                 if (Anim != null)
                 {
                     if (Anim.GetBool("BackLook"))

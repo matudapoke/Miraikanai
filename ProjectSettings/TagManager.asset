@@ -9,6 +9,7 @@ TagManager:
   - Item
   - Wall
   - CanvasWorld
+  - WallCurve
   layers:
   - Default
   - TransparentFX

@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugManager;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine.UI;
 
 public class FishingManager : MonoBehaviour
@@ -51,7 +47,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject FishingMeter_Prefab;
     Reaction reaction;
     Transform FishingMeterBar_Transform;
-    MainMenuContoller mainMenuContoller;
+    //MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -81,7 +77,7 @@ public class FishingManager : MonoBehaviour
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
-        mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
+        //mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
     void Update()
     {
@@ -297,7 +293,7 @@ public class FishingManager : MonoBehaviour
                     gameObject.GetComponent<Strech>().StrechCan = false;
                     charaOperation.CanRun = false;
                     //　メインメニューを開けなくする
-                    mainMenuContoller.CanMainMenuOpen = false;
+                    //mainMenuContoller.CanMainMenuOpen = false;
                     // Actionを消す
                     reaction.Action_FadeOut(0.5f);
 
@@ -574,7 +570,7 @@ public class FishingManager : MonoBehaviour
         // 他フラグを戻す
         StartFishingReturn = false;
         FloatLandingWater_Run = false;
-        mainMenuContoller.CanMainMenuOpen = true;
+        //mainMenuContoller.CanMainMenuOpen = true;
         // アニメーション
         PlayerAnime.SetBool("Fishing", false);
         PlayerAnime.SetBool("FishingFloatEnd", true);

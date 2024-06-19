@@ -54,7 +54,7 @@ public class Reaction : MonoBehaviour
                 StopCoroutine(action_FadeOut_Run);
             }
         }
-        Action_Obj = Instantiate(Action_Prefab, FollowTrs.position + PlusShiftPosition, Quaternion.identity);
+        Action_Obj = Instantiate(Action_Prefab, FollowTrs.position + ShiftPosition + PlusShiftPosition, Quaternion.identity);
         followTransform = FollowTrs;
         plusShiftPosition = PlusShiftPosition;
         Action_DestroyTime = Time.realtimeSinceStartup + 5;

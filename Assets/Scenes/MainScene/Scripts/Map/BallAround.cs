@@ -18,7 +18,7 @@ public class BallAround : MonoBehaviour
         Player_Trs = GameObject.FindWithTag("Player").transform;
         Ball_Trs = transform.parent.transform;
         Ball_Rb = transform.parent.gameObject.GetComponent<Rigidbody2D>();
-        MainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
+        //MainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
     }
 
     void Update()
