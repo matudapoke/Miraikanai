@@ -21,6 +21,7 @@ public class WindowController : MonoBehaviour
     [HideInInspector] public bool ShakeRun;
     [SerializeField] AudioClip NewFishSound;
     [SerializeField] float NewFishSoundVolume;
+    FishData fishData;
     void Update()
     {
         if (NewFishWindow_Born)
@@ -44,7 +45,8 @@ public class WindowController : MonoBehaviour
                     GameObject.Find("Main Camera").GetComponent<Cam>().CamOneShake(0.1f, 0.1f, 0.1f);
                     // 魚の名前を生成
                     FishNameText = Instantiate(FishText_Prefab, new Vector3(0, 300, 0), Quaternion.identity, transform);
-                    FishNameText.transform.position = new Vector3(10, 10, 10);
+                    FishNameText.GetComponent<RectTransform>().position = new Vector3(Screen.width/2, Screen.height/10*6, 0);
+                    FishNameText.GetComponent<Text>().text = fishData.FishName;
                     FishNameTextMove = true;
                 }
             }
@@ -62,6 +64,7 @@ public class WindowController : MonoBehaviour
         // ウィンドウの位置を移動
         //NewFishWindow_RectTransform = NewFishWindow_Obj.GetComponent<RectTransform>();
         //NewFishWindow_RectTransform.anchoredPosition = new Vector3(0, 300, 0);
+        fishData = FishData;
         // 魚の画像を生成
         FishImage = Instantiate(FishImage_Prefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
         FishImage.GetComponent<Image>().sprite = FishData.FishImage;
@@ -93,5 +96,6 @@ public class WindowController : MonoBehaviour
         // ウィンドウを消す
         Destroy(NewFishWindow_Obj);
         Destroy(FishImage);
+        Destroy(FishNameText);
     }
 }

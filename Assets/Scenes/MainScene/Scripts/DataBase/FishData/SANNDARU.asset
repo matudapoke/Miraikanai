@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4163ae5961200a14ab0d90660d1db810, type: 3}
-  m_Name: KARAIWASHI
+  m_Name: SANNDARU
   m_EditorClassIdentifier: 
-  ID: 2
-  FishName: "\u30AB\u30E9\u30A4\u30EF\u30B7"
-  FishImage: {fileID: 21300000, guid: cb07b4053ddc5814997fda2b026461ef, type: 3}
-  FishInfo: "\u30EC\u30C7\u30A3\u30FC\u30D5\u30A3\u30C3\u30B7\u30E5\u3084\u304A\u5316\u3051\u30A4\u30EF\u30B7\u3068\u547C\u3070\u308C\u308B\u3002\u7F8E\u5473\u3057\u304F\u306A\u3044\u305E"
+  ID: 0
+  FishName: "\u30B5\u30F3\u30C0\u30EB"
+  FishImage: {fileID: 21300000, guid: fa22cd4b3f5e24840b42e1401bca6ff6, type: 3}
+  FishInfo: 
   FishShadow: {fileID: 0}
   FishShadowSpeed: 0
   FishTurnSmoothness: 0
   FishTurnAngle: 0
   FishBiteTime: 0
   FishingHitWitTime: 0
-  FishingMeterOKLevelMin: 0.131
-  FishingMeterOKLevelMax: 0.386
-  Rarity: 4
-  FishPower: 80
+  FishingMeterOKLevelMin: 0.104
+  FishingMeterOKLevelMax: 0.896
+  Rarity: 5
+  FishPower: 60
   FishLevel: 0
   FishType: 
   FishAbilitie: 

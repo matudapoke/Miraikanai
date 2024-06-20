@@ -5,13 +5,22 @@ using UnityEngine.UIElements;
 
 public class Reaction : MonoBehaviour
 {
-    [SerializeField] float FadeOutTime;
+    //[SerializeField] float FadeOutTime;
     [SerializeField] Vector3 ShiftPosition;
     void Update()
     {
-        if (Action_Display && Action_DestroyTime <= Time.realtimeSinceStartup && Action_Obj != null)
+        if (Action_Display && Action_DestroyTime < Time.realtimeSinceStartup && Action_Obj != null)
         {
-            ActionFadeOut_Run(2);
+            action_FadeOut_Run = StartCoroutine(ActionFadeOut_Run(2));
+        }
+        else if (Action_Obj != null)
+        {
+            if (action_FadeOut_Run != null)
+            {
+                StopCoroutine(action_FadeOut_Run);
+                ActionSpriteRenderer = Action_Obj.GetComponent<SpriteRenderer>();
+                ActionSpriteRenderer.color = new Color(1, 1, 1, 1);
+            }
         }
         if (Action_Obj != null)
         {
@@ -63,7 +72,11 @@ public class Reaction : MonoBehaviour
     
     public void Action_FadeOut(float fadeOutTime)
     {
-        action_FadeOut_Run=StartCoroutine(ActionFadeOut_Run(fadeOutTime));
+        Action_DestroyTime -= 5;
+        if (Action_DestroyTime <= Time.realtimeSinceStartup)
+        {
+            Action_DestroyTime = Time.realtimeSinceStartup;
+        }
     }
 
     IEnumerator ActionFadeOut_Run(float fadeOutTime)

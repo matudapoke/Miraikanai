@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -361,7 +362,7 @@ public class FishingManager : MonoBehaviour
                     // なんの魚が釣れる？
                     FishData = ChooseFishBasedOnRarity(FishingPlaceScript.FishBornList);
                     // 何秒後にHIT？
-                    FishingTime_Hit = Random.Range(3.0f, 3.1f);//<------------ここは将来変える
+                    FishingTime_Hit = Random.Range(3.0f, 10.0f);//<------------ここは将来変える
                     FishingTime_Throw = Time.time;
                     Debug.Log("ウキを開始：" + FishingTime_Hit + "秒後にHIT");
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || FishingTime_Hit + FishingTime_Throw <= Time.time);
@@ -421,7 +422,7 @@ public class FishingManager : MonoBehaviour
                     GetComponent<AudioSource>().Stop();
                     GetComponents<AudioSource>()[1].Stop();
                     // SEを再生
-                    GetComponent<AudioSource>().PlayOneShot(FishCatching);
+                    GetComponent<AudioSource>().PlayOneShot(FishCatching, 0.75f);
                     // スペースorXなら釣りを終了
                     if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X))
                     {
@@ -508,8 +509,10 @@ public class FishingManager : MonoBehaviour
                             // 魚の画像を黒くする
                             FishImage_Obj.GetComponent<SpriteRenderer>().color = Color.black;
                             yield return new WaitForSeconds(0.75f);
+                            // アニメーション
                             PlayerAnime.SetBool("Fishing", false);
-                            // Direction direction = charaOperation.GetDirection();
+                            charaOperation.CharaAnime(CharaOperation.Direction.Down);
+                            // カメラ移動
                             CamScript.CamReset();
                             CamScript.CamMove(2, new Vector3(0, 1.5f, 0));
                             CamScript.CamZoom(3, 1.5f);
