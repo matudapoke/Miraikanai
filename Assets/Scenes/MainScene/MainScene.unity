@@ -1924,7 +1924,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ListenerTrs: {fileID: 1043155214}
   PlusVolume: 0.1
-  Coeffcient: 0.003
+  Coeffcient: 0.002
 --- !u!114 &172442028
 MonoBehaviour:
   m_ObjectHideFlags: 0
