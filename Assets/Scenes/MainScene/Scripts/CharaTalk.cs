@@ -25,6 +25,7 @@ public class CharaTalk : MonoBehaviour
 
     AudioSource audioSource;
     [SerializeField] AudioClip Voice;
+    [SerializeField] float VoiceVolume;
 
     bool CanTalk;
 
@@ -101,7 +102,7 @@ public class CharaTalk : MonoBehaviour
         {
             CurrentText += Text[i];// 一文字ずつ追加します
             Text_Component.text = CurrentText; // テキストオブジェクトを更新します
-            audioSource.PlayOneShot(Voice);
+            audioSource.PlayOneShot(Voice, VoiceVolume);
             yield return new WaitForSeconds(TextSpeed);
         }
     }

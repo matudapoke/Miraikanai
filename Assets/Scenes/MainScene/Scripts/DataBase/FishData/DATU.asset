@@ -30,4 +30,4 @@ MonoBehaviour:
   FishType: 
   FishAbilitie: 
   FishAblitiesVar: 0
-  NewFish: 0
+  NewFish: 1
