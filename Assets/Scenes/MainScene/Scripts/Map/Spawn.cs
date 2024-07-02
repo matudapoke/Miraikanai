@@ -33,7 +33,6 @@ public class Spawn : MonoBehaviour
     }
     IEnumerator RandomSpawn()
     {
-        Debug.Log("aa");
         yield return new WaitForSeconds(Random.Range(SpawnIntervalMin, SpawnIntervalMax));
         SpawnObj.Add(Instantiate(SpawnPrefab[Random.Range(0, SpawnPrefab.Count)], new Vector3(Random.Range(SpawnPositionXMin, SpawnPositionXMax), SpawnPositionY, 0), Quaternion.identity, transform));
         StartCoroutine("RandomSpawn");

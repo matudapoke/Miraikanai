@@ -12519,7 +12519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1046580014
 Transform:
   m_ObjectHideFlags: 0
@@ -12549,9 +12549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1af5e3da0f442c6409faba3f8f02868b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FirstMenuObj: {fileID: 774972899}
+  HomeMenu_Obj: {fileID: 774972899}
   CanMainMenuOpen: 1
-  MenuNow: 0
+  MenuOpenNow: 0
   MenuWindowMovePosition1: {x: 1650, y: 550, z: 0}
   MenuWindowMovePosition2: {x: 1600, y: 550, z: 0}
   MenuWindowMovePosition3: {x: 1550, y: 550, z: 0}
@@ -20345,7 +20345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.33711672, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.011166096, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

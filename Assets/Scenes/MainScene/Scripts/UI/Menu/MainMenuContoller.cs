@@ -5,11 +5,10 @@ using UnityEngine.EventSystems;
 
 public class MainMenuContoller : MonoBehaviour
 {
-    [SerializeField] GameObject FirstMenuObj;
+    [SerializeField] GameObject HomeMenu_Obj;
     // フラグ
     public bool CanMainMenuOpen;
-    [HideInInspector]
-    public bool MenuNow;
+    [HideInInspector]public bool MenuOpenNow;
     // 値
     [Tooltip("メニューがどの位置に移動してくるか")]
     public Vector3 MenuWindowMovePosition1;
@@ -22,7 +21,7 @@ public class MainMenuContoller : MonoBehaviour
     [Tooltip("メニューが移動する速さ)")]
     public float MenuMoveSpeed;
     // コンポーネント
-    MainMenu FirstMenu;
+    MainMenu HomeMenu_Script;
     Cam CamScript;
     CharaOperation charaOperation;
     FishingManager fishingManager;
@@ -30,7 +29,7 @@ public class MainMenuContoller : MonoBehaviour
 
     void Start()
     {
-        FirstMenu = FirstMenuObj.GetComponent<MainMenu>();
+        HomeMenu_Script = HomeMenu_Obj.GetComponent<MainMenu>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         charaOperation = GameObject.Find("Reizi").GetComponent<CharaOperation>();
         fishingManager = GameObject.Find("Reizi").GetComponent<FishingManager>();
@@ -40,14 +39,14 @@ public class MainMenuContoller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) && CanMainMenuOpen)
         {
-            if (!FirstMenu.MenuWindowMove1 || !FirstMenu.MenuWindowMove2 || !FirstMenu.MenuWindowMove3)
+            if (!MenuOpenNow)
             {
-                FirstMenu.MenuWindowMoveNextPosition();
-                MainMenuStart();
+                HomeMenu_Script.MenuWindowMoveNextPosition();
+                MenuStart();
             }
             else
             {
-                MainMenuEnd();
+                MenuEnd();
             }
         }
         /*
@@ -67,7 +66,7 @@ public class MainMenuContoller : MonoBehaviour
         }
         */
     }
-    public void MainMenuStart()
+    public void MenuStart()
     {
         // カメラを動かす
         CamScript.CamMove(10, new Vector3(1.4f, 0, 0));
@@ -75,17 +74,20 @@ public class MainMenuContoller : MonoBehaviour
         // キャラを操作できなくする
         charaOperation.CanRun = false;
         // フラグ
-        MenuNow = true;
+        MenuOpenNow = true;
+
         transform.Find("MainMenuWindow").transform.Find("1").GetComponent<MenuSelect>().Select();
         audioSource.Play();
     }
-    public void MainMenuEnd()
+    public void MenuEnd()
     {
         // カメラを戻す
         CamScript.CamReset();
         // キャラを操作できなくする
         charaOperation.CanRun = true;
         // フラグ
-        MenuNow = false;
+        MenuOpenNow = false;
+
+        audioSource.Play();
     }
 }

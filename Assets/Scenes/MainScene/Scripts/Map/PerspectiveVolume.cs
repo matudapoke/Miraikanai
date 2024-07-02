@@ -15,7 +15,8 @@ public class PerspecitveVolume : MonoBehaviour
     }
     void Update()
     {
-        float dis = Vector3.Distance(this.transform.position, ListenerTrs.position);
+        float dis = Vector3.Distance(transform.position, ListenerTrs.position);
         audioSource.volume = Coeffcient * dis *dis + PlusVolume;
+        audioSource.panStereo = (ListenerTrs.position.x - transform.position.x) * 0.05f;
     }
 }

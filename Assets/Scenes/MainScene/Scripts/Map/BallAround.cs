@@ -23,7 +23,7 @@ public class BallAround : MonoBehaviour
 
     void Update()
     {
-        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && BallAroundCollited && !MainMenuContoller.MenuNow)
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && BallAroundCollited && !MainMenuContoller.MenuOpenNow)
         {
             ApplyForceWithAngle();
         }
