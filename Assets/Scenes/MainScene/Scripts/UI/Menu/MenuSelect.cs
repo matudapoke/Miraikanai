@@ -62,10 +62,13 @@ public class MenuSelect : MonoBehaviour
         // 決定
         if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return) && Selected)
         {
-            DeSelection();
-            transform.parent.gameObject.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
-            SubmitToMenu_Obj.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
-            SubmitToMenu_Obj.transform.Find("1").GetComponent<MenuSelect>().Select();
+            if (SubmitToMenu_Obj != null)
+            {
+                DeSelection();
+                transform.parent.gameObject.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
+                SubmitToMenu_Obj.GetComponent<MainMenu>().MenuWindowMoveNextPosition();
+                SubmitToMenu_Obj.transform.Find("1").GetComponent<MenuSelect>().Select();
+            }
         }
     }
 
