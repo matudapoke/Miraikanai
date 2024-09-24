@@ -19,7 +19,7 @@ public class FishingPlace : MonoBehaviour
     }
     [Header("釣り場の方向")]
     public Direction direction;
-
+    
 
     //魚影生成 
 

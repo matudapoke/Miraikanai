@@ -38,6 +38,8 @@ public class FishingManager : MonoBehaviour
     GameObject FishImage_Prefab;
     GameObject FishingMeter_Obj;
     GameObject FishingMeterBar_Obj;
+    GameObject SpaceKeyImage_Obj;
+    Money money;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -71,6 +73,7 @@ public class FishingManager : MonoBehaviour
         Corsor_Obj.SetActive(false);
         FishingFloat_Obj = GameObject.Find("FishingFloat");
         FishingFloat_Obj.SetActive(false);
+        SpaceKeyImage_Obj = GameObject.Find("スペースキー");
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
@@ -78,6 +81,7 @@ public class FishingManager : MonoBehaviour
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
         //mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
+        money = GameObject.Find("Money").GetComponent<Money>();
     }
     void Update()
     {
@@ -507,7 +511,7 @@ public class FishingManager : MonoBehaviour
                         {
                             // 魚の画像を黒くする
                             FishImage_Obj.GetComponent<SpriteRenderer>().color = Color.black;
-                            yield return new WaitForSeconds(0.75f);
+                            yield return new WaitForSeconds(1.5f);
                             // アニメーション
                             PlayerAnime.SetBool("Fishing", false);
                             charaOperation.CharaAnime(CharaOperation.Direction.Down);
@@ -543,6 +547,7 @@ public class FishingManager : MonoBehaviour
                             FishingFloatEnd();
                         }
                     }
+                    money.AddMoney(FishData.FishMoney);
                     // フラグを戻す
                     HitSuccess = false;
                     HitFailure = false;
@@ -681,6 +686,7 @@ public class FishingManager : MonoBehaviour
         {
             FishingPlaceScript = collision.gameObject.GetComponent<FishingPlace>();
             FishingPlace_Collided = true;
+            SpaceKeyImage_Obj.GetComponent<Image>().color = new Color32(255,255,255,255);
         }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -688,6 +694,7 @@ public class FishingManager : MonoBehaviour
         if (collision.gameObject.CompareTag("FishingPlace"))
         {
             FishingPlace_Collided = false;
+            SpaceKeyImage_Obj.GetComponent<Image>().color = new Color32(210,210,210,255);
         }
     }
 }

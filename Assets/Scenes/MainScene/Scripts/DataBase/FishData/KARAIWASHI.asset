@@ -16,10 +16,6 @@ MonoBehaviour:
   FishName: "\u30AB\u30E9\u30A4\u30EF\u30B7"
   FishImage: {fileID: 21300000, guid: 570054160ddbc584e8c5a5029d5595d6, type: 3}
   FishInfo: "\u30EC\u30C7\u30A3\u30FC\u30D5\u30A3\u30C3\u30B7\u30E5\u3084\u304A\u5316\u3051\u30A4\u30EF\u30B7\u3068\u547C\u3070\u308C\u308B\u3002\u7F8E\u5473\u3057\u304F\u306A\u3044\u305E"
-  FishShadow: {fileID: 0}
-  FishShadowSpeed: 0
-  FishTurnSmoothness: 0
-  FishTurnAngle: 0
   FishBiteTime: 0
   FishingHitWitTime: 0
   FishingMeterOKLevelMin: 0.131
@@ -27,6 +23,7 @@ MonoBehaviour:
   Rarity: 4
   FishPower: 80
   FishLevel: 0
+  FishMoney: 5000
   FishType: 
   FishAbilitie: 
   FishAblitiesVar: 0

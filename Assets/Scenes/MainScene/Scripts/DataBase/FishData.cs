@@ -14,15 +14,6 @@ public class FishData : ScriptableObject
     public Sprite FishImage;
     [Tooltip("魚の説明")]
     public string FishInfo;
-
-    [Tooltip("魚影のプレハブ"), Header("釣りパラメータ")]
-    public GameObject FishShadow;
-    [Tooltip("魚影の動きのスピード")]
-    public float FishShadowSpeed;
-    [Tooltip("魚影の回転するスピード")]
-    public float FishTurnSmoothness;
-    [Tooltip("魚影が回転する角度")]
-    public float FishTurnAngle;
     [Tooltip("魚が食い付くまでの時間(最短で何秒？)")]
     public float FishBiteTime;
     [Tooltip("魚がHITしてから終わるまでの時間")]
@@ -38,6 +29,8 @@ public class FishData : ScriptableObject
     [Tooltip("魚の難易度(バーを留める範囲＝釣り竿の安定性えあ割る÷魚の難易度​)")]
     public float FishLevel;
     
+    [Tooltip("魚の金額")]
+    public int FishMoney;
     [Tooltip("魚のタイプ"), Header("バトルパラメータ")]
     public string FishType;//TypeDateBaseから抽出
     [Tooltip("魚の能力の名前")]
