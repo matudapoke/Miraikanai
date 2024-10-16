@@ -33,6 +33,11 @@ public class Cam : MonoBehaviour
     float CamShake_IntervalTime;
     Coroutine camOneShake;
 
+
+    void Start()
+    {
+        Application.targetFrameRate = 60;
+    }
     void LateUpdate()
     {
         CamPos = Target.position + ShiftPos;

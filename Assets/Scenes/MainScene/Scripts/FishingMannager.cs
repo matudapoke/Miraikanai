@@ -17,6 +17,7 @@ public class FishingManager : MonoBehaviour
     float FishingTime_SinceHit;
     float OKLineMin;
     float OKLineMax;
+    [Header("釣竿のパワー（初期値）")] public float FishingRodPower;
     // フラグ
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
@@ -30,6 +31,7 @@ public class FishingManager : MonoBehaviour
     bool HitFailure;
     bool FishImage_Move;
     bool FishImage_Move_Coming;
+    [SerializeField, Header("レベルアップで消費する金額、初期値")] int LevelUpMoney;
     // ゲームオブジェクト
     GameObject Corsor_Obj;
     GameObject FishingFloat_Obj;
@@ -40,6 +42,7 @@ public class FishingManager : MonoBehaviour
     GameObject FishingMeterBar_Obj;
     GameObject SpaceKeyImage_Obj;
     Money money;
+    GameObject LevelUpMoneyObj;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -74,6 +77,7 @@ public class FishingManager : MonoBehaviour
         FishingFloat_Obj = GameObject.Find("FishingFloat");
         FishingFloat_Obj.SetActive(false);
         SpaceKeyImage_Obj = GameObject.Find("スペースキー");
+        LevelUpMoneyObj = GameObject.Find("LevelUpMoney");
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
@@ -82,6 +86,7 @@ public class FishingManager : MonoBehaviour
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
         //mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
         money = GameObject.Find("Money").GetComponent<Money>();
+        LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString();
     }
     void Update()
     {
@@ -269,7 +274,16 @@ public class FishingManager : MonoBehaviour
                 FishImage_Obj.transform.position += new Vector3(0, 50 * Time.deltaTime, 0);
             }
         }
-
+        //　釣竿レベルアップ
+        if (Input.GetKeyDown(KeyCode.E) && money.money >= LevelUpMoney)
+        {
+            money.AddMoney(-LevelUpMoney);
+            //money.money -= LevelUpMoney;
+            FishingRodPower += 1;
+            LevelUpMoney += 1000;
+            LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
+        }
+        
     }
 
 
@@ -546,8 +560,8 @@ public class FishingManager : MonoBehaviour
                             GameObject.Find("PopupController").GetComponent<PopupController>().SubmitPopup(FishData.FishName, FishData.FishImage);
                             FishingFloatEnd();
                         }
+                        money.AddMoney(FishData.FishMoney);
                     }
-                    money.AddMoney(FishData.FishMoney);
                     // フラグを戻す
                     HitSuccess = false;
                     HitFailure = false;

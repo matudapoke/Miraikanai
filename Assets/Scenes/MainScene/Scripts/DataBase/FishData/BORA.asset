@@ -23,7 +23,7 @@ MonoBehaviour:
   Rarity: 2
   FishPower: 30
   FishLevel: 0
-  FishMoney: 5000
+  FishMoney: 500
   FishType: 
   FishAbilitie: 
   FishAblitiesVar: 0

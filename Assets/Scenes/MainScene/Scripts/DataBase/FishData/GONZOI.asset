@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4163ae5961200a14ab0d90660d1db810, type: 3}
-  m_Name: KANN
+  m_Name: GONZOI
   m_EditorClassIdentifier: 
-  ID: 0
-  FishName: "\u30AB\u30F3"
-  FishImage: {fileID: 21300000, guid: b520a4bb057e19f4da90b40365913320, type: 3}
+  ID: 1
+  FishName: "\u30B4\u30F3\u30BE\u30A4"
+  FishImage: {fileID: 21300000, guid: 18652003358024cf0a7121c28218d87b, type: 3}
   FishInfo: 
-  FishBiteTime: 0
-  FishingHitWitTime: 0
-  FishingMeterOKLevelMin: 0.269
-  FishingMeterOKLevelMax: 0.806
-  Rarity: 5
-  FishPower: 10
+  FishBiteTime: 10
+  FishingHitWitTime: 20
+  FishingMeterOKLevelMin: 0.275
+  FishingMeterOKLevelMax: 0.731
+  Rarity: 1
+  FishPower: 30
   FishLevel: 0
-  FishMoney: 3333
+  FishMoney: 10000
   FishType: 
   FishAbilitie: 
   FishAblitiesVar: 0
-  NewFish: 1
+  NewFish: 0

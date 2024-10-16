@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class Money : MonoBehaviour
 {
-    int money;
+    [SerializeField] Image LevelUpMoneyMeter_Image;
+    [SerializeField] Text LevelUpMoney_Text;
+    public int money;
     Text text;
-    int textNum;
+    [HideInInspector] public int textNum;
+    int pulsmoney;
     void Start()
     {
         text = GetComponent<Text>();
@@ -16,17 +19,19 @@ public class Money : MonoBehaviour
     {
         if (money > textNum)
         {
-            textNum += 1;
-            text.text = (textNum).ToString();
+            textNum += pulsmoney;
+            text.text = textNum.ToString("N0");
+            LevelUpMoneyMeter_Image.fillAmount =  textNum / float.Parse(LevelUpMoney_Text.text);
         }
         else
         {
             textNum = money;
-            text.text = money.ToString();
+            text.text = money.ToString("N0");
         }
     }
     public void AddMoney(int MoneyInt)
     {
         money += MoneyInt;
+        pulsmoney = MoneyInt/60+1;
     }
 }
