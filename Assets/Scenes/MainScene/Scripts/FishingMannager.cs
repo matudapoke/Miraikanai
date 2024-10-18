@@ -41,6 +41,7 @@ public class FishingManager : MonoBehaviour
     GameObject FishingMeter_Obj;
     GameObject FishingMeterBar_Obj;
     GameObject SpaceKeyImage_Obj;
+    GameObject EKeyImage_Obj;
     Money money;
     GameObject LevelUpMoneyObj;
     // コンポーネント
@@ -77,6 +78,7 @@ public class FishingManager : MonoBehaviour
         FishingFloat_Obj = GameObject.Find("FishingFloat");
         FishingFloat_Obj.SetActive(false);
         SpaceKeyImage_Obj = GameObject.Find("スペースキー");
+        EKeyImage_Obj = GameObject.Find("Eキー");
         LevelUpMoneyObj = GameObject.Find("LevelUpMoney");
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
@@ -235,7 +237,7 @@ public class FishingManager : MonoBehaviour
             // プレイヤーによる操作
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
-                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, 5);
+                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingRodPower);
                 GetComponents<AudioSource>()[1].Play();
             }
             // 魚の抵抗力による操作
@@ -275,15 +277,23 @@ public class FishingManager : MonoBehaviour
             }
         }
         //　釣竿レベルアップ
-        if (Input.GetKeyDown(KeyCode.E) && money.money >= LevelUpMoney)
+        if (money.money >= LevelUpMoney)
         {
-            money.AddMoney(-LevelUpMoney);
-            //money.money -= LevelUpMoney;
-            FishingRodPower += 1;
-            LevelUpMoney += 1000;
-            LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
+            EKeyImage_Obj.GetComponent<Image>().color = new Color32(255,255,255,255);
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                money.AddMoney(-LevelUpMoney);
+                //money.money -= LevelUpMoney;
+                FishingRodPower += 1;
+                LevelUpMoney += 1000;
+                LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
+                money.LevelUpMoneyMeter_Image.fillAmount = 0;
+            }
         }
-        
+        else
+        {
+            EKeyImage_Obj.GetComponent<Image>().color = new Color32(210,210,210,255);
+        }
     }
 
 
@@ -538,13 +548,16 @@ public class FishingManager : MonoBehaviour
                             WindowController window = GameObject.Find("WindowContoller").GetComponent<WindowController>();
                             window.NewFishWindow_Creat(FishData);
                             // キーが押すか完全に移動するのを待つ
-                            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || window.ShakeRun);
+                            yield return new WaitUntil(() => window.ShakeRun);
                             // もしいずれかのキーを押したらウィンドウが完全に移動する
+                            /*
                             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                             {
                                 window.NewFishWindow_Click();
                                 yield return new WaitForSeconds(0.1f);
+                                Debug.Log("2");
                             }
+                            */
                             // キーが押されるのを待つ
                             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z));
                             window.NewFishWindow_Destroy();
