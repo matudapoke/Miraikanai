@@ -575,6 +575,10 @@ public class FishingManager : MonoBehaviour
                         }
                         money.AddMoney(FishData.FishMoney);
                     }
+                    else if (HitFailure)
+                    {
+                        yield return new WaitForSeconds(1.5f);
+                    }
                     // フラグを戻す
                     HitSuccess = false;
                     HitFailure = false;

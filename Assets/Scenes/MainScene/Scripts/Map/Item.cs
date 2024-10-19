@@ -4,48 +4,55 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-    [SerializeField, Tooltip("なんの魚？")]
+    [SerializeField, Tooltip("なんの魚？"), Header("種類")]
     FishData FishData;
+    [SerializeField] bool Gomi;
+    GomiCounter gomiCounter;
 
-    [SerializeField, Tooltip("もとの大きさから引く値")]
-    float MinusScale = 1;
-    [SerializeField, Tooltip("伸び縮みする間隔(秒)")]
-    float StrechInterval;
-    [Tooltip("動いているかどうかを確認するための最後の位置")]
-    Vector3 LastPosition;
-    [Tooltip("動いているかどうか")]
-    bool Move = false;
-    [Tooltip("StrechHeightが実行されているかどうか")]
-    bool StrechHeightRunning = false;
-    [Tooltip("もとの大きさ")]
-    Vector3 OriginalScale;
+    [SerializeField, Header("大きさを変える")] bool ChangeScale;
+    [SerializeField, Tooltip("もとの大きさから引く値")] float MinusScale = 1;
+    [SerializeField, Tooltip("伸び縮みする間隔(秒)")] float StrechInterval;
+    [Tooltip("動いているかどうかを確認するための最後の位置")] Vector3 LastPosition;
+    [Tooltip("動いているかどうか")] bool Move = false;
+    [Tooltip("StrechHeightが実行されているかどうか")] bool StrechHeightRunning = false;
+    [Tooltip("もとの大きさ")] Vector3 OriginalScale;
 
     void Start()
     {
-        OriginalScale = transform.localScale;// もとの大きさを入れておく
-        StartCoroutine(StrechHeight());
+        if (ChangeScale)
+        {
+            OriginalScale = transform.localScale;// もとの大きさを入れておく
+            StartCoroutine(StrechHeight());
+        }
+        if (Gomi)
+        {
+            gomiCounter = GameObject.FindWithTag("GomiCounter").GetComponent<GomiCounter>();
+        }
     }
 
     void Update()
     {
-        if (transform.position != LastPosition)
+        if (ChangeScale)
         {
-            Move = true;// 動いていたらMoveがtrue
-            if (transform.localScale != OriginalScale)
+            if (transform.position != LastPosition)
             {
-                transform.localScale = OriginalScale;// 元の大きさに戻す
-                MinusScale = -MinusScale;
+                Move = true;// 動いていたらMoveがtrue
+                if (transform.localScale != OriginalScale)
+                {
+                    transform.localScale = OriginalScale;// 元の大きさに戻す
+                    MinusScale = -MinusScale;
+                }
             }
-        }
-        else
-        {
-            Move = false; // 動いていなかったらMoveがfalse
-            if (!StrechHeightRunning)// コルーチンが実行中でなければコルーチンを開始
+            else
             {
-                StartCoroutine(StrechHeight());
+                Move = false; // 動いていなかったらMoveがfalse
+                if (!StrechHeightRunning)// コルーチンが実行中でなければコルーチンを開始
+                {
+                    StartCoroutine(StrechHeight());
+                }
             }
+            LastPosition = transform.position;
         }
-        LastPosition = transform.position;
     }
 
     IEnumerator StrechHeight()
@@ -76,7 +83,10 @@ public class Item : MonoBehaviour
                 PopupController PopupControllerScript = PopupControllerObj.GetComponent<PopupController>();
                 PopupControllerScript.SubmitPopup(FishData.FishName , FishData.FishImage);
             }
-
+            if (Gomi)// ゴミだったら
+            {
+                gomiCounter.AddGomi();
+            }
             Destroy(gameObject);// ゲームオブジェクトを消すとそのあとのコードは実行されない
         }
     }

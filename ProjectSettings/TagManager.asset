@@ -10,6 +10,7 @@ TagManager:
   - Wall
   - CanvasWorld
   - WallCurve
+  - GomiCounter
   layers:
   - Default
   - TransparentFX

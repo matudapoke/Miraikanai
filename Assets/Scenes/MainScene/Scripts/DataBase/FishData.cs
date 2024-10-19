@@ -12,12 +12,14 @@ public class FishData : ScriptableObject
     public string FishName;
     [Tooltip("魚の画像")]
     public Sprite FishImage;
+    [Tooltip("画像サイズはいくつか")]
+    public int FishImageSize;
     [Tooltip("魚の説明")]
     public string FishInfo;
-    [Tooltip("魚が食い付くまでの時間(最短で何秒？)")]
+    [Tooltip("魚が食い付くまでの時間(最短で何秒？)"), Header("釣り時")]
     public float FishBiteTime;
     [Tooltip("魚がHITしてから終わるまでの時間")]
-    public float FishingHitWitTime;
+    public float FishingHitWaitTime;
     [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最小値(メーターの大きさ：0～1)"), Range(0, 1)]
     public float FishingMeterOKLevelMin;
     [Tooltip("魚がHITしてから出るメーターの留める許容範囲の最大値(メーターの大きさ：0～1)"), Range(0, 1)]
@@ -29,14 +31,8 @@ public class FishData : ScriptableObject
     [Tooltip("魚の難易度(バーを留める範囲＝釣り竿の安定性えあ割る÷魚の難易度​)")]
     public float FishLevel;
     
-    [Tooltip("魚の金額")]
+    [Tooltip("魚の金額"), Header("その他")]
     public int FishMoney;
-    [Tooltip("魚のタイプ"), Header("バトルパラメータ")]
-    public string FishType;//TypeDateBaseから抽出
-    [Tooltip("魚の能力の名前")]
-    public string FishAbilitie;
-    [Tooltip("魚の能力に関する変する")]
-    public float FishAblitiesVar;
 
     [Tooltip("図鑑に登録済みかどうか")]
     public bool NewFish;

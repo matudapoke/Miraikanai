@@ -29,14 +29,14 @@ public class WindowController : MonoBehaviour
             // ウィンドウを移動
             //NewFishWindow_RectTransform.anchoredPosition = Vector2.Lerp(NewFishWindow_RectTransform.anchoredPosition, new Vector2(0, 30), 2.5f * Time.deltaTime);
             // 魚の画像を縮小＆回転
-            if (FishImage.transform.localScale.x > 5)
+            if (FishImage.transform.localScale.x > 0.09f*fishData.FishImageSize)
             {
-                FishImage.transform.localScale -= new Vector3(30 * Time.deltaTime, 30 * Time.deltaTime, 30 * Time.deltaTime);
+                FishImage.transform.localScale -= new Vector3(0.5f * fishData.FishImageSize * Time.deltaTime, 0.5f * fishData.FishImageSize * Time.deltaTime, 0);
                 FishImage_RectTransform.eulerAngles += new Vector3(0, 0, 2000 * Time.deltaTime);
             }
             else
             {
-                FishImage.transform.localScale = new Vector3(5, 5, 5);
+                FishImage.transform.localScale = new Vector3(0.08f*fishData.FishImageSize, 0.08f*fishData.FishImageSize, 0);
                 FishImage.transform.rotation = new Quaternion(0, 0, 0, 0);
                 if (!ShakeRun)
                 {
@@ -71,7 +71,7 @@ public class WindowController : MonoBehaviour
         // 魚の画像を移動＆拡大
         FishImage_RectTransform = FishImage.GetComponent<RectTransform>();
         FishImage_RectTransform.anchoredPosition = new Vector3(0, 300, 0);
-        FishImage.transform.localScale = new Vector3(30, 30, 30);
+        FishImage.transform.localScale = new Vector3(0.5f*fishData.FishImageSize, 0.5f*fishData.FishImageSize, 0);
         // 音を出す
         GetComponent<AudioSource>().PlayOneShot(NewFishSound, NewFishSoundVolume);
         // フラグを立てる

@@ -15,16 +15,14 @@ MonoBehaviour:
   ID: 0
   FishName: "\u30B5\u30F3\u30C0\u30EB"
   FishImage: {fileID: 21300000, guid: fa22cd4b3f5e24840b42e1401bca6ff6, type: 3}
+  FishImageSize: 96
   FishInfo: 
   FishBiteTime: 0
-  FishingHitWitTime: 0
+  FishingHitWaitTime: 0
   FishingMeterOKLevelMin: 0.104
   FishingMeterOKLevelMax: 0.896
   Rarity: 5
   FishPower: 60
   FishLevel: 0
   FishMoney: 1000000
-  FishType: 
-  FishAbilitie: 
-  FishAblitiesVar: 0
   NewFish: 1
