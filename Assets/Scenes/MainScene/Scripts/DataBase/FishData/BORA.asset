@@ -16,13 +16,13 @@ MonoBehaviour:
   FishName: "\u30DC\u30E9"
   FishImage: {fileID: 21300000, guid: 205b1e57dcb649840b6b27b21be5a18e, type: 3}
   FishImageSize: 96
-  FishInfo: 
+  FishInfo: "\u76EE\u306B\u8102\u77BC\uFF08\u8102\u80AA\u306E\u819C\uFF09\u304C\u3042\u308B"
   FishBiteTime: 0
   FishingHitWaitTime: 0
-  FishingMeterOKLevelMin: 0.335
-  FishingMeterOKLevelMax: 0.9
+  FishingMeterOKLevelMin: 0.25
+  FishingMeterOKLevelMax: 0.8
   Rarity: 2
   FishPower: 30
   FishLevel: 0
   FishMoney: 500
-  NewFish: 1
+  NewFish: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6301008265395385659}
   - component: {fileID: 5309138403077086586}
   m_Layer: 0
-  m_Name: GomiA
+  m_Name: GomiB
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e2a5043f3250b4180970e0cc4500b26c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5478a34e3c5a142d482d6913be589e42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

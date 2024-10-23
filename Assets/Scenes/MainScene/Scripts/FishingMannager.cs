@@ -58,6 +58,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
     [SerializeField] AudioClip FishCatching;
+    [SerializeField] AudioClip FishingLodLevelUp;
     public enum Phase
     {
         StartFishing,
@@ -284,6 +285,7 @@ public class FishingManager : MonoBehaviour
             {
                 money.AddMoney(-LevelUpMoney);
                 //money.money -= LevelUpMoney;
+                GetComponent<AudioSource>().PlayOneShot(FishingLodLevelUp);
                 FishingRodPower += 1;
                 LevelUpMoney += 1000;
                 LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
