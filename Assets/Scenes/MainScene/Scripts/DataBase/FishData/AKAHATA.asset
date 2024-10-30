@@ -19,10 +19,10 @@ MonoBehaviour:
   FishInfo: 
   FishBiteTime: 10
   FishingHitWaitTime: 0
-  FishingMeterOKLevelMin: 0.26
-  FishingMeterOKLevelMax: 0.76
+  FishingMeterOKLevelMin: 0.4
+  FishingMeterOKLevelMax: 0.9
   Rarity: 3
   FishPower: 60.2
   FishLevel: 0
   FishMoney: 10000
-  NewFish: 0
+  NewFish: 1

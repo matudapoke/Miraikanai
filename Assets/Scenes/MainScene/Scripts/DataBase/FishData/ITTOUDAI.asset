@@ -19,8 +19,8 @@ MonoBehaviour:
   FishInfo: "\u9C57\u304C\u975E\u5E38\u306B\u786C\u3044"
   FishBiteTime: 0
   FishingHitWaitTime: 0
-  FishingMeterOKLevelMin: 0.16
-  FishingMeterOKLevelMax: 0.86
+  FishingMeterOKLevelMin: 0.2
+  FishingMeterOKLevelMax: 0.9
   Rarity: 2
   FishPower: 30
   FishLevel: 0

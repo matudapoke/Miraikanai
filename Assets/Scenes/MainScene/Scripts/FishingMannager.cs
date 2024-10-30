@@ -31,6 +31,7 @@ public class FishingManager : MonoBehaviour
     bool HitFailure;
     bool FishImage_Move;
     bool FishImage_Move_Coming;
+    bool StartFloatIntervalNow;
     [SerializeField, Header("レベルアップで消費する金額、初期値")] int LevelUpMoney;
     // ゲームオブジェクト
     GameObject Corsor_Obj;
@@ -311,6 +312,8 @@ public class FishingManager : MonoBehaviour
                     Debug.Log("釣りを開始");
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
+                    PlayerAnime.SetBool("RunBack", false);
+                    PlayerAnime.SetBool("RunFlont", false);
                     //カーソルを出す
                     Corsor_Obj.SetActive(true);
                     //カメラ移動＆方向を向く(一回目のみ動かす)
@@ -326,11 +329,11 @@ public class FishingManager : MonoBehaviour
                     //mainMenuContoller.CanMainMenuOpen = false;
                     // Actionを消す
                     reaction.Action_FadeOut(0.5f);
-
                     yield return new WaitUntil(() => (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X)) && !FishingMenu);
                     // リターンorZでウキを浮かべる
                     if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
                     {
+                        StartCoroutine(StartFloatInterval());
                         phase = Phase.StartFloat;
                     }
                     // スペースorXで釣りを終了
@@ -366,19 +369,19 @@ public class FishingManager : MonoBehaviour
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.UpRight)
                         {
-
+                            PlayerAnime.SetBool("ThrowFloatBack", true);
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.UpLeft)
                         {
-
+                            PlayerAnime.SetBool("ThrowFloatBack", true);
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.DownRight)
                         {
-
+                            PlayerAnime.SetBool("ThrowFloatFlont", true);
                         }
                         else if (FishingPlaceScript.direction == FishingPlace.Direction.DownLeft)
                         {
-
+                            PlayerAnime.SetBool("ThrowFloatFlont", true);
                         }
                     }
                     // ウキを動かす準備
@@ -396,7 +399,7 @@ public class FishingManager : MonoBehaviour
                     Debug.Log("ウキを開始：" + FishingTime_Hit + "秒後にHIT");
                     yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || FishingTime_Hit + FishingTime_Throw <= Time.time);
                     // リターンorZでカーソルに戻る
-                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
+                    if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && !StartFloatIntervalNow)
                     {
                         FishingFloatEnd();
                         phase = Phase.StartFishing;
@@ -408,7 +411,7 @@ public class FishingManager : MonoBehaviour
                         phase = Phase.End;
                     }
                     // 時間になったらHIT
-                    else
+                    else if (!StartFloatIntervalNow)
                     {
                         phase = Phase.Hit;
                     }
@@ -594,7 +597,6 @@ public class FishingManager : MonoBehaviour
             }
         }
     }
-
     void FishingEnd()
     {
         // プレイヤーキャラが伸び縮みを再開操作を受付
@@ -690,6 +692,12 @@ public class FishingManager : MonoBehaviour
             Corsor_Obj.transform.position = new Vector3(-2, -2, 0) + transform.position;
         }
         else { Debug.Log("エラー：FishingPlaceの方向を入力して"); }
+    }
+    IEnumerator StartFloatInterval()
+    {
+        StartFloatIntervalNow = true;
+        yield return new WaitForSeconds(1);
+        StartFloatIntervalNow = false;
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {
