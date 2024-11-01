@@ -9948,6 +9948,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Corsor_Speed: 5
   FishingRodPower: 5
+  FishingRodPowerUpInt: 0.5
   CanFishing: 0
   FishingMenu: 0
   LevelUpMoney: 1000

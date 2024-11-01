@@ -18,6 +18,7 @@ public class FishingManager : MonoBehaviour
     float OKLineMin;
     float OKLineMax;
     [Header("釣竿のパワー（初期値）")] public float FishingRodPower;
+    [Header("釣竿がどんだけパワーアップするか")] public float FishingRodPowerUpInt;
     // フラグ
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
