@@ -6,14 +6,19 @@ using Unity.VisualScripting;
 
 public class Renda : MonoBehaviour
 {
-    void Start()
+    [SerializeField] float DownPosition;
+    bool isDown;
+    void Update()
     {
-        StartCoroutine(IntervalMovePosition());
-    }
-    IEnumerator IntervalMovePosition()
-    {
-        transform.position = new Vector3(Random.Range(-0.5f,1f), Random.Range(-0.5f,1f), 0) + GetComponentInParent<Transform>().position;        
-        yield return new WaitForSeconds(0.1f);
-        StartCoroutine(IntervalMovePosition());
+        if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z)) && !isDown)
+        {
+            transform.position -= new Vector3(0, DownPosition, 0);
+            isDown = true;
+        }
+        else if ((Input.GetKeyUp(KeyCode.Return) || Input.GetKeyUp(KeyCode.Z)) && isDown)
+        {
+            transform.position += new Vector3(0, DownPosition, 0);
+            isDown = false;
+        }
     }
 }
