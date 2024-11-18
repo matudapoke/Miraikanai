@@ -55,6 +55,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] GameObject FishingMeter_Prefab;
     Reaction reaction;
     Transform FishingMeterBar_Transform;
+    UIGroup uIGroup;
     //MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
@@ -83,6 +84,7 @@ public class FishingManager : MonoBehaviour
         SpaceKeyImage_Obj = GameObject.Find("スペースキー");
         EKeyImage_Obj = GameObject.Find("Eキー");
         LevelUpMoneyObj = GameObject.Find("LevelUpMoney");
+        uIGroup = GameObject.FindWithTag("UIGroup1").GetComponent<UIGroup>();
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
@@ -528,6 +530,8 @@ public class FishingManager : MonoBehaviour
                     // 成功
                     if (HitSuccess)
                     {
+                        // UI移動
+                        uIGroup.MoveUI(new Vector3(0,-1000,0));
                         // アイテムをポケットデータベースに追加
                         GameObject FishDataBaseManagerObj = GameObject.Find("DataBaseManager");
                         FishDataBeseManager FishDataBaseManagerScript = FishDataBaseManagerObj.GetComponent<FishDataBeseManager>();
@@ -591,6 +595,8 @@ public class FishingManager : MonoBehaviour
                     // カーソルへ戻る
                     FishingFloatEnd();
                     phase = Phase.StartFishing;
+                    // UIを戻す
+                    uIGroup.MoveUI(new Vector3(0,1000,0));
                     break;
                 case Phase.End:
                     Debug.Log("Phaseがおかしいにょ");

@@ -11,6 +11,7 @@ TagManager:
   - CanvasWorld
   - WallCurve
   - GomiCounter
+  - UIGroup1
   layers:
   - Default
   - TransparentFX
