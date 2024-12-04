@@ -20,6 +20,6 @@ public class UIGroup : MonoBehaviour
 
     public void MoveUI(Vector3 MovePlusPosition)
     {
-        NextPosition = transform.position + MovePlusPosition;
+        NextPosition = NextPosition + MovePlusPosition;
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 using UnityEngine.Device;
 
 public class BallAround : MonoBehaviour
