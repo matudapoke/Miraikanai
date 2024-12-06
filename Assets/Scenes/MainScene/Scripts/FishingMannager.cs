@@ -19,7 +19,6 @@ public class FishingManager : MonoBehaviour
     float OKLineMax;
     [Header("釣竿のパワー（初期値）")] public float FishingRodPower;
     [Header("釣竿がどんだけパワーアップするか")] public float FishingRodPowerUpInt;
-    [SerializeField] List<Sprite> FishingLodImages = new List<Sprite>();
     // フラグ
     [HideInInspector] public bool CanFishing;
     [HideInInspector] public bool FishingMenu;
@@ -34,7 +33,6 @@ public class FishingManager : MonoBehaviour
     bool FishImage_Move;
     bool FishImage_Move_Coming;
     bool StartFloatIntervalNow;
-    bool UIGroupisMove;
     [SerializeField, Header("レベルアップで消費する金額、初期値")] int LevelUpMoney;
     // ゲームオブジェクト
     GameObject Corsor_Obj;
@@ -289,11 +287,6 @@ public class FishingManager : MonoBehaviour
             EKeyImage_Obj.GetComponent<Image>().color = new Color32(255,255,255,255);
             if (Input.GetKeyDown(KeyCode.E))
             {
-                if(LevelUpMoney == 6000)
-                {
-                    GameObject FishingLod = GameObject.Find("釣竿");
-                    FishingLod.GetComponent<Image>().sprite = FishingLodImages[0];
-                }
                 money.AddMoney(-LevelUpMoney);
                 //money.money -= LevelUpMoney;
                 GetComponent<AudioSource>().PlayOneShot(FishingLodLevelUp);
@@ -326,9 +319,6 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("RunFlont", false);
                     //カーソルを出す
                     Corsor_Obj.SetActive(true);
-                    // UI移動
-                    uIGroup.MoveUI(new Vector3(0,-1000,0));
-                    UIGroupisMove = true;
                     //カメラ移動＆方向を向く(一回目のみ動かす)
                     if (!StartFishingReturn)
                     {
@@ -540,6 +530,8 @@ public class FishingManager : MonoBehaviour
                     // 成功
                     if (HitSuccess)
                     {
+                        // UI移動
+                        uIGroup.MoveUI(new Vector3(0,-1000,0));
                         // アイテムをポケットデータベースに追加
                         GameObject FishDataBaseManagerObj = GameObject.Find("DataBaseManager");
                         FishDataBeseManager FishDataBaseManagerScript = FishDataBaseManagerObj.GetComponent<FishDataBeseManager>();
@@ -603,6 +595,8 @@ public class FishingManager : MonoBehaviour
                     // カーソルへ戻る
                     FishingFloatEnd();
                     phase = Phase.StartFishing;
+                    // UIを戻す
+                    uIGroup.MoveUI(new Vector3(0,1000,0));
                     break;
                 case Phase.End:
                     Debug.Log("Phaseがおかしいにょ");
@@ -634,12 +628,6 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatSide", false);
         PlayerAnime.SetBool("Hit", false);
         PlayerAnime.SetBool("HitNow", false);
-        // UIを戻す
-        if(UIGroupisMove)
-        {
-            uIGroup.MoveUI(new Vector3(0,1000,0));
-            UIGroupisMove = false;
-        }
         // メーターを消す
         if (FishingMeter_Obj != null)
         {
@@ -663,12 +651,6 @@ public class FishingManager : MonoBehaviour
         PlayerAnime.SetBool("ThrowFloatSide", false);
         PlayerAnime.SetBool("Hit", false);
         PlayerAnime.SetBool("HitNow", false);
-        // UIを戻す
-        if(UIGroupisMove)
-        {
-            uIGroup.MoveUI(new Vector3(0,1000,0));
-            UIGroupisMove = false;
-        }
     }
     void FishingCamMove()
     {
