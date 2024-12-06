@@ -5,11 +5,13 @@ using UnityEngine.UI;
 
 public class UIGroup : MonoBehaviour
 {
+    Vector3 OriginalPosition;
     Vector3 NextPosition;
     [SerializeField] float MoveSpeed;
 
     void Start()
     {
+        OriginalPosition = transform.position;
         NextPosition = transform.position;
     }
 
@@ -20,6 +22,6 @@ public class UIGroup : MonoBehaviour
 
     public void MoveUI(Vector3 MovePlusPosition)
     {
-        NextPosition = transform.position + MovePlusPosition;
+        NextPosition = OriginalPosition + MovePlusPosition;
     }
 }

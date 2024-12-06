@@ -319,6 +319,8 @@ public class FishingManager : MonoBehaviour
                     PlayerAnime.SetBool("RunFlont", false);
                     //カーソルを出す
                     Corsor_Obj.SetActive(true);
+                    // UI移動
+                    uIGroup.MoveUI(new Vector3(0,-1000,0));
                     //カメラ移動＆方向を向く(一回目のみ動かす)
                     if (!StartFishingReturn)
                     {
@@ -530,8 +532,6 @@ public class FishingManager : MonoBehaviour
                     // 成功
                     if (HitSuccess)
                     {
-                        // UI移動
-                        uIGroup.MoveUI(new Vector3(0,-1000,0));
                         // アイテムをポケットデータベースに追加
                         GameObject FishDataBaseManagerObj = GameObject.Find("DataBaseManager");
                         FishDataBeseManager FishDataBaseManagerScript = FishDataBaseManagerObj.GetComponent<FishDataBeseManager>();
@@ -633,6 +633,8 @@ public class FishingManager : MonoBehaviour
         {
             Destroy(FishingMeter_Obj);
         }
+        // UI移動
+        uIGroup.MoveUI(new Vector3(0,0,0));
         Debug.Log("終了");
     }
     void FishingFloatEnd()
