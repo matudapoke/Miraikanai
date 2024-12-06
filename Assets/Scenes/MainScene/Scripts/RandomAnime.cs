@@ -14,10 +14,11 @@ public class RandomAnime : MonoBehaviour
     IEnumerator IntervalAnime()
     {
         yield return new WaitForSeconds(Random.Range(intervalMax, intervalMin));
-        string AnimeBoolText = AnimeBoolTextList[Random.Range(0, AnimeBoolTextList.Count-1)];
+        string AnimeBoolText = AnimeBoolTextList[Random.Range(0, AnimeBoolTextList.Count)];
         Debug.Log(AnimeBoolText);
         GetComponent<Animator>().SetBool(AnimeBoolText, true);
         StartCoroutine(IntervalAnimeEnd(AnimeBoolText));
+        StartCoroutine(IntervalAnime());
     }
 
     IEnumerator IntervalAnimeEnd(string AnimeBoolText)
