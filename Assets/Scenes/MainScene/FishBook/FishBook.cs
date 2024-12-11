@@ -33,6 +33,7 @@ public class FishBook : MonoBehaviour
     {
         isOpenFishBook = true;
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
+        Reizi_Obj.GetComponent<CharaOperation>().CanRun = false;
         Canvas_Obj.SetActive(false);
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.1f);
         yield return new WaitForSeconds(0.5f);
@@ -53,5 +54,6 @@ public class FishBook : MonoBehaviour
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeEnd(0.1f);
         Canvas_Obj.SetActive(true);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
+        Reizi_Obj.GetComponent<CharaOperation>().CanRun = true;
     }
 }
