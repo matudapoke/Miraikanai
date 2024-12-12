@@ -12,6 +12,7 @@ TagManager:
   - WallCurve
   - GomiCounter
   - UIGroup1
+  - FishBookCurSor
   layers:
   - Default
   - TransparentFX

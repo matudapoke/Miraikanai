@@ -16,12 +16,17 @@ public class WindowController : MonoBehaviour
     GameObject FishText_Prefab;
     GameObject FishImage;
     GameObject FishNameText;
+    GameObject FishBook_Obj;
     bool FishNameTextMove;
     RectTransform FishImage_RectTransform;
     [HideInInspector] public bool ShakeRun;
     [SerializeField] AudioClip NewFishSound;
     [SerializeField] float NewFishSoundVolume;
     FishData fishData;
+    void Start()
+    {
+        FishBook_Obj = GameObject.Find("FishBook");
+    }
     void Update()
     {
         if (NewFishWindow_Born)
@@ -78,7 +83,8 @@ public class WindowController : MonoBehaviour
         NewFishWindow_Born = true;
         // 新種の魚じゃなくする
         FishData.NewFish = false;
-        // ウィンドウのゲームオブジェクトを返す
+        FishBook_Obj.transform.Find(FishData.FishName).GetComponent<SpriteRenderer>().color = Color.white;
+
     }
     public void NewFishWindow_Click()
     {

@@ -559,15 +559,6 @@ public class FishingManager : MonoBehaviour
                             window.NewFishWindow_Creat(FishData);
                             // キーが押すか完全に移動するのを待つ
                             yield return new WaitUntil(() => window.ShakeRun);
-                            // もしいずれかのキーを押したらウィンドウが完全に移動する
-                            /*
-                            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
-                            {
-                                window.NewFishWindow_Click();
-                                yield return new WaitForSeconds(0.1f);
-                                Debug.Log("2");
-                            }
-                            */
                             // キーが押されるのを待つ
                             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z));
                             window.NewFishWindow_Destroy();

@@ -7,11 +7,12 @@ public class FishBook : MonoBehaviour
 {
     [SerializeField] GameObject Cursor;
 
-    bool isOpenFishBook;
+    [HideInInspector] public bool isOpenFishBook;
 
     GameObject Canvas_Obj;
     GameObject Camera_Obj;
     GameObject Reizi_Obj;
+    Vector3 CameraChift_tmp;
     void Start()
     {
         Canvas_Obj = GameObject.Find("CanvasUI");
@@ -37,11 +38,15 @@ public class FishBook : MonoBehaviour
         Canvas_Obj.SetActive(false);
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.1f);
         yield return new WaitForSeconds(0.5f);
+        CameraChift_tmp = Camera_Obj.GetComponent<Cam>().ShiftPos;
+        Camera_Obj.GetComponent<Cam>().ShiftPos = new Vector3(0, 0, 0);
         Camera_Obj.GetComponent<Cam>().ChangeTarget(Cursor.transform);
         yield return new WaitForSeconds(0.5f);
+        Camera_Obj.transform.Find("FishBookFilter").GetComponent<Fade>().FadeStart(0.5f);
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeEnd(0.5f);
         yield return new WaitForSeconds(0.3f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
+        transform.Find("FishBookCursor").GetComponent<CharaOperation>().CanRun = true;
     }
     IEnumerator EndFishBook()
     {
@@ -49,11 +54,14 @@ public class FishBook : MonoBehaviour
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.5f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         yield return new WaitForSeconds(0.5f);
+        Camera_Obj.GetComponent<Cam>().ShiftPos =CameraChift_tmp;
         Camera_Obj.GetComponent<Cam>().ChangeTarget(Reizi_Obj.transform);
         yield return new WaitForSeconds(0.5f);
+        Camera_Obj.transform.Find("FishBookFilter").GetComponent<Fade>().FadeEnd(0.5f);
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeEnd(0.1f);
         Canvas_Obj.SetActive(true);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = true;
+        transform.Find("FishBookCursor").GetComponent<CharaOperation>().CanRun = true;
     }
 }
