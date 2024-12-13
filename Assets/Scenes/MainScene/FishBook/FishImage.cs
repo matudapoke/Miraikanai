@@ -1,21 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditorInternal;
 
 public class FishImage : MonoBehaviour
 {
+    [SerializeField] public FishData fishData;
+
     [SerializeField] float plusScale;
     [SerializeField] float ChangeScaleSpeed;
     bool isSelect;
     Vector3 OriginalScale;
+    GameObject FishBookUI;
 
     private void Start()
     {
+        FishBoo
         OriginalScale = transform.localScale;
     }
 
     private void Update()
     {
+        // 画像拡大
         if (isSelect && transform.localScale.x < OriginalScale.x + plusScale)
         {
             transform.localScale += new Vector3(ChangeScaleSpeed * Time.deltaTime, ChangeScaleSpeed * Time.deltaTime, ChangeScaleSpeed * Time.deltaTime);
@@ -31,6 +37,11 @@ public class FishImage : MonoBehaviour
         else if (!isSelect)
         {
             transform.localScale = OriginalScale;
+        }
+        // メニュー表示
+        if (isSelect && Input.GetKeyDown(KeyCode.Return))
+        {
+
         }
     }
 

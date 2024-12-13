@@ -1565,6 +1565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 649dfdffb31e74f66bafc3541591aab4, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &140616658
@@ -1750,6 +1751,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 3319577d4fc2ada4faef5c5844f3a858, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &144537157
@@ -3218,6 +3220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: a2db7cbc0d8034256abe3793c75b6648, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &270361559
@@ -3532,6 +3535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: e0e309a32fa8d42a18c665916e8ffb1d, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &299905904
@@ -3789,6 +3793,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 40efbadbc7105e248b71003f48db7c61, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &325965353
@@ -4241,6 +4246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 3eff4c056e7b073469f645658560e5d6, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &351456658
@@ -11121,6 +11127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 518e604a9b0bf4d9e9d41b392cbbc2f4, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &1022149039
@@ -11719,6 +11726,7 @@ GameObject:
   - component: {fileID: 1043155219}
   - component: {fileID: 1043155220}
   - component: {fileID: 1043155226}
+  - component: {fileID: 1043155230}
   m_Layer: 0
   m_Name: Reizi
   m_TagString: Player
@@ -12197,6 +12205,21 @@ MonoBehaviour:
   intervalMin: 30
   AnimeBoolTextList:
   - IdolA
+--- !u!114 &1043155230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043155212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0d337dcb7c33e548adccc4b429b3b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFishing: 0
+  isFishBook: 0
+  isSpeak: 0
 --- !u!1 &1046580013
 GameObject:
   m_ObjectHideFlags: 0
@@ -13288,6 +13311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: 70f213d3278531e479ed5dd608721ada, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &1207452747
@@ -13625,6 +13649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: cf4c00e74a7f547cdaba49806c99ded0, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &1224711707
@@ -15333,7 +15358,7 @@ GameObject:
   - component: {fileID: 1388695135}
   - component: {fileID: 1388695134}
   m_Layer: 0
-  m_Name: data
+  m_Name: datu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15418,6 +15443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f6df85784ce2324d96ca2adb0303d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fishData: {fileID: 11400000, guid: d35f51e1fcc4b674fb810ca88ed663b8, type: 2}
   plusScale: 1
   ChangeScaleSpeed: 45
 --- !u!60 &1388695134

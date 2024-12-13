@@ -68,6 +68,7 @@ public class CharaTalk : MonoBehaviour
 
     void TextFrameStart()
     {
+        PlayerTrs.GetComponent<ReiziValue>().isSpeak = true;
         PlayerSclipt.CanRun = false;//歩けなくする
         reaction.Action_FadeOut(0.1f);//アクションマークを消す
         Transform Canvas_Trs = GameObject.FindWithTag("CanvasWorld").transform;
@@ -81,6 +82,7 @@ public class CharaTalk : MonoBehaviour
 
     void TextFrameEnd()
     {
+        PlayerTrs.GetComponent<ReiziValue>().isSpeak = false;
         PlayerSclipt.CanRun = true;//歩けるようにする
         StopAllCoroutines();
         Destroy(TextFrame_Obj);

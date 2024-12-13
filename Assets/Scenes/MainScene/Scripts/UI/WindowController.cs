@@ -83,8 +83,17 @@ public class WindowController : MonoBehaviour
         NewFishWindow_Born = true;
         // 新種の魚じゃなくする
         FishData.NewFish = false;
-        FishBook_Obj.transform.Find(FishData.FishName).GetComponent<SpriteRenderer>().color = Color.white;
-
+        Transform[] fishImageObjectList = FishBook_Obj.transform.Find("FishImages").transform.GetComponentsInChildren<Transform>();
+        foreach (Transform fishImage in fishImageObjectList)
+        {
+            if (fishImage.name != "FishImages")
+            {
+                if (fishImage.gameObject.GetComponent<FishImage>().fishData == FishData)
+                {
+                    fishImage.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
+        }
     }
     public void NewFishWindow_Click()
     {

@@ -98,7 +98,7 @@ public class FishingManager : MonoBehaviour
     void Update()
     {
         // 釣りを開始
-        if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End && CanFishing)
+        if (FishingPlace_Collided && Input.GetKeyDown(KeyCode.Space) && phase == Phase.End && CanFishing && GetComponent<ReiziValue>().ValueChack())
         {
             StartCoroutine(Fishing());
         }
@@ -313,6 +313,7 @@ public class FishingManager : MonoBehaviour
             {
                 case Phase.StartFishing:
                     Debug.Log("釣りを開始");
+                    GetComponent<ReiziValue>().isFishing = true;
                     // アニメーションを修正
                     PlayerAnime.SetBool("FishingFloatEnd", false);
                     PlayerAnime.SetBool("RunBack", false);
@@ -597,6 +598,7 @@ public class FishingManager : MonoBehaviour
     }
     void FishingEnd()
     {
+        GetComponent<ReiziValue>().isFishing = false;
         // プレイヤーキャラが伸び縮みを再開操作を受付
         gameObject.GetComponent<Strech>().StrechCan = true;
         charaOperation.CanRun = true;

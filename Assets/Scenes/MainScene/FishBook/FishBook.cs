@@ -21,7 +21,7 @@ public class FishBook : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q) && !isOpenFishBook)
+        if (Input.GetKeyUp(KeyCode.Q) && !isOpenFishBook && Reizi_Obj.GetComponent<ReiziValue>().ValueChack())
         {
             StartCoroutine(StartFishBook());
         }
@@ -33,6 +33,7 @@ public class FishBook : MonoBehaviour
     IEnumerator StartFishBook()
     {
         isOpenFishBook = true;
+        Reizi_Obj.GetComponent<ReiziValue>().isFishBook = true;
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = false;
         Canvas_Obj.SetActive(false);
@@ -51,6 +52,7 @@ public class FishBook : MonoBehaviour
     IEnumerator EndFishBook()
     {
         isOpenFishBook = false;
+        Reizi_Obj.GetComponent<ReiziValue>().isFishBook = false;
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.5f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         yield return new WaitForSeconds(0.5f);

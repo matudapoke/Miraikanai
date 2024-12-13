@@ -15,8 +15,8 @@ public class GomiSpawn : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(Spawn());
         fishBook = GameObject.Find("FishBook").GetComponent<FishBook>();
+        StartCoroutine(Spawn());
     }
     IEnumerator Spawn()
     {
