@@ -8,6 +8,7 @@ public class FishBook : MonoBehaviour
     [SerializeField] GameObject Cursor;
 
     [HideInInspector] public bool isOpenFishBook;
+    bool isChangeValue;
 
     GameObject Canvas_Obj;
     GameObject Camera_Obj;
@@ -21,11 +22,11 @@ public class FishBook : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Q) && !isOpenFishBook && Reizi_Obj.GetComponent<ReiziValue>().ValueChack())
+        if (Input.GetKeyUp(KeyCode.Q) && !isOpenFishBook && Reizi_Obj.GetComponent<ReiziValue>().ValueChack() && !isChangeValue)
         {
             StartCoroutine(StartFishBook());
         }
-        else if (Input.GetKeyUp(KeyCode.Q) && isOpenFishBook)
+        else if (Input.GetKeyUp(KeyCode.Q) && isOpenFishBook && !isChangeValue)
         {
             StartCoroutine (EndFishBook());
         }
@@ -33,6 +34,7 @@ public class FishBook : MonoBehaviour
     IEnumerator StartFishBook()
     {
         isOpenFishBook = true;
+        isChangeValue = true;
         Reizi_Obj.GetComponent<ReiziValue>().isFishBook = true;
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = false;
@@ -48,10 +50,12 @@ public class FishBook : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
         transform.Find("FishBookCursor").GetComponent<CharaOperation>().CanRun = true;
+        isChangeValue = false;
     }
     IEnumerator EndFishBook()
     {
         isOpenFishBook = false;
+        isChangeValue = true;
         Reizi_Obj.GetComponent<ReiziValue>().isFishBook = false;
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.5f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
@@ -65,5 +69,6 @@ public class FishBook : MonoBehaviour
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = true;
         transform.Find("FishBookCursor").GetComponent<CharaOperation>().CanRun = true;
+        isChangeValue = false;
     }
 }

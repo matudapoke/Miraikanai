@@ -243,6 +243,7 @@ public class FishingManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
                 FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingRodPower);
+                CamScript.CamOneShake(FishData.FishPower/1500, 0.1f, 0.1f);
                 GetComponents<AudioSource>()[1].Play();
             }
             // 魚の抵抗力による操作
