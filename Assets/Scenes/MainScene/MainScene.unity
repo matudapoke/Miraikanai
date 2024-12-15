@@ -10540,7 +10540,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 3.78}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -727.8, y: -428.2}
+  m_AnchoredPosition: {x: -695, y: -428.2}
   m_SizeDelta: {x: 232.6837, y: 93.269}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &959319893
@@ -13026,7 +13026,7 @@ GameObject:
   - component: {fileID: 1168556664}
   - component: {fileID: 1168556663}
   m_Layer: 5
-  m_Name: Money (1)
+  m_Name: Money
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16392,7 +16392,6 @@ RectTransform:
   m_LocalScale: {x: 6.83, y: 2.2944531, z: 2.2944531}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 1935006378}
   - {fileID: 1168556662}
   m_Father: {fileID: 1945920629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20399,102 +20398,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7335329898108201382, guid: 9811ad051cd571e41b01b81e0ec9df3f, type: 3}
   m_PrefabInstance: {fileID: 269179492}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1935006377
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1935006378}
-  - component: {fileID: 1935006380}
-  - component: {fileID: 1935006379}
-  - component: {fileID: 1935006381}
-  m_Layer: 5
-  m_Name: Money
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1935006378
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935006377}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.04685212, y: 0.13946679, z: 0.13946679}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1495852925}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.529991, y: 1}
-  m_SizeDelta: {x: 1622.7045, y: 277.2707}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1935006379
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935006377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: e3265ab4bf004d28a9537516768c1c75, type: 3}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
-    m_Alignment: 0
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: "0\x03"
---- !u!222 &1935006380
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935006377}
-  m_CullTransparentMesh: 1
---- !u!114 &1935006381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935006377}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07034d45e36a94f939136bd17f99d0cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LevelUpMoneyMeter_Image: {fileID: 1103141709}
-  LevelUpMoney_Text: {fileID: 1625205662}
-  money: 0
-  textNum: 0
 --- !u!1 &1945920625
 GameObject:
   m_ObjectHideFlags: 0

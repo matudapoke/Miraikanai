@@ -19,6 +19,7 @@ public class FishBook : MonoBehaviour
         Canvas_Obj = GameObject.Find("CanvasUI");
         Camera_Obj = GameObject.Find("Main Camera");
         Reizi_Obj = GameObject.Find("Reizi");
+        Cursor.SetActive(false);
     }
     void Update()
     {
@@ -35,6 +36,8 @@ public class FishBook : MonoBehaviour
     {
         isOpenFishBook = true;
         isChangeValue = true;
+        Cursor.transform.position = transform.position;
+        Cursor.SetActive(true);
         Reizi_Obj.GetComponent<ReiziValue>().isFishBook = true;
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = false;
@@ -56,6 +59,7 @@ public class FishBook : MonoBehaviour
     {
         isOpenFishBook = false;
         isChangeValue = true;
+        Cursor.SetActive(false);
         Reizi_Obj.GetComponent<ReiziValue>().isFishBook = false;
         Camera_Obj.transform.Find("CameraFade").GetComponent<Fade>().FadeStart(0.5f);
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);

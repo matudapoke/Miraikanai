@@ -566,7 +566,6 @@ public class FishingManager : MonoBehaviour
                             window.NewFishWindow_Destroy();
                             CamScript.CamReset();
                             FishingCamMove();
-                            
                         }
                         // 新種でないならアイテム獲得ポップアップを出す
                         else
@@ -576,6 +575,7 @@ public class FishingManager : MonoBehaviour
                             GameObject.Find("PopupController").GetComponent<PopupController>().SubmitPopup(FishData.FishName, FishData.FishImage);
                             FishingFloatEnd();
                         }
+                        Debug.Log(FishData.FishMoney);
                         money.AddMoney(FishData.FishMoney);
                     }
                     else if (HitFailure)
