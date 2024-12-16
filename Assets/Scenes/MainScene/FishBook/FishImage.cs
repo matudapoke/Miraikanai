@@ -50,7 +50,8 @@ public class FishImage : MonoBehaviour
             isSelectMenu = true;
             CurSorObj.GetComponent<CharaOperation>().CanRun = false;
             cam.ChangeTarget(gameObject.transform);
-            cam.CamZoom(5000/fishData.FishImageSize, 1.2f);
+            Debug.Log(60.0f/fishData.FishImageSize);
+            cam.CamZoom(5, 60.0f/fishData.FishImageSize);
             cam.CamMove(5, new Vector3(3, -0.9f, 0));
         }
         else if (isSelect && isSelectMenu && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)))

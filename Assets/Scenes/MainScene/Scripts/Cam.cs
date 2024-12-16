@@ -33,10 +33,14 @@ public class Cam : MonoBehaviour
     float CamShake_IntervalTime;
     Coroutine camOneShake;
 
+    [SerializeField] List<GameObject> LinkObjectList;
+    List<float> LinkObjectZoomPulas = new List<float>();
 
     void Start()
     {
         Application.targetFrameRate = 60;
+        for (int i )// <----
+        LinkObjectZoomPulas.Add(1);
     }
     void LateUpdate()
     {
@@ -46,7 +50,10 @@ public class Cam : MonoBehaviour
         //カメラズーム
         CamZoomNow = Camera.main.orthographicSize;
         Camera.main.orthographicSize = Mathf.Lerp(CamZoomNow, CamZoomPulas, CamZoomSpeed * Time.deltaTime);
-
+        foreach (GameObject LinkObj in LinkObjectList)
+        {
+            LinkObj.transform.localScale = 
+        }
         // 震え
         DeltaTIme += Time.deltaTime;
         if (DeltaTIme >= CamShake_IntervalTime && CamShakeNow)
@@ -86,6 +93,10 @@ public class Cam : MonoBehaviour
     {
         CamZoomPulas = CamZoomNow / CamZoomLevel; // 目標のズームレベルを設定
         CamZoomSpeed = ZoomSpeed;
+        foreach(float ObjectZoomPulas in LinkObjectZoomPulas)
+        {
+            ObjectZoomPulas = // <---
+        }
     }
 
     public void CamZoomReset()
