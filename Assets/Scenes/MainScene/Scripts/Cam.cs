@@ -34,13 +34,15 @@ public class Cam : MonoBehaviour
     Coroutine camOneShake;
 
     [SerializeField] List<GameObject> LinkObjectList;
-    List<float> LinkObjectZoomPulas = new List<float>();
+    List<float> LinkObjScale = new List<float>();
 
     void Start()
     {
         Application.targetFrameRate = 60;
-        for (int i )// <----
-        LinkObjectZoomPulas.Add(1);
+        for (int i = 0; i < LinkObjectList.Count; i++)
+        {
+            LinkObjScale.Add(LinkObjectList[i].transform.localScale.x);
+        }
     }
     void LateUpdate()
     {
@@ -93,9 +95,9 @@ public class Cam : MonoBehaviour
     {
         CamZoomPulas = CamZoomNow / CamZoomLevel; // 目標のズームレベルを設定
         CamZoomSpeed = ZoomSpeed;
-        foreach(float ObjectZoomPulas in LinkObjectZoomPulas)
+        for(int i = 0; i < LinkObjScale.Count; i++)
         {
-            ObjectZoomPulas = // <---
+            LinkObjScale[i] *= CamZoomLevel;
         }
     }
 
