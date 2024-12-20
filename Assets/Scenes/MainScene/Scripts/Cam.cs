@@ -35,6 +35,7 @@ public class Cam : MonoBehaviour
 
     [SerializeField] List<GameObject> LinkObjectList;
     List<float> LinkObjScale = new List<float>();
+    List<float> LinkObjScaleOriginal = new List<float>();
 
     void Start()
     {
@@ -43,6 +44,7 @@ public class Cam : MonoBehaviour
         {
             LinkObjScale.Add(LinkObjectList[i].transform.localScale.x);
         }
+        LinkObjScaleOriginal = LinkObjScale;
     }
     void LateUpdate()
     {
@@ -52,9 +54,9 @@ public class Cam : MonoBehaviour
         //カメラズーム
         CamZoomNow = Camera.main.orthographicSize;
         Camera.main.orthographicSize = Mathf.Lerp(CamZoomNow, CamZoomPulas, CamZoomSpeed * Time.deltaTime);
-        foreach (GameObject LinkObj in LinkObjectList)
+        for (int i = 0; i < LinkObjectList.Count; i++)
         {
-            LinkObj.transform.localScale = 
+            LinkObjectList[i].transform.localScale = new Vector3(Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime),Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime), Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime));
         }
         // 震え
         DeltaTIme += Time.deltaTime;
@@ -104,6 +106,10 @@ public class Cam : MonoBehaviour
     public void CamZoomReset()
     {
         CamZoomPulas = CamZoomNow * 5 / CamZoomNow;
+        for (int i = 0; i < LinkObjScaleOriginal.Count; i++)
+        {
+            LinkObjScale[i] = LinkObjScaleOriginal[i]; 
+        }
     }
 
     public void CamShake(float CamShakeAmount, float CamShakeIntervalTime)

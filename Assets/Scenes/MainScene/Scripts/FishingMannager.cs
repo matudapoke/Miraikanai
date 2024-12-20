@@ -46,6 +46,7 @@ public class FishingManager : MonoBehaviour
     GameObject EKeyImage_Obj;
     Money money;
     GameObject LevelUpMoneyObj;
+    GameObject Enso;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -85,6 +86,8 @@ public class FishingManager : MonoBehaviour
         EKeyImage_Obj = GameObject.Find("Eキー");
         LevelUpMoneyObj = GameObject.Find("LevelUpMoney");
         uIGroup = GameObject.FindWithTag("UIGroup1").GetComponent<UIGroup>();
+        Enso = GameObject.Find("FishingLodLevelUp");
+        Enso.SetActive(false);
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
@@ -295,6 +298,9 @@ public class FishingManager : MonoBehaviour
                 LevelUpMoney += 1000;
                 LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
                 money.LevelUpMoneyMeter_Image.fillAmount = 0;
+                Enso.SetActive(true);
+                Enso.GetComponent<Animator>().SetBool("isStart", true);
+                StartCoroutine(FishingLodLevelUpEfectInterval());
             }
         }
         else
@@ -723,6 +729,12 @@ public class FishingManager : MonoBehaviour
         }
 
         return null; // ここに到達することはありません
+    }
+    IEnumerator FishingLodLevelUpEfectInterval()
+    {
+        yield return new WaitForSeconds(0.4f);
+        Enso.GetComponent<Animator>().SetBool("isStart", false);
+        Enso.SetActive(false);
     }
     void OnTriggerStay2D(Collider2D collision)
     {
