@@ -47,6 +47,7 @@ public class FishingManager : MonoBehaviour
     Money money;
     GameObject LevelUpMoneyObj;
     GameObject Enso;
+    bool timerEnd;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -732,9 +733,23 @@ public class FishingManager : MonoBehaviour
     }
     IEnumerator FishingLodLevelUpEfectInterval()
     {
+        Coroutine coroutine = StartCoroutine(timer());
+        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E) || timerEnd);
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            StopCoroutine(coroutine);
+            timerEnd = false;//<====E連打でアニメーションを途中から再生
+        }
+        else if (timerEnd)
+        {
+            Enso.GetComponent<Animator>().SetBool("isStart", false);
+            Enso.SetActive(false);
+        }
+    }
+    IEnumerator timer()
+    {
         yield return new WaitForSeconds(0.4f);
-        Enso.GetComponent<Animator>().SetBool("isStart", false);
-        Enso.SetActive(false);
+        timerEnd = true;
     }
     void OnTriggerStay2D(Collider2D collision)
     {
