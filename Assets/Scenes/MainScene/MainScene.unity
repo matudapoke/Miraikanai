@@ -3183,7 +3183,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b882d353774bd46cbbe1fa3dc566cc63, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4329,103 +4329,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!1 &356988865
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 356988866}
-  - component: {fileID: 356988868}
-  - component: {fileID: 356988867}
-  - component: {fileID: 356988869}
-  m_Layer: 5
-  m_Name: FishingLodLevelUp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &356988866
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356988865}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0555309}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1331116183}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1194, y: 234}
-  m_SizeDelta: {x: 444.9336, y: 444.9336}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &356988867
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356988865}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b353efbbd1eb344b5b4526b9bb216e68, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &356988868
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356988865}
-  m_CullTransparentMesh: 1
---- !u!95 &356988869
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 356988865}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: c4691d477fff04573a6f9ed501343401, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!4 &357390539 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 478051968351338506, guid: 059c8df228bc87e4998aa5bb41514659, type: 3}
@@ -6558,7 +6461,9 @@ MonoBehaviour:
   Target: {fileID: 1043155214}
   ShiftPos: {x: 0, y: 0.9, z: 0}
   CamSpeed: 5
-  LinkObjectList: []
+  LinkObjectList:
+  - {fileID: 198320330}
+  - {fileID: 572649837}
 --- !u!1001 &531893212
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12242,6 +12147,7 @@ MonoBehaviour:
   FishCatching: {fileID: 8300000, guid: 353e4a1ed002d4e4bb16a27a60b2cd18, type: 3}
   FishingLodLevelUp: {fileID: 8300000, guid: 5bfc75f55d87e4cd4887b46f6afb2f39, type: 3}
   phase: 4
+  FishingLodLevelUpEfect_pfb: {fileID: 5719645747472914297, guid: 056493968304f6f469da356188863b17, type: 3}
 --- !u!82 &1043155225
 AudioSource:
   m_ObjectHideFlags: 0
@@ -13163,7 +13069,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelUpMoneyMeter_Image: {fileID: 1103141709}
   LevelUpMoney_Text: {fileID: 1625205662}
-  money: 100000
+  money: 0
   textNum: 0
 --- !u!114 &1168556664
 MonoBehaviour:
@@ -13826,7 +13732,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 890cb7e06ee35408bbf9f27d4c47dd0e, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -15240,7 +15146,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1512435866}
-  - {fileID: 356988866}
   - {fileID: 611056719}
   - {fileID: 114279113}
   - {fileID: 1338522753}
@@ -15621,7 +15526,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: e2e3823ccb6ec5943ac45963c7424c29, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
