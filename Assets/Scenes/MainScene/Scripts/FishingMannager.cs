@@ -46,8 +46,6 @@ public class FishingManager : MonoBehaviour
     GameObject EKeyImage_Obj;
     Money money;
     GameObject LevelUpMoneyObj;
-    GameObject Enso;
-    bool timerEnd;
     // コンポーネント
     Animator PlayerAnime;
     CharaOperation charaOperation;
@@ -58,7 +56,6 @@ public class FishingManager : MonoBehaviour
     Reaction reaction;
     Transform FishingMeterBar_Transform;
     UIGroup uIGroup;
-    //MainMenuContoller mainMenuContoller;
     // Audio
     [SerializeField, Header("SE")] AudioClip FloatLandingWater;
     [SerializeField] AudioClip FloatThrow;
@@ -73,6 +70,11 @@ public class FishingManager : MonoBehaviour
         End,
     }
     [HideInInspector] public Phase phase = Phase.End;
+    // FishingLodLevelUpEfect
+    [SerializeField] GameObject FishingLodLevelUpEfect_pfb;
+    bool isTimerNow;
+    Coroutine timerCoroutine;
+    GameObject FishingLod_Obj;
 
     void Start()
     {
@@ -87,15 +89,13 @@ public class FishingManager : MonoBehaviour
         EKeyImage_Obj = GameObject.Find("Eキー");
         LevelUpMoneyObj = GameObject.Find("LevelUpMoney");
         uIGroup = GameObject.FindWithTag("UIGroup1").GetComponent<UIGroup>();
-        Enso = GameObject.Find("FishingLodLevelUp");
-        Enso.SetActive(false);
+        FishingLod_Obj = GameObject.Find("釣竿背景");
         // コンポーネント
         charaOperation = GetComponent<CharaOperation>();
         PlayerAnime = GetComponent<Animator>();
         CamScript = GameObject.Find("Main Camera").GetComponent<Cam>();
         FloatAnime = FishingFloat_Obj.GetComponent<Animator>();
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
-        //mainMenuContoller = GameObject.Find("MainMenuContoller").GetComponent<MainMenuContoller>();
         money = GameObject.Find("Money").GetComponent<Money>();
         LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString();
     }
@@ -299,9 +299,7 @@ public class FishingManager : MonoBehaviour
                 LevelUpMoney += 1000;
                 LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
                 money.LevelUpMoneyMeter_Image.fillAmount = 0;
-                Enso.SetActive(true);
-                Enso.GetComponent<Animator>().SetBool("isStart", true);
-                StartCoroutine(FishingLodLevelUpEfectInterval());
+                StartCoroutine(IntervalDestoy(Instantiate(FishingLodLevelUpEfect_pfb, FishingLod_Obj.transform.position, Quaternion.identity, FishingLod_Obj.transform), 0.4f));
             }
         }
         else
@@ -709,6 +707,12 @@ public class FishingManager : MonoBehaviour
         yield return new WaitForSeconds(1);
         StartFloatIntervalNow = false;
     }
+    IEnumerator IntervalDestoy(GameObject DestroyObj, float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        Debug.Log("aa");
+        Destroy(DestroyObj);
+    }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する
     {
         float total = 0;
@@ -730,26 +734,6 @@ public class FishingManager : MonoBehaviour
         }
 
         return null; // ここに到達することはありません
-    }
-    IEnumerator FishingLodLevelUpEfectInterval()
-    {
-        Coroutine coroutine = StartCoroutine(timer());
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E) || timerEnd);
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            StopCoroutine(coroutine);
-            timerEnd = false;//<====E連打でアニメーションを途中から再生
-        }
-        else if (timerEnd)
-        {
-            Enso.GetComponent<Animator>().SetBool("isStart", false);
-            Enso.SetActive(false);
-        }
-    }
-    IEnumerator timer()
-    {
-        yield return new WaitForSeconds(0.4f);
-        timerEnd = true;
     }
     void OnTriggerStay2D(Collider2D collision)
     {
