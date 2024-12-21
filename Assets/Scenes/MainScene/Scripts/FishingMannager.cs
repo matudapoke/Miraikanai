@@ -710,7 +710,6 @@ public class FishingManager : MonoBehaviour
     IEnumerator IntervalDestoy(GameObject DestroyObj, float interval)
     {
         yield return new WaitForSeconds(interval);
-        Debug.Log("aa");
         Destroy(DestroyObj);
     }
     public FishData ChooseFishBasedOnRarity(List<FishData> FishList)// 魚のレアリティに応じてランダムに抽選する

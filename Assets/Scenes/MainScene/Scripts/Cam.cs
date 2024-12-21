@@ -43,8 +43,8 @@ public class Cam : MonoBehaviour
         for (int i = 0; i < LinkObjectList.Count; i++)
         {
             LinkObjScale.Add(LinkObjectList[i].transform.localScale.x);
+            LinkObjScaleOriginal.Add(LinkObjectList[i].transform.localScale.x);
         }
-        LinkObjScaleOriginal = LinkObjScale;
     }
     void LateUpdate()
     {
@@ -99,13 +99,13 @@ public class Cam : MonoBehaviour
         CamZoomSpeed = ZoomSpeed;
         for(int i = 0; i < LinkObjScale.Count; i++)
         {
-            LinkObjScale[i] *= CamZoomLevel;
+            LinkObjScale[i] = LinkObjScale[i] / CamZoomLevel;
         }
     }
 
     public void CamZoomReset()
     {
-        CamZoomPulas = CamZoomNow * 5 / CamZoomNow;
+        CamZoomPulas = 5;
         for (int i = 0; i < LinkObjScaleOriginal.Count; i++)
         {
             LinkObjScale[i] = LinkObjScaleOriginal[i]; 
