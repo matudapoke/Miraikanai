@@ -53,6 +53,7 @@ public class FishImage : MonoBehaviour
             Debug.Log(60.0f/fishData.FishImageSize);
             cam.CamZoom(5, 90.0f/fishData.FishImageSize);
             cam.CamMove(5, new Vector3(fishData.FishImageSize/32, -0.9f, 0));
+            cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / -32, 100, 10);
         }
         else if (isSelect && isSelectMenu && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)))
         {
@@ -61,6 +62,7 @@ public class FishImage : MonoBehaviour
             CurSorObj.GetComponent<CharaOperation>().CanRun = true;
             cam.CamReset();
             cam.ChangeTarget(CurSorObj.transform);
+            cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / +32, -100, 10);
         }
     }
 

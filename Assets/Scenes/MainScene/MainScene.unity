@@ -6464,6 +6464,9 @@ MonoBehaviour:
   LinkObjectList:
   - {fileID: 198320330}
   - {fileID: 572649837}
+  LinkObjShiftPosition:
+  - {x: 0, y: 0, z: 10}
+  - {x: 0, y: 0, z: 10}
 --- !u!1001 &531893212
 PrefabInstance:
   m_ObjectHideFlags: 0
