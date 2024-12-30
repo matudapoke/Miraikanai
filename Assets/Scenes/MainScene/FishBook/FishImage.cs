@@ -17,11 +17,15 @@ public class FishImage : MonoBehaviour
     GameObject CurSorObj;
     Cam cam;
 
+    FishBookManager fishBookManager;
+
     private void Start()
     {
         FishBookUI = GameObject.Find("FishBookUI");
         OriginalScale = transform.localScale;
         cam = GameObject.Find("Main Camera").GetComponent<Cam>();
+
+        fishBookManager = GameObject.Find("FishBook").GetComponent<FishBookManager>();
     }
 
     private void Update()
@@ -50,10 +54,10 @@ public class FishImage : MonoBehaviour
             isSelectMenu = true;
             CurSorObj.GetComponent<CharaOperation>().CanRun = false;
             cam.ChangeTarget(gameObject.transform);
-            Debug.Log(60.0f/fishData.FishImageSize);
             cam.CamZoom(5, 90.0f/fishData.FishImageSize);
-            cam.CamMove(5, new Vector3(fishData.FishImageSize/32, -0.9f, 0));
-            cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / -32, 100, 10);
+            //cam.CamMove(5, new Vector3(fishData.FishImageSize/32, -0.9f, 0));
+            cam.ShiftPos = new Vector3(fishData.FishImageSize / 32, 0, 0);
+            //cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / -32, 0, 10);
         }
         else if (isSelect && isSelectMenu && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Z)))
         {
@@ -62,7 +66,9 @@ public class FishImage : MonoBehaviour
             CurSorObj.GetComponent<CharaOperation>().CanRun = true;
             cam.CamReset();
             cam.ChangeTarget(CurSorObj.transform);
-            cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / +32, -100, 10);
+            cam.ShiftPos = new Vector3(0,0,0);
+            cam.CamSpeed = 5;
+            //cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / +32, 0, 10);
         }
     }
 
@@ -72,6 +78,8 @@ public class FishImage : MonoBehaviour
         {
             isSelect = true;
             CurSorObj = collision.gameObject;
+
+            fishBookManager.SelectedFishImage_Obj = gameObject;
         }
     }
     void OnTriggerExit2D(Collider2D collision)
@@ -80,6 +88,8 @@ public class FishImage : MonoBehaviour
         {
             isSelect = false;
             CurSorObj = null;
+
+            fishBookManager.SelectedFishImage_Obj = null;
         }
     }
 }
