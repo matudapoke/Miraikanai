@@ -11,16 +11,16 @@ public class GomiSpawn : MonoBehaviour
     [SerializeField] float SpawnIntervalMax;
     [SerializeField] int SpawnCountMax;
 
-    FishBook fishBook;
+    ReiziValue reiziValue;
 
     void Start()
     {
-        fishBook = GameObject.Find("FishBook").GetComponent<FishBook>();
+        reiziValue = GameObject.FindWithTag("Player").GetComponent<ReiziValue>();
         StartCoroutine(Spawn());
     }
     IEnumerator Spawn()
     {
-        if (transform.childCount < SpawnCountMax && !fishBook.isOpenFishBook)
+        if (transform.childCount < SpawnCountMax && !reiziValue.isFishBook)
         {
             Instantiate(SpawnPrefabList[Random.Range(0, SpawnPrefabList.Count)],
                         new Vector3(Random.Range(spawnPositionA.x, spawnPositionB.x), Random.Range(spawnPositionA.y, spawnPositionB.y), 0),

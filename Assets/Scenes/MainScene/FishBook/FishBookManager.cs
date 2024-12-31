@@ -10,8 +10,7 @@ public class FishBookManager : MonoBehaviour
     bool isOpenFishInfo;
     bool isChangeValue;
     // オブジェクト
-    [SerializeField] GameObject FishBookCursor_Obj;
-    [SerializeField] GameObject FishBookUI_Obj;
+    [Header("カーソル"), SerializeField] GameObject FishBookCursor_Obj;
     [HideInInspector] public GameObject SelectedFishImage_Obj;
     GameObject Reizi_Obj;
     GameObject MainCanvas_Obj;
@@ -20,6 +19,12 @@ public class FishBookManager : MonoBehaviour
     GameObject FishBookFilter_Obj;
     // 値
     Vector3 CameraChift_tmp;
+    // 魚図鑑UI
+    [Header("魚図鑑UI")]
+    [SerializeField] GameObject FishBookUI_Obj;
+    [SerializeField] Vector3 FishBookUI_OpenPosition;
+    [SerializeField] float FishBookUI_MoveSpeed;
+    Vector3 FishBookUI_ClosePosition;
 
     private void Start()
     {
@@ -29,25 +34,14 @@ public class FishBookManager : MonoBehaviour
         MainCamera_Obj = CameraParent_Obj.transform.Find("Main Camera").gameObject;
         CameraFade_Obj= CameraParent_Obj.transform.Find("CameraFade").gameObject;
         FishBookFilter_Obj = CameraParent_Obj.transform.Find("FishBookFilter").gameObject;
+        FishBookUI_ClosePosition = FishBookUI_Obj.transform.position;
     }
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q) && !isChangeValue)
         {
-            if (!isOpenFishBook && Reizi_Obj.GetComponent<ReiziValue>().ValueChack())
-            {
-                StartCoroutine(StartFishBook());
-            }
-            else
-            {
-                StartCoroutine(EndFishBook());
-            }
-        }
-        /*
-        if (!isChangeValue && Reizi_Obj.GetComponent<ReiziValue>().ValueChack() && Input.GetKeyDown(KeyCode.Q))
-        {
             // 魚図鑑を開ける
-            if (!isOpenFishBook)
+            if (!isOpenFishBook && Reizi_Obj.GetComponent<ReiziValue>().ValueChack())
             {
                 StartCoroutine(StartFishBook());
             }
@@ -57,12 +51,10 @@ public class FishBookManager : MonoBehaviour
                 StartCoroutine(EndFishBook());
             }
         }
-        */
-        else if (!isChangeValue )
-        if (SelectedFishImage_Obj != null && Input.GetKeyDown(KeyCode.Return))
+        if (SelectedFishImage_Obj != null && Input.GetKeyDown(KeyCode.Return) && !isChangeValue)
         {
             // 情報を開く
-            if (!isOpenFishBook && SelectedFishImage_Obj.GetComponent<SpriteRenderer>().color == Color.white)
+            if (!isOpenFishInfo && SelectedFishImage_Obj.GetComponent<SpriteRenderer>().color == Color.white)
             {
                 FishImage fishImage = SelectedFishImage_Obj.GetComponent<FishImage>();
                 Cam cam = MainCamera_Obj.GetComponent<Cam>();
@@ -70,30 +62,41 @@ public class FishBookManager : MonoBehaviour
                 isOpenFishInfo = true;
                 // FishBookCorsorを動けなくする
                 FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = false;
+                // 情報のUIを表示
+                FishBookUI_Obj.SetActive(true);
                 // 魚の名前を表示
                 FishBookUI_Obj.transform.Find("FishName").GetComponent<Text>().text = fishImage.fishData.FishName;
                 // カメラ操作
-                cam.ChangeTarget(gameObject.transform);
+                cam.ChangeTarget(fishImage.transform);
                 cam.CamZoom(5, 90.0f / fishImage.fishData.FishImageSize);
-                cam.ShiftPos = new Vector3(fishImage.fishData.FishImageSize / 32, 0, 0);
+                cam.ShiftPos = new Vector3(fishImage.fishData.FishImageSize / 36f, 0, 0);
             }
             // 情報を閉じる
-            else if (isOpenFishBook)
+            else if (isOpenFishInfo && !isChangeValue)
             {
                 FishImage fishImage = SelectedFishImage_Obj.GetComponent<FishImage>();
                 Cam cam = MainCamera_Obj.GetComponent<Cam>();
                 // フラグを立てる
-                isOpenFishBook = false;
-                // 名前を消す
-                FishBookUI_Obj.transform.Find("FishName").GetComponent<Text>().text = "";
+                isOpenFishInfo = false;
+                // 情報のUIを非表示
+                FishBookUI_Obj.SetActive(false);
                 // FishBookCorsorを動かせるようにする
                 FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = true;
                 // カメラ操作
                 cam.ChangeTarget(FishBookCursor_Obj.transform);
-                cam.CamZoom(5, fishImage.fishData.FishImageSize /90);
+                cam.CamZoom(5, fishImage.fishData.FishImageSize /90f);
                 cam.ShiftPos = new Vector3(0, 0, 0);
             }
+        }
 
+        if (isOpenFishInfo)
+        {
+            FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_OpenPosition, FishBookUI_MoveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_ClosePosition, FishBookUI_MoveSpeed * Time.deltaTime);
+            if (FishBookUI_Obj.transform.position >= )
         }
     }
     IEnumerator StartFishBook()

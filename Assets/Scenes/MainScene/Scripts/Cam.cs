@@ -58,7 +58,6 @@ public class Cam : MonoBehaviour
         Camera.main.orthographicSize = Mathf.Lerp(CamZoomNow, CamZoomPulas, CamZoomSpeed * Time.deltaTime);
         for (int i = 0; i < LinkObjectList.Count; i++)
         {
-            //LinkObjectList[i].transform.localScale = new Vector3(Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime),Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime), Mathf.Lerp(LinkObjectList[i].transform.localScale.x, LinkObjScale[i], CamZoomSpeed * Time.deltaTime));
             LinkObjectList[i].transform.localScale = Vector3.Lerp(LinkObjectList[i].transform.localScale, new Vector3(LinkObjScale[i], LinkObjScale[i], LinkObjScale[i]), CamZoomSpeed * Time.deltaTime);
             LinkObjectList[i].transform.position = Vector3.Lerp(LinkObjectList[i].transform.position, Target.position + LinkObjShiftPosition[i], CamSpeed * Time.deltaTime);
         }

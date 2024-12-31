@@ -47,7 +47,7 @@ public class FishImage : MonoBehaviour
         {
             transform.localScale = OriginalScale;
         }
-        // メニュー表示
+        /*
         if (isSelect && !isSelectMenu && Input.GetKeyDown(KeyCode.Return) && GetComponent<SpriteRenderer>().color == Color.white)
         {
             FishBookUI.transform.Find("FishName").GetComponent<Text>().text = fishData.FishName;
@@ -70,6 +70,7 @@ public class FishImage : MonoBehaviour
             cam.CamSpeed = 5;
             //cam.LinkObjShiftPosition[1] = new Vector3(fishData.FishImageSize / +32, 0, 10);
         }
+        */
     }
 
     void OnTriggerEnter2D(Collider2D collision)
