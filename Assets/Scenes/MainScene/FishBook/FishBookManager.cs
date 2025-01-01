@@ -51,6 +51,7 @@ public class FishBookManager : MonoBehaviour
                 StartCoroutine(EndFishBook());
             }
         }
+
         if (SelectedFishImage_Obj != null && Input.GetKeyDown(KeyCode.Return) && !isChangeValue)
         {
             // 情報を開く
@@ -69,17 +70,15 @@ public class FishBookManager : MonoBehaviour
                 // カメラ操作
                 cam.ChangeTarget(fishImage.transform);
                 cam.CamZoom(5, 90.0f / fishImage.fishData.FishImageSize);
-                cam.ShiftPos = new Vector3(fishImage.fishData.FishImageSize / 36f, 0, 0);
+                cam.ShiftPos = new Vector3(fishImage.fishData.FishImageSize / 25f, 0, 0);
             }
             // 情報を閉じる
             else if (isOpenFishInfo && !isChangeValue)
             {
                 FishImage fishImage = SelectedFishImage_Obj.GetComponent<FishImage>();
                 Cam cam = MainCamera_Obj.GetComponent<Cam>();
-                // フラグを立てる
+                // フラグを立てる(情報の非表示は｛FishBookUI移動｝で行っている)
                 isOpenFishInfo = false;
-                // 情報のUIを非表示
-                FishBookUI_Obj.SetActive(false);
                 // FishBookCorsorを動かせるようにする
                 FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = true;
                 // カメラ操作
@@ -89,14 +88,33 @@ public class FishBookManager : MonoBehaviour
             }
         }
 
+        // FishBookUI移動
         if (isOpenFishInfo)
         {
-            FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_OpenPosition, FishBookUI_MoveSpeed * Time.deltaTime);
+            // OpenPositionまで来たら固定
+            if (FishBookUI_Obj.transform.position.x <= FishBookUI_OpenPosition.x +0.1f)
+            {
+                FishBookUI_Obj.transform.position = FishBookUI_OpenPosition;
+            }
+            // OpenPositionまで移動
+            else
+            {
+                FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_OpenPosition, FishBookUI_MoveSpeed * Time.deltaTime);
+            }
         }
         else
         {
-            FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_ClosePosition, FishBookUI_MoveSpeed * Time.deltaTime);
-            if (FishBookUI_Obj.transform.position >= )
+            // ClosePositionに来たら固定して非表示にする
+            if (FishBookUI_Obj.transform.position.x >= FishBookUI_ClosePosition.x - 0.1f)
+            {
+                FishBookUI_Obj.transform.position = FishBookUI_ClosePosition;
+                FishBookUI_Obj.SetActive(false);
+            }
+            // ClosePositionまで移動
+            else
+            {
+                FishBookUI_Obj.transform.position = Vector3.Lerp(FishBookUI_Obj.transform.position, FishBookUI_ClosePosition, FishBookUI_MoveSpeed * Time.deltaTime);
+            }
         }
     }
     IEnumerator StartFishBook()
