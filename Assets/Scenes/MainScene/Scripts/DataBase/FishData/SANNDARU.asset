@@ -25,4 +25,4 @@ MonoBehaviour:
   FishPower: 60
   FishLevel: 0
   FishMoney: 100
-  NewFish: 0
+  NewFish: 1

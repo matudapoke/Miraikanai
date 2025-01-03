@@ -46,7 +46,7 @@ public class FishBookManager : MonoBehaviour
                 StartCoroutine(StartFishBook());
             }
             // 魚図鑑を閉める
-            else
+            else if (isOpenFishBook)
             {
                 StartCoroutine(EndFishBook());
             }
@@ -159,7 +159,6 @@ public class FishBookManager : MonoBehaviour
         // FishBookCorsorを動けなくする
         FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = false;
         // レイジを動けるようにする&レイジアニメーション
-        Reizi_Obj.GetComponent<ReiziValue>().isFishBook = false;
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
         // フェードアウト
         CameraFade_Obj.GetComponent<Fade>().FadeStart(0.5f);
@@ -176,6 +175,7 @@ public class FishBookManager : MonoBehaviour
         // レイジを動けるようにする
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", false);
         Reizi_Obj.GetComponent<CharaOperation>().CanRun = true;
+        Reizi_Obj.GetComponent<ReiziValue>().isFishBook = false;
         // フラグを立てる
         isChangeValue = false;
     }

@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0a9c3283ded7b4c897642b1b2a9958, type: 3}
   m_Name: PocketFishDataBase
   m_EditorClassIdentifier: 
-  PocketFishDataBaseList:
-  - {fileID: 11400000, guid: 9175ac0fba633174a8626bfdf4176ea6, type: 2}
+  PocketFishDataBaseList: []

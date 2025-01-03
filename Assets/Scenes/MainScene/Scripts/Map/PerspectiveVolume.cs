@@ -7,7 +7,7 @@ public class PerspecitveVolume : MonoBehaviour
     AudioSource audioSource;
     [SerializeField] Transform ListenerTrs;
     [SerializeField] float PlusVolume;
-    [SerializeField] float Coeffcient;
+    public float Coeffcient;
 
     void Start()
     {

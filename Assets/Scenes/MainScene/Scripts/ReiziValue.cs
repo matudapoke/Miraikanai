@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class ReiziValue : MonoBehaviour
 {
-    [HideInInspector] public bool isFishing;
-    [HideInInspector] public bool isFishBook;
-    [HideInInspector] public bool isSpeak;
+    public bool isFishing;
+    public bool isFishBook;
+    public bool isSpeak;
+    public bool isWorkBoy;
 
     public bool ValueChack()
     {
-        if (isFishing || isFishBook || isSpeak)
+        if (isFishing || isFishBook || isSpeak || isWorkBoy)
         {
             return false;
         }
