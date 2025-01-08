@@ -11,6 +11,7 @@ public class Money : MonoBehaviour
     Text text;
     [HideInInspector] public int textNum;
     int pulsmoney;
+    Coroutine coroutine;
     void Start()
     {
         text = GetComponent<Text>();
@@ -21,12 +22,28 @@ public class Money : MonoBehaviour
         LevelUpMoneyMeter_Image.fillAmount =  textNum / float.Parse(LevelUpMoney_Text.text);
         if (money > textNum)
         {
-            textNum += pulsmoney;
+            if (coroutine == null)
+            {
+                coroutine = StartCoroutine(PlusMoney());
+            }
         }
         else
         {
+            if (coroutine != null)
+            {
+                StopCoroutine(coroutine);
+            }
+            coroutine = null;
             textNum = money;
             text.text = money.ToString("N0");
+        }
+    }
+    IEnumerator PlusMoney()
+    {
+        while (true)
+        {
+            textNum += pulsmoney;
+            yield return null;
         }
     }
     public void AddMoney(int MoneyInt)

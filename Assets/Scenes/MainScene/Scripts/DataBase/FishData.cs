@@ -36,4 +36,8 @@ public class FishData : ScriptableObject
 
     [Tooltip("図鑑に登録済みかどうか")]
     public bool NewFish;
+
+    [Tooltip("カセットならtrueにする"), Header("カセット")]
+    public bool isCassette;
+    public CassetteData cassetteData;
 }

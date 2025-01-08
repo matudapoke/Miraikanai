@@ -17,7 +17,7 @@ public class FishingManager : MonoBehaviour
     float FishingTime_SinceHit;
     float OKLineMin;
     float OKLineMax;
-    [Header("釣竿のパワー（初期値）")] public float FishingRodPower;
+    [Header("釣竿のパワー（初期値）")] public float FishingLodPower;
     [Header("釣竿がどんだけパワーアップするか")] public float FishingRodPowerUpInt;
     // フラグ
     [HideInInspector] public bool CanFishing;
@@ -61,6 +61,8 @@ public class FishingManager : MonoBehaviour
     [SerializeField] AudioClip FloatThrow;
     [SerializeField] AudioClip FishCatching;
     [SerializeField] AudioClip FishingLodLevelUp;
+    // 釣り竿画像
+    [SerializeField, Header("釣り竿画像")] List<Sprite> FishingLodImageList = new List<Sprite>();
     public enum Phase
     {
         StartFishing,
@@ -246,7 +248,7 @@ public class FishingManager : MonoBehaviour
             // プレイヤーによる操作
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
-                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingRodPower);
+                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingLodPower);
                 CamScript.CamOneShake(FishData.FishPower/1500, 0.1f, 0.1f);
                 GetComponents<AudioSource>()[1].Play();
             }
@@ -293,9 +295,12 @@ public class FishingManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 money.AddMoney(-LevelUpMoney);
-                //money.money -= LevelUpMoney;
+                if (LevelUpMoney % 3000 == 0 && FishingLodImageList.Count >= LevelUpMoney / 3000 && LevelUpMoney != 1000)
+                {
+                    FishingLod_Obj.transform.Find("釣竿").GetComponent<Image>().sprite = FishingLodImageList[(LevelUpMoney / 3000) - 1];
+                }
                 GetComponent<AudioSource>().PlayOneShot(FishingLodLevelUp);
-                FishingRodPower += 1;
+                FishingLodPower += 1;
                 LevelUpMoney += 1000;
                 LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString("N0");
                 money.LevelUpMoneyMeter_Image.fillAmount = 0;
@@ -571,6 +576,11 @@ public class FishingManager : MonoBehaviour
                             window.NewFishWindow_Destroy();
                             CamScript.CamReset();
                             FishingCamMove();
+                            // カセットなら
+                            if (FishData.cassetteData)
+                            {
+                                GameObject.Find("WorkBoyManeger").GetComponent<WorkBoyManeger>().CassetteDataList.Add(FishData.cassetteData);
+                            }
                         }
                         // 新種でないならアイテム獲得ポップアップを出す
                         else

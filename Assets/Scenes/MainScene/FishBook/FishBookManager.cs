@@ -65,8 +65,15 @@ public class FishBookManager : MonoBehaviour
                 FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = false;
                 // 情報のUIを表示
                 FishBookUI_Obj.SetActive(true);
-                // 魚の名前を表示
+                // 魚の情報を代入
                 FishBookUI_Obj.transform.Find("FishName").GetComponent<Text>().text = fishImage.fishData.FishName;
+                FishBookUI_Obj.transform.Find("FishInfo").GetComponent<Text>().text = fishImage.fishData.FishInfo;
+                Text FishReartyText = FishBookUI_Obj.transform.Find("FishRearty").GetComponent<Text>();
+                FishReartyText.text = "";
+                for (int i = 0; i < fishImage.fishData.Rarity; i++)
+                {
+                    FishReartyText.text = FishReartyText.text + "★";
+                }
                 // カメラ操作
                 cam.ChangeTarget(fishImage.transform);
                 cam.CamZoom(5, 90.0f / fishImage.fishData.FishImageSize);
@@ -83,7 +90,7 @@ public class FishBookManager : MonoBehaviour
                 FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = true;
                 // カメラ操作
                 cam.ChangeTarget(FishBookCursor_Obj.transform);
-                cam.CamZoom(5, fishImage.fishData.FishImageSize /90f);
+                cam.CamZoom(5, fishImage.fishData.FishImageSize /90.0f);
                 cam.ShiftPos = new Vector3(0, 0, 0);
             }
         }

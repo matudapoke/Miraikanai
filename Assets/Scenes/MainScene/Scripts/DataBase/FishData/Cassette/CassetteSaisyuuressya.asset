@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4163ae5961200a14ab0d90660d1db810, type: 3}
-  m_Name: AONOMEHATA
+  m_Name: CassetteSaisyuuressya
   m_EditorClassIdentifier: 
-  ID: 1
-  FishName: "\u30A2\u30AA\u30CE\u30E1\u30CF\u30BF"
-  FishImage: {fileID: 21300000, guid: 2e7ad5ef71a104ea69133aa69bcba1b8, type: 3}
-  FishImageSize: 96
+  ID: 0
+  FishName: "\u30AB\u30BB\u30C3\u30C8A"
+  FishImage: {fileID: 21300000, guid: 4d78304314ed82740a8281006990cdd0, type: 3}
+  FishImageSize: 48
   FishInfo: 
-  FishBiteTime: 10
+  FishBiteTime: 0
   FishingHitWaitTime: 0
-  FishingMeterOKLevelMin: 0.4
-  FishingMeterOKLevelMax: 0.9
-  Rarity: 3
-  FishPower: 60.2
+  FishingMeterOKLevelMin: 0.354
+  FishingMeterOKLevelMax: 0.461
+  Rarity: 5
+  FishPower: 60.94
   FishLevel: 0
-  FishMoney: 500
+  FishMoney: 0
   NewFish: 1
-  isCassette: 0
-  cassetteData: {fileID: 0}
+  isCassette: 1
+  cassetteData: {fileID: 11400000, guid: 2c2f6fd01a1e7784eb3226f119ef8f3b, type: 2}
