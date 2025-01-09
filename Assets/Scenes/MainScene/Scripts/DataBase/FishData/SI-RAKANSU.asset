@@ -17,12 +17,14 @@ MonoBehaviour:
   FishImage: {fileID: 21300000, guid: 76c6f6b673b504451ac82c98825847ee, type: 3}
   FishImageSize: 200
   FishInfo: "\u751F\u304D\u308B\u5316\u77F3"
-  FishBiteTime: 10
-  FishingHitWaitTime: 0
+  FishBiteTime: 8
+  FishingHitWaitTime: 4
   FishingMeterOKLevelMin: 0.6
   FishingMeterOKLevelMax: 1
   Rarity: 5
-  FishPower: 60.2
+  FishPower: 70
   FishLevel: 0
   FishMoney: 10000
   NewFish: 1
+  isCassette: 0
+  cassetteData: {fileID: 0}

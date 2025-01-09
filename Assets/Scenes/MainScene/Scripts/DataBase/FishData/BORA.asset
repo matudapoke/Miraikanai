@@ -17,8 +17,8 @@ MonoBehaviour:
   FishImage: {fileID: 21300000, guid: 205b1e57dcb649840b6b27b21be5a18e, type: 3}
   FishImageSize: 96
   FishInfo: "\u76EE\u306B\u8102\u77BC\uFF08\u8102\u80AA\u306E\u819C\uFF09\u304C\u3042\u308B"
-  FishBiteTime: 0
-  FishingHitWaitTime: 0
+  FishBiteTime: 4
+  FishingHitWaitTime: 4
   FishingMeterOKLevelMin: 0.3
   FishingMeterOKLevelMax: 1
   Rarity: 2
@@ -26,3 +26,5 @@ MonoBehaviour:
   FishLevel: 0
   FishMoney: 300
   NewFish: 1
+  isCassette: 0
+  cassetteData: {fileID: 0}

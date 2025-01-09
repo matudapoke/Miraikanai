@@ -63,6 +63,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] AudioClip FishingLodLevelUp;
     // 釣り竿画像
     [SerializeField, Header("釣り竿画像")] List<Sprite> FishingLodImageList = new List<Sprite>();
+    [SerializeField] List<Color> FishingLodImageBackColor = new List<Color>();
     public enum Phase
     {
         StartFishing,
@@ -100,6 +101,9 @@ public class FishingManager : MonoBehaviour
         reaction = GameObject.Find("EventManager").GetComponent<Reaction>();
         money = GameObject.Find("Money").GetComponent<Money>();
         LevelUpMoneyObj.GetComponent<Text>().text = LevelUpMoney.ToString();
+
+        // フレームレートを固定
+        Application.targetFrameRate = 60;
     }
     void Update()
     {
@@ -129,7 +133,7 @@ public class FishingManager : MonoBehaviour
             else if (FishingPlaceScript.direction == FishingPlace.Direction.Down)
             {
                 if ((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && UpMove && Corsor_Obj.transform.position.y <= transform.position.y) Corsor_Obj.transform.position += new Vector3(0, Corsor_Speed, 0) * Time.deltaTime;
-                if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && !UpMove && Corsor_Obj.transform.position.y - transform.position.y >= -8) Corsor_Obj.transform.position += new Vector3(0, -Corsor_Speed, 0) * Time.deltaTime;
+                if ((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && !UpMove && Corsor_Obj.transform.position.y - transform.position.y >= -3) Corsor_Obj.transform.position += new Vector3(0, -Corsor_Speed, 0) * Time.deltaTime;
                 if ((Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)) && RightMove && Corsor_Obj.transform.position.x - transform.position.x <= 9) Corsor_Obj.transform.position += new Vector3(Corsor_Speed, 0, 0) * Time.deltaTime;
                 if ((Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)) && !RightMove && Corsor_Obj.transform.position.x - transform.position.x >= -9) Corsor_Obj.transform.position += new Vector3(-Corsor_Speed, 0, 0) * Time.deltaTime;
             }
@@ -248,12 +252,12 @@ public class FishingManager : MonoBehaviour
             // プレイヤーによる操作
             if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z))
             {
-                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingLodPower);
+                FishingMeterBar_Transform.eulerAngles += new Vector3(0, 0, FishingLodPower/FishData.FishPower*30);
                 CamScript.CamOneShake(FishData.FishPower/1500, 0.1f, 0.1f);
                 GetComponents<AudioSource>()[1].Play();
             }
             // 魚の抵抗力による操作
-            FishingMeterBar_Transform.eulerAngles -= new Vector3(0, 0, FishData.FishPower * Time.deltaTime);
+            FishingMeterBar_Transform.eulerAngles -= new Vector3(0, 0, (FishData.FishPower-FishingLodPower)*1.5f * Time.deltaTime);
         }
         else
         {
@@ -295,9 +299,10 @@ public class FishingManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 money.AddMoney(-LevelUpMoney);
-                if (LevelUpMoney % 3000 == 0 && FishingLodImageList.Count >= LevelUpMoney / 3000 && LevelUpMoney != 1000)
+                if (LevelUpMoney % 5000 == 0 && FishingLodImageList.Count >= LevelUpMoney / 5000 && LevelUpMoney != 1000)
                 {
-                    FishingLod_Obj.transform.Find("釣竿").GetComponent<Image>().sprite = FishingLodImageList[(LevelUpMoney / 3000) - 1];
+                    FishingLod_Obj.transform.Find("釣竿").GetComponent<Image>().sprite = FishingLodImageList[(LevelUpMoney / 5000) - 1];
+                    FishingLod_Obj.GetComponent<Image>().color = FishingLodImageBackColor[(LevelUpMoney / 5000) - 1];
                 }
                 GetComponent<AudioSource>().PlayOneShot(FishingLodLevelUp);
                 FishingLodPower += 1;
@@ -451,7 +456,7 @@ public class FishingManager : MonoBehaviour
                     // SE(FishBuzzing)
                     GetComponent<AudioSource>().Play();
                     // 釣りの長さ
-                    FishingTime_ToHitEnd = Random.Range(3.0f, 5.0f);
+                    FishingTime_ToHitEnd = Random.Range(FishData.FishingHitWaitTime - 1.0f, FishData.FishingHitWaitTime);
                     Debug.Log("HIT：" + FishingTime_ToHitEnd + "秒後にHIT終了");
                     // メーターを生成(Rotation(min)0～255)
                     FishingMeter_Obj = Instantiate(FishingMeter_Prefab, FishingFloat_Obj.transform.position, Quaternion.identity,GameObject.Find("CanvasWorld").transform);

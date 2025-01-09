@@ -43,7 +43,7 @@ public class Money : MonoBehaviour
         while (true)
         {
             textNum += pulsmoney;
-            yield return null;
+            yield return new WaitForSeconds(1.0f/60.0f);
         }
     }
     public void AddMoney(int MoneyInt)

@@ -17,7 +17,7 @@ public class Fade : MonoBehaviour
     {
         SpriteRenderer ActionSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         ActionSpriteRenderer.color = new Color(ActionSpriteRenderer.color.r, ActionSpriteRenderer.color.g, ActionSpriteRenderer.color.b, 0);
-        for (float i = 0; i < 1; i += 0.05f)
+        for (float i = 0; i < 1; i += 1.0f / 255.0f)
         {
             ActionSpriteRenderer.color = new Color(ActionSpriteRenderer.color.r, ActionSpriteRenderer.color.g, ActionSpriteRenderer.color.b, i);
             yield return new WaitForSeconds(FadeTime / 255.0f);
@@ -29,7 +29,7 @@ public class Fade : MonoBehaviour
     {
         SpriteRenderer ActionSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         ActionSpriteRenderer.color = new Color(ActionSpriteRenderer.color.r, ActionSpriteRenderer.color.g, ActionSpriteRenderer.color.b, 1);
-        for (float i = 1; i > 0; i -= 0.05f)
+        for (float i = 1; i > 0; i -= 1.0f/255.0f)
         {
             ActionSpriteRenderer.color = new Color(ActionSpriteRenderer.color.r, ActionSpriteRenderer.color.g, ActionSpriteRenderer.color.b, i);
             yield return new WaitForSeconds(FadeTime / 255.0f);

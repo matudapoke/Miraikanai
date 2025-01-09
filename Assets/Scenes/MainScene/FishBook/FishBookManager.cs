@@ -167,15 +167,15 @@ public class FishBookManager : MonoBehaviour
         FishBookCursor_Obj.GetComponent<CharaOperation>().CanRun = false;
         // レイジを動けるようにする&レイジアニメーション
         Reizi_Obj.GetComponent<Animator>().SetBool("IdolA", true);
-        // フェードアウト
+        // フェードイン
         CameraFade_Obj.GetComponent<Fade>().FadeStart(0.5f);
-        yield return new WaitForSeconds(0.5f);
+        FishBookFilter_Obj.GetComponent<Fade>().FadeEnd(0.5f);
+        yield return new WaitForSeconds(0.6f);
         // カメラ操作
         MainCamera_Obj.GetComponent<Cam>().ShiftPos = CameraChift_tmp;
         MainCamera_Obj.GetComponent<Cam>().ChangeTarget(Reizi_Obj.transform);
         yield return new WaitForSeconds(0.5f);
-        // フェードイン
-        FishBookFilter_Obj.GetComponent<Fade>().FadeEnd(0.5f);
+        // フェードアウト
         CameraFade_Obj.GetComponent<Fade>().FadeEnd(0.1f);
         // メインUIを表示
         MainCanvas_Obj.SetActive(true);

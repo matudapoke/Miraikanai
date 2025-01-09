@@ -29,6 +29,9 @@ public class CharaTalk : MonoBehaviour
 
     bool CanTalk;
 
+    Coroutine coroutine;
+    [SerializeField] int GiveMoney;
+    [SerializeField] Vector3 ReactionEfectPosition;
     void Start()
     {
         ArrayInt = Texts.Length;//配列の数を入れる
@@ -52,7 +55,7 @@ public class CharaTalk : MonoBehaviour
         {
             if (!CanTalk)
             {
-                reaction.Action_Create(transform, new Vector3(0,1,0));
+                reaction.Action_Create(transform, ReactionEfectPosition);
             }
             CanTalk = true;
         }
@@ -88,12 +91,17 @@ public class CharaTalk : MonoBehaviour
         Destroy(TextFrame_Obj);
         ArrayCount = 0;
         GameObject.Find("Main Camera").GetComponent<Cam>().CamReset();
+        GameObject.Find("Money").GetComponent<Money>().AddMoney(GiveMoney);
     }
 
     void TextFrameSet()
     {
         CurrentText = "";//表示されるテキストをカラにする
-        StartCoroutine(ShowText());
+        if (coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        coroutine = StartCoroutine(ShowText());
         ArrayCount += 1;//配列内の次のテキストへ
     }
 
@@ -107,5 +115,6 @@ public class CharaTalk : MonoBehaviour
             audioSource.PlayOneShot(Voice, VoiceVolume);
             yield return new WaitForSeconds(TextSpeed);
         }
+        coroutine = null;
     }
 }
