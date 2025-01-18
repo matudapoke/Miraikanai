@@ -10,6 +10,7 @@ public class WorkBoyManeger : MonoBehaviour
     GameObject Camera_Obj;
     GameObject WorkBoyUI_Obj;
     GameObject MainUI_Obj;
+    GameObject NoiseImage_Obj;
     // フラグ
     bool isOpenWorkBoy;
     // 値
@@ -34,6 +35,11 @@ public class WorkBoyManeger : MonoBehaviour
     int PlayingAudioIndex = 999;
     Coroutine Coroutine;
 
+    // Image
+    [SerializeField] GameObject NoiseImage_Prefab;
+    Sprite OriginalImage;
+    GameObject Image_Obj;
+
     void Start()
     {
         Reizi_Obj = GameObject.Find("Reizi");
@@ -41,6 +47,8 @@ public class WorkBoyManeger : MonoBehaviour
         WorkBoyUI_Obj = GameObject.Find("WorkBoyUI");
         ClosePosition = WorkBoyUI_Obj.transform.position;
         MainUI_Obj = GameObject.Find("MainUI");
+        Image_Obj = WorkBoyUI_Obj.transform.Find("Image").gameObject;
+        OriginalImage = Image_Obj.GetComponent<Image>().sprite;
 
         WaveperspecitveVolume = GameObject.Find("SoundManager").GetComponent<PerspecitveVolume>();
         OtherAudioSource.Add(GameObject.Find("SoundManager").GetComponents<AudioSource>()[1]);
@@ -204,6 +212,8 @@ public class WorkBoyManeger : MonoBehaviour
         GetComponents<AudioSource>()[1].Stop();
         GetComponents<AudioSource>()[0].PlayOneShot(CassetteStartSound);
         GetComponents<AudioSource>()[0].Play();
+        // WorkBoyNoiseのアニメーション
+        NoiseImage_Obj = Instantiate(NoiseImage_Prefab, Image_Obj.transform.position, Quaternion.identity, WorkBoyUI_Obj.transform);
         // 周りの音を小さくする
         for (int i = 0; i < OtherAudioSource.Count; i++)
         {
@@ -214,13 +224,21 @@ public class WorkBoyManeger : MonoBehaviour
         GetComponents<AudioSource>()[0].Stop();
         GetComponents<AudioSource>()[1].clip = CassetteDataList[SelectedIndex].Music;
         GetComponents<AudioSource>()[1].Play();
+        // WorkBoyNoiseのアニメーション
+        Destroy(NoiseImage_Obj);
         // 画像を差し替える
-        WorkBoyUI_Obj.transform.Find("Image").GetComponent<Image>().sprite = CassetteDataList[SelectedIndex].Image;
+        Image_Obj.GetComponent<Image>().sprite = CassetteDataList[SelectedIndex].Image;
     }
     void StopCassette()
     {
         StopCoroutine(Coroutine);
+        if (NoiseImage_Obj != null)
+        {
+            Destroy(NoiseImage_Obj);
+        }
+        Image_Obj.GetComponent<Image>().sprite = OriginalImage;
         GetComponents<AudioSource>()[1].Stop();
+        GetComponents<AudioSource>()[0].Stop();
         GetComponent<AudioSource>().PlayOneShot(CassetteStartSound);
         PlayingAudioIndex = 999;
     }
