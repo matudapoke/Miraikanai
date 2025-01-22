@@ -27,4 +27,4 @@ MonoBehaviour:
   FishMoney: 0
   NewFish: 1
   isCassette: 1
-  cassetteData: {fileID: 11400000, guid: 2c2f6fd01a1e7784eb3226f119ef8f3b, type: 2}
+  cassetteData: {fileID: 11400000, guid: 9de9b59f79f3442cb87e3b3e79b1fbe7, type: 2}

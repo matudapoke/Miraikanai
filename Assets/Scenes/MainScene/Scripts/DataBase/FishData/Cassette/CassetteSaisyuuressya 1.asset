@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4163ae5961200a14ab0d90660d1db810, type: 3}
+  m_Name: CassetteSaisyuuressya 1
+  m_EditorClassIdentifier: 
+  ID: 0
+  FishName: "\u30AB\u30BB\u30C3\u30C8B"
+  FishImage: {fileID: 21300000, guid: 9b0240ff74c667e4da3e2f385a12bc37, type: 3}
+  FishImageSize: 48
+  FishInfo: 
+  FishBiteTime: 0
+  FishingHitWaitTime: 0
+  FishingMeterOKLevelMin: 0.354
+  FishingMeterOKLevelMax: 0.461
+  Rarity: 5
+  FishPower: 500
+  FishLevel: 0
+  FishMoney: 0
+  NewFish: 1
+  isCassette: 1
+  cassetteData: {fileID: 11400000, guid: 76bfe3634d4464462a2dce83d6880311, type: 2}
